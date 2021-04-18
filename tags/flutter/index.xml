@@ -1,0 +1,8 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>flutter - Tag - CozyFex</title><link>https://cozyfex.github.io/tags/flutter/</link><description>flutter - Tag - CozyFex</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 12 Apr 2021 22:11:00 +0900</lastBuildDate><atom:link href="https://cozyfex.github.io/tags/flutter/" rel="self" type="application/rss+xml"/><item><title>Flutter Analysis Options With Google</title><link>https://cozyfex.github.io/flutter-analysis-options-with-google/</link><pubDate>Mon, 12 Apr 2021 22:11:00 +0900</pubDate><author>Author</author><guid>https://cozyfex.github.io/flutter-analysis-options-with-google/</guid><description>analysis_options.yaml with Google Analysis analysis_options.yaml This file is flutter project root.
+It can make more good code by adding guideline to base lint.
+이 파일은 flutter project의 루트에 위치한다.
+기본 lint에 더 상세한 설정을 추가해서 더 좋은 코드를 만든다.
+pedantic This is a lint that was served from Google for analysis_options.yaml.
+구글에서 제공하는 analysis_options.yaml에 추가 가능한 lint이다.
+Install pedantic pubspec.yaml
+1 2 3 4 5 6 7 # If you use `package:pedantic/pedantic.</description></item></channel></rss>
