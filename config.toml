@@ -454,10 +454,10 @@ thumbnailUrl = ""
 
 #  Analytics config
 [params.analytics]
-enable = false
+enable = true
 # Google Analytics
 [params.analytics.google]
-id = ""
+id = "G-SFCQYN1X5J"
 # whether to anonymize IP
 anonymizeIP = true
 # Fathom Analytics

@@ -68,6 +68,17 @@ func Routes(r *gin.Engine) {
 }
 ```
 
+The `post` is an app you can make.\
+And each app have a `routes.go` file has `Routes` function.\
+The `Routes` is received a parameter `r *gin.Engine` from `main.go`.\
+Then each app make a `r.Group` as an url path.\
+After that, you can make sub url of the `r.Group`.\
+`post`는 당신이 만들 수 있는 app 입니다.\
+각 app 은 `routes.go` 파일을 갖습니다. 그리고 그 파일 안에는 `Routes`라는 함수를 만듭니다.\
+`Routes` 함수는 `r *gin.Engine` 을 `main.go` 로부터 파라메터로 받습니다.\
+그리고 각 app 은 `r.Group` 이라는 url path 를 만듭니다.\
+그리고 나서는 하위 `r.Group` 의 하위 url 을 만들 수 있습니다.
+
 <sub>`/schedule/routes.go`</sub>
 
 ```go
@@ -132,3 +143,5 @@ func main() {
 }
 ```
 
+You have to pass the parameter like `post.Routes(r)` to each app from `main.go`.\
+`main.go` 에서 `post.Routes(r)` 처럼 각 app 에 파라메터를 너겨줘야 합니다.
