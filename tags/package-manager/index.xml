@@ -1,0 +1,4 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>package manager - Tag - CozyFex</title><link>https://cozyfex.github.io/tags/package-manager/</link><description>package manager - Tag - CozyFex</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 17 Apr 2021 00:12:00 +0900</lastBuildDate><atom:link href="https://cozyfex.github.io/tags/package-manager/" rel="self" type="application/rss+xml"/><item><title>Go Package Manager</title><link>https://cozyfex.github.io/go-package-manager/</link><pubDate>Sat, 17 Apr 2021 00:12:00 +0900</pubDate><author>Author</author><guid>https://cozyfex.github.io/go-package-manager/</guid><description>Go package manager Initialize Go init
+1 go init mod [Package Name] This command generate a go.mod file.
+Generate requirements Go requirements
+1 go mod tidy This command add requirements to go.mod and generate go.sum.</description></item></channel></rss>
