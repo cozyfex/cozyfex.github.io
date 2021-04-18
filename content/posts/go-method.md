@@ -21,7 +21,7 @@ keywords:
 
 ---
 
-# `Method` in Go
+# Method in Go
 
 ## What is mean of `method`?
 
@@ -30,7 +30,8 @@ The `method` means a function of a class in OOP.\
 
 ## Value vs Pointer receiver
 
-There are two ways to receive the structure. 구조체를 받는 방법은 두가지가 있다.
+There are two ways to receive the structure.\
+구조체를 받는 방법은 두가지가 있다.
 
 ```go
 package main
