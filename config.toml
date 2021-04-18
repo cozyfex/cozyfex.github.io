@@ -43,11 +43,11 @@ version = "0.2.X"
 # site description
 description = "Cozy Coding! Cozy Felix! Cozy Life!"
 # site keywords
-keywords = ["Theme", "Hugo"]
+keywords = ["CozyFex", "Dev", "DevOps", "Development", "Developer"]
 # site default theme ("light", "dark", "auto")
 defaultTheme = "auto"
 # public git repo url only then enableGitInfo is true
-gitRepo = ""
+gitRepo = "https://github.com/cozyfex"
 #  which hash function used for SRI, when empty, no SRI is used
 # ("sha256", "sha384", "sha512", "md5")
 fingerprint = ""
@@ -116,7 +116,7 @@ typeit = false
 [params.footer]
 enable = true
 #  Custom content (HTML format is supported)
-custom = ''
+custom = 'Wirtten by <a href="https://blog.cozyfex.com/" target="_blank" rel="noopener noreffer" title="CozyFex">CozyFex</a>'
 #  whether to show Hugo and theme info
 hugo = true
 #  whether to show copyright info
@@ -124,7 +124,7 @@ copyright = true
 #  whether to show the author
 author = true
 # Site creation time
-since = 2019
+since = 2021
 # ICP info only in China (HTML format is supported)
 icp = ""
 # license info (HTML format is supported)
@@ -522,9 +522,9 @@ endLevel = 6
 
 # Author config
 [author]
-name = "xxxx"
-email = ""
-link = ""
+name = "CozyFex"
+email = "cozyfex@gmail.com"
+link = "https://blog.cozyfex.com"
 
 # Sitemap config
 [sitemap]
