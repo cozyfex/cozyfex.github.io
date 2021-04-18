@@ -7,17 +7,22 @@ author: CozyFex
 
 categories:
 
-- javascript
+- flutter
+- dart
 
 tags:
 
-- javascript
-- hosting
+- flutter
+- dart
+- pedantic
+- analysis_options.yaml
 
 keywords:
 
-- javascript
-- hosting
+- flutter
+- dart
+- pedantic
+- analysis_options.yaml
 
 ---
 ## analysis_options.yaml with Google Analysis
