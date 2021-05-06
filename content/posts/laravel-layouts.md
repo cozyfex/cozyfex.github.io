@@ -45,7 +45,7 @@ Laravel uses Blade Templates
 
 ### section/show, section/endsection, yield, parent
 
-<small>Base File</small>
+<sub>Base File</sub>
 
 ```html
 @section('section-name1')
@@ -55,7 +55,7 @@ Laravel uses Blade Templates
 @yield('section-name2', 'Default Value')
 ```
 
-<small>Extend File</small>
+<sub>Extend File</sub>
 
 ```html
 @extends('base')
@@ -75,13 +75,13 @@ Laravel uses Blade Templates
 
 ### stack, push/endpush, prepend/endprepend
 
-<small>Base File</small>
+<sub>Base File</sub>
 
 ```html
 @stack('scripts')
 ```
 
-<small>Extend File</small>
+<sub>Extend File</sub>
 
 ```html
 @push('scripts')
@@ -103,7 +103,7 @@ Laravel uses Blade Templates
 
 ### Layout File
 
-<small>resources/views/layouts/base.blade.php</small>
+<sub>resources/views/layouts/base.blade.php</sub>
 
 ```html
 <!DOCTYPE html>
@@ -129,7 +129,7 @@ Laravel uses Blade Templates
 
 ### Partial File
 
-<small>resources/views/partials/menu.blade.php</small>
+<sub>resources/views/partials/menu.blade.php</sub>
 
 ```html
 
@@ -143,7 +143,7 @@ Laravel uses Blade Templates
 
 ### Extend File
 
-<small>resources/views/web.blade.php</small>
+<sub>resources/views/web.blade.php</sub>
 
 ```html
 @extends('layouts.base')

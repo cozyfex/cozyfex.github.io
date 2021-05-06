@@ -73,6 +73,8 @@ php artisan make:migration add_to_username_to_users --table users
 vi database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
 ```
 
+<sub>database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php</sub>
+
 ```php
 # database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
 <?php
@@ -111,6 +113,8 @@ class AddUsernameToUsers extends Migration
 
 ### 6. Change User Model
 
+<sub>app/Models/User.php</sub>
+
 ```php
 # app/Models/User.php
 
@@ -131,6 +135,8 @@ class AddUsernameToUsers extends Migration
 ```
 
 ### 7. Change Request
+
+<sub>app/Http/Requests/Auth/LoginRequest.php</sub>
 
 ```php
 # app/Http/Requests/Auth/LoginRequest.php
@@ -326,7 +332,9 @@ class LoginRequest extends FormRequest
 }
 ```
 
-### 8. Change Controller
+### 8. Change Controllers
+
+<sub>app/Http/Controllers/Auth/RegisteredUserController.php</sub>
 
 ```php
 # app/Http/Controllers/Auth/RegisteredUserController.php
@@ -360,7 +368,152 @@ class LoginRequest extends FormRequest
         ]);
 ```
 
+<sub>app/Http/Controllers/Auth/ConfirmablePasswordController.php</sub>
+
+```php
+# app/Http/Controllers/Auth/ConfirmablePasswordController.php
+
+# Origin
+        if (! Auth::guard('web')->validate([
+            'email' => $request->user()->email,
+            'password' => $request->password,
+        ])) {
+            throw ValidationException::withMessages([
+                'password' => __('auth.password'),
+            ]);
+        }
+
+# To
+        if (! Auth::guard('web')->validate([
+            'username' => $request->user()->username,
+            'password' => $request->password,
+        ])) {
+            throw ValidationException::withMessages([
+                'password' => __('auth.password'),
+            ]);
+```
+
+<sub>app/Http/Controllers/Auth/NewPasswordController.php</sub>
+
+```php
+# app/Http/Controllers/Auth/NewPasswordController.php
+
+# Origin
+     public function store(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+
+        // Here we will attempt to reset the user's password. If it is successful we
+        // will update the password on an actual user model and persist it to the
+        // database. Otherwise we will parse the error and return the response.
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user) use ($request) {
+                $user->forceFill([
+                    'password' => Hash::make($request->password),
+                    'remember_token' => Str::random(60),
+                ])->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        // If the password was successfully reset, we will redirect the user back to
+        // the application's home authenticated view. If there is an error we can
+        // redirect them back to where they came from with their error message.
+        return $status == Password::PASSWORD_RESET
+                    ? redirect()->route('login')->with('status', __($status))
+                    : back()->withInput($request->only('email'))
+                            ->withErrors(['email' => __($status)]);
+    }
+
+# To
+    public function store(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'username' => 'required',
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+
+        // Here we will attempt to reset the user's password. If it is successful we
+        // will update the password on an actual user model and persist it to the
+        // database. Otherwise we will parse the error and return the response.
+        $status = Password::reset(
+            $request->only('username', 'password', 'password_confirmation', 'token'),
+            function ($user) use ($request) {
+                $user->forceFill([
+                    'password' => Hash::make($request->password),
+                    'remember_token' => Str::random(60),
+                ])->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        // If the password was successfully reset, we will redirect the user back to
+        // the application's home authenticated view. If there is an error we can
+        // redirect them back to where they came from with their error message.
+        return $status == Password::PASSWORD_RESET
+                    ? redirect()->route('login')->with('status', __($status))
+                    : back()->withInput($request->only('username'))
+                            ->withErrors(['username' => __($status)]);
+    }
+```
+
+<sub>app/Http/Controllers/Auth/PasswordResetLinkController.php</sub>
+
+```php
+# app/Http/Controllers/Auth/PasswordResetLinkController.php
+
+# Origin
+    public function store(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        // We will send the password reset link to this user. Once we have attempted
+        // to send the link, we will examine the response then see the message we
+        // need to show to the user. Finally, we'll send out a proper response.
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status == Password::RESET_LINK_SENT
+                    ? back()->with('status', __($status))
+                    : back()->withInput($request->only('email'))
+                            ->withErrors(['email' => __($status)]);
+    }
+
+# To
+    public function store(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+        ]);
+
+        // We will send the password reset link to this user. Once we have attempted
+        // to send the link, we will examine the response then see the message we
+        // need to show to the user. Finally, we'll send out a proper response.
+        $status = Password::sendResetLink(
+            $request->only('username')
+        );
+
+        return $status == Password::RESET_LINK_SENT
+                    ? back()->with('status', __($status))
+                    : back()->withInput($request->only('username'))
+                            ->withErrors(['username' => __($status)]);
+    }
+```
+
 ### 9. Add username field to register view
+
+<sub>resources/views/auth/register.blade.php</sub>
 
 ```php
 # resources/views/auth/register.blade.php
@@ -374,6 +527,8 @@ class LoginRequest extends FormRequest
 ```
 
 ### 10. Change login form
+
+<sub>resources/views/auth/login.blade.php</sub>
 
 ```php
 # resources/views/auth/login.blade.php
