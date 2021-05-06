@@ -6,7 +6,7 @@ Laravel을 설치하는 방법에는 여러가지가 있다.
 In this time, I am going to use composer that is a dependency manager for PHP.
 Laravel을 설치하는 방법에는 여러가지가 있다.
 여기서는 PHP 의존성 관리 툴인 composer를 이용한다.
-1  composer create-project laravel/laravel login-project   2. Install breeze that is a starter kit for authentication. breeze is a starter kit for authentication in Laravel"><meta name=application-name content="CozyFex"><meta name=apple-mobile-web-app-title content="CozyFex"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cozyfex.github.io/laravel-login-with-username-instead-of-email/><link rel=prev href=https://cozyfex.github.io/laravel-layouts/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Laravel Login With Username Instead of Email","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cozyfex.github.io\/laravel-login-with-username-instead-of-email\/"},"genre":"posts","keywords":"laravel, login, username","wordcount":1120,"url":"https:\/\/cozyfex.github.io\/laravel-login-with-username-instead-of-email\/","datePublished":"2021-05-06T13:36:03+09:00","dateModified":"2021-05-06T13:36:03+09:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"CozyFex"},"description":""}</script><script data-ad-client=ca-pub-8304559883145938 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+1  composer create-project laravel/laravel login-project   2. Install breeze that is a starter kit for authentication. breeze is a starter kit for authentication in Laravel"><meta name=application-name content="CozyFex"><meta name=apple-mobile-web-app-title content="CozyFex"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cozyfex.github.io/laravel-login-with-username-instead-of-email/><link rel=prev href=https://cozyfex.github.io/laravel-layouts/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Laravel Login With Username Instead of Email","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cozyfex.github.io\/laravel-login-with-username-instead-of-email\/"},"genre":"posts","keywords":"laravel, login, username","wordcount":1724,"url":"https:\/\/cozyfex.github.io\/laravel-login-with-username-instead-of-email\/","datePublished":"2021-05-06T13:36:03+09:00","dateModified":"2021-05-06T13:36:03+09:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"CozyFex"},"description":""}</script><script data-ad-client=ca-pub-8304559883145938 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents..." id=search-input-desktop>
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw"></i></a>
 <a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
 <span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
@@ -14,9 +14,9 @@ Laravel을 설치하는 방법에는 여러가지가 있다.
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw"></i></a>
 <a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
 <span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
-<i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Laravel Login With Username Instead of Email</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/categories/laravel/><i class="far fa-folder fa-fw"></i>laravel</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-06>2021-05-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1120 words&nbsp;
-<i class="far fa-clock fa-fw"></i>&nbsp;6 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#laravel-login-with-username-instead-of-email>Laravel Login with username instead of email</a><ul><li><a href=#1-install-laravel>1. Install Laravel</a></li><li><a href=#2-install-breeze-that-is-a-starter-kit-for-authentication>2. Install breeze that is a starter kit for authentication.</a></li><li><a href=#3-migrate>3. Migrate</a></li><li><a href=#4-testing-default-login-process-with-email>4. Testing default login process with email</a></li><li><a href=#5-create-migration-for-username>5. Create migration for username</a></li><li><a href=#6-change-user-model>6. Change User Model</a></li><li><a href=#7-change-request>7. Change Request</a></li><li><a href=#8-change-controller>8. Change Controller</a></li><li><a href=#9-add-username-field-to-register-view>9. Add username field to register view</a></li><li><a href=#10-change-login-form>10. Change login form</a></li><li><a href=#11-test-with-username>11. Test with username</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=laravel-login-with-username-instead-of-email>Laravel Login with username instead of email</h2><h3 id=1-install-laravel>1. Install Laravel</h3><p>There&rsquo;s a lot of way to install Laravel.<br>In this time, I am going to use <code>composer</code> that is a dependency manager for <code>PHP</code>.<br><code>Laravel</code>을 설치하는 방법에는 여러가지가 있다.<br>여기서는 <code>PHP</code> 의존성 관리 툴인 <code>composer</code>를 이용한다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+<i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Laravel Login With Username Instead of Email</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/categories/laravel/><i class="far fa-folder fa-fw"></i>laravel</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-06>2021-05-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1724 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;9 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#laravel-login-with-username-instead-of-email>Laravel Login with username instead of email</a><ul><li><a href=#1-install-laravel>1. Install Laravel</a></li><li><a href=#2-install-breeze-that-is-a-starter-kit-for-authentication>2. Install breeze that is a starter kit for authentication.</a></li><li><a href=#3-migrate>3. Migrate</a></li><li><a href=#4-testing-default-login-process-with-email>4. Testing default login process with email</a></li><li><a href=#5-create-migration-for-username>5. Create migration for username</a></li><li><a href=#6-change-user-model>6. Change User Model</a></li><li><a href=#7-change-request>7. Change Request</a></li><li><a href=#8-change-controllers>8. Change Controllers</a></li><li><a href=#9-add-username-field-to-register-view>9. Add username field to register view</a></li><li><a href=#10-change-login-form>10. Change login form</a></li><li><a href=#11-test-with-username>11. Test with username</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=laravel-login-with-username-instead-of-email>Laravel Login with username instead of email</h2><h3 id=1-install-laravel>1. Install Laravel</h3><p>There&rsquo;s a lot of way to install Laravel.<br>In this time, I am going to use <code>composer</code> that is a dependency manager for <code>PHP</code>.<br><code>Laravel</code>을 설치하는 방법에는 여러가지가 있다.<br>여기서는 <code>PHP</code> 의존성 관리 툴인 <code>composer</code>를 이용한다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>composer create-project laravel/laravel login-project
 </code></pre></td></tr></table></div></div><h3 id=2-install-breeze-that-is-a-starter-kit-for-authentication>2. Install breeze that is a starter kit for authentication.</h3><p><code>breeze</code> is a starter kit for authentication in <code>Laravel</code><br><code>breeze</code>는 라라벨 인증을 위한 스타터 킷이다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
@@ -30,7 +30,7 @@ npm install <span class=o>&amp;&amp;</span> npm run dev
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>php artisan make:migration add_to_username_to_users --table users
 vi database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
-</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><p><sub>database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -96,7 +96,7 @@ vi database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
         <span class=p>});</span>
     <span class=p>}</span>
 <span class=p>}</span>
-</code></pre></td></tr></table></div></div><h3 id=6-change-user-model>6. Change User Model</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><h3 id=6-change-user-model>6. Change User Model</h3><p><sub>app/Models/User.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -128,7 +128,7 @@ vi database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
         <span class=s1>&#39;email&#39;</span><span class=p>,</span>
         <span class=s1>&#39;password&#39;</span><span class=p>,</span>
     <span class=p>]</span>
-</code></pre></td></tr></table></div></div><h3 id=7-change-request>7. Change Request</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</code></pre></td></tr></table></div></div><h3 id=7-change-request>7. Change Request</h3><p><sub>app/Http/Requests/Auth/LoginRequest.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
 </span><span class=lnt>  2
 </span><span class=lnt>  3
 </span><span class=lnt>  4
@@ -510,7 +510,7 @@ vi database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
         <span class=k>return</span> <span class=nx>Str</span><span class=o>::</span><span class=na>lower</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>input</span><span class=p>(</span><span class=s1>&#39;username&#39;</span><span class=p>))</span><span class=o>.</span><span class=s1>&#39;|&#39;</span><span class=o>.</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>ip</span><span class=p>();</span>
     <span class=p>}</span>
 <span class=p>}</span>
-</code></pre></td></tr></table></div></div><h3 id=8-change-controller>8. Change Controller</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><h3 id=8-change-controllers>8. Change Controllers</h3><p><sub>app/Http/Controllers/Auth/RegisteredUserController.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -568,7 +568,263 @@ vi database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
             <span class=s1>&#39;email&#39;</span>    <span class=o>=&gt;</span> <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>email</span><span class=p>,</span>
             <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=nx>Hash</span><span class=o>::</span><span class=na>make</span><span class=p>(</span><span class=nv>$request</span><span class=o>-&gt;</span><span class=na>password</span><span class=p>),</span>
         <span class=p>]);</span>
-</code></pre></td></tr></table></div></div><h3 id=9-add-username-field-to-register-view>9. Add username field to register view</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><p><sub>app/Http/Controllers/Auth/ConfirmablePasswordController.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=c1># app/Http/Controllers/Auth/ConfirmablePasswordController.php
+</span><span class=c1></span>
+<span class=c1># Origin
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span> <span class=nx>Auth</span><span class=o>::</span><span class=na>guard</span><span class=p>(</span><span class=s1>&#39;web&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>validate</span><span class=p>([</span>
+            <span class=s1>&#39;email&#39;</span> <span class=o>=&gt;</span> <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>user</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>email</span><span class=p>,</span>
+            <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>password</span><span class=p>,</span>
+        <span class=p>]))</span> <span class=p>{</span>
+            <span class=k>throw</span> <span class=nx>ValidationException</span><span class=o>::</span><span class=na>withMessages</span><span class=p>([</span>
+                <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=nx>__</span><span class=p>(</span><span class=s1>&#39;auth.password&#39;</span><span class=p>),</span>
+            <span class=p>]);</span>
+        <span class=p>}</span>
+
+<span class=c1># To
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span> <span class=nx>Auth</span><span class=o>::</span><span class=na>guard</span><span class=p>(</span><span class=s1>&#39;web&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>validate</span><span class=p>([</span>
+            <span class=s1>&#39;username&#39;</span> <span class=o>=&gt;</span> <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>user</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>username</span><span class=p>,</span>
+            <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>password</span><span class=p>,</span>
+        <span class=p>]))</span> <span class=p>{</span>
+            <span class=k>throw</span> <span class=nx>ValidationException</span><span class=o>::</span><span class=na>withMessages</span><span class=p>([</span>
+                <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=nx>__</span><span class=p>(</span><span class=s1>&#39;auth.password&#39;</span><span class=p>),</span>
+            <span class=p>]);</span>
+</code></pre></td></tr></table></div></div><p><sub>app/Http/Controllers/Auth/NewPasswordController.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=c1># app/Http/Controllers/Auth/NewPasswordController.php
+</span><span class=c1></span>
+<span class=c1># Origin
+</span><span class=c1></span>     <span class=k>public</span> <span class=k>function</span> <span class=nf>store</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>validate</span><span class=p>([</span>
+            <span class=s1>&#39;token&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required&#39;</span><span class=p>,</span>
+            <span class=s1>&#39;email&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|email&#39;</span><span class=p>,</span>
+            <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|string|confirmed|min:8&#39;</span><span class=p>,</span>
+        <span class=p>]);</span>
+
+        <span class=c1>// Here we will attempt to reset the user&#39;s password. If it is successful we
+</span><span class=c1></span>        <span class=c1>// will update the password on an actual user model and persist it to the
+</span><span class=c1></span>        <span class=c1>// database. Otherwise we will parse the error and return the response.
+</span><span class=c1></span>        <span class=nv>$status</span> <span class=o>=</span> <span class=nx>Password</span><span class=o>::</span><span class=na>reset</span><span class=p>(</span>
+            <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;email&#39;</span><span class=p>,</span> <span class=s1>&#39;password&#39;</span><span class=p>,</span> <span class=s1>&#39;password_confirmation&#39;</span><span class=p>,</span> <span class=s1>&#39;token&#39;</span><span class=p>),</span>
+            <span class=k>function</span> <span class=p>(</span><span class=nv>$user</span><span class=p>)</span> <span class=k>use</span> <span class=p>(</span><span class=nv>$request</span><span class=p>)</span> <span class=p>{</span>
+                <span class=nv>$user</span><span class=o>-&gt;</span><span class=na>forceFill</span><span class=p>([</span>
+                    <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=nx>Hash</span><span class=o>::</span><span class=na>make</span><span class=p>(</span><span class=nv>$request</span><span class=o>-&gt;</span><span class=na>password</span><span class=p>),</span>
+                    <span class=s1>&#39;remember_token&#39;</span> <span class=o>=&gt;</span> <span class=nx>Str</span><span class=o>::</span><span class=na>random</span><span class=p>(</span><span class=mi>60</span><span class=p>),</span>
+                <span class=p>])</span><span class=o>-&gt;</span><span class=na>save</span><span class=p>();</span>
+
+                <span class=nx>event</span><span class=p>(</span><span class=k>new</span> <span class=nx>PasswordReset</span><span class=p>(</span><span class=nv>$user</span><span class=p>));</span>
+            <span class=p>}</span>
+        <span class=p>);</span>
+
+        <span class=c1>// If the password was successfully reset, we will redirect the user back to
+</span><span class=c1></span>        <span class=c1>// the application&#39;s home authenticated view. If there is an error we can
+</span><span class=c1></span>        <span class=c1>// redirect them back to where they came from with their error message.
+</span><span class=c1></span>        <span class=k>return</span> <span class=nv>$status</span> <span class=o>==</span> <span class=nx>Password</span><span class=o>::</span><span class=na>PASSWORD_RESET</span>
+                    <span class=o>?</span> <span class=nx>redirect</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>route</span><span class=p>(</span><span class=s1>&#39;login&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>with</span><span class=p>(</span><span class=s1>&#39;status&#39;</span><span class=p>,</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>))</span>
+                    <span class=o>:</span> <span class=nx>back</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>withInput</span><span class=p>(</span><span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;email&#39;</span><span class=p>))</span>
+                            <span class=o>-&gt;</span><span class=na>withErrors</span><span class=p>([</span><span class=s1>&#39;email&#39;</span> <span class=o>=&gt;</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>)]);</span>
+    <span class=p>}</span>
+
+<span class=c1># To
+</span><span class=c1></span>    <span class=k>public</span> <span class=k>function</span> <span class=nf>store</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>validate</span><span class=p>([</span>
+            <span class=s1>&#39;token&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required&#39;</span><span class=p>,</span>
+            <span class=s1>&#39;username&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required&#39;</span><span class=p>,</span>
+            <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|string|confirmed|min:8&#39;</span><span class=p>,</span>
+        <span class=p>]);</span>
+
+        <span class=c1>// Here we will attempt to reset the user&#39;s password. If it is successful we
+</span><span class=c1></span>        <span class=c1>// will update the password on an actual user model and persist it to the
+</span><span class=c1></span>        <span class=c1>// database. Otherwise we will parse the error and return the response.
+</span><span class=c1></span>        <span class=nv>$status</span> <span class=o>=</span> <span class=nx>Password</span><span class=o>::</span><span class=na>reset</span><span class=p>(</span>
+            <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;username&#39;</span><span class=p>,</span> <span class=s1>&#39;password&#39;</span><span class=p>,</span> <span class=s1>&#39;password_confirmation&#39;</span><span class=p>,</span> <span class=s1>&#39;token&#39;</span><span class=p>),</span>
+            <span class=k>function</span> <span class=p>(</span><span class=nv>$user</span><span class=p>)</span> <span class=k>use</span> <span class=p>(</span><span class=nv>$request</span><span class=p>)</span> <span class=p>{</span>
+                <span class=nv>$user</span><span class=o>-&gt;</span><span class=na>forceFill</span><span class=p>([</span>
+                    <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=nx>Hash</span><span class=o>::</span><span class=na>make</span><span class=p>(</span><span class=nv>$request</span><span class=o>-&gt;</span><span class=na>password</span><span class=p>),</span>
+                    <span class=s1>&#39;remember_token&#39;</span> <span class=o>=&gt;</span> <span class=nx>Str</span><span class=o>::</span><span class=na>random</span><span class=p>(</span><span class=mi>60</span><span class=p>),</span>
+                <span class=p>])</span><span class=o>-&gt;</span><span class=na>save</span><span class=p>();</span>
+
+                <span class=nx>event</span><span class=p>(</span><span class=k>new</span> <span class=nx>PasswordReset</span><span class=p>(</span><span class=nv>$user</span><span class=p>));</span>
+            <span class=p>}</span>
+        <span class=p>);</span>
+
+        <span class=c1>// If the password was successfully reset, we will redirect the user back to
+</span><span class=c1></span>        <span class=c1>// the application&#39;s home authenticated view. If there is an error we can
+</span><span class=c1></span>        <span class=c1>// redirect them back to where they came from with their error message.
+</span><span class=c1></span>        <span class=k>return</span> <span class=nv>$status</span> <span class=o>==</span> <span class=nx>Password</span><span class=o>::</span><span class=na>PASSWORD_RESET</span>
+                    <span class=o>?</span> <span class=nx>redirect</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>route</span><span class=p>(</span><span class=s1>&#39;login&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>with</span><span class=p>(</span><span class=s1>&#39;status&#39;</span><span class=p>,</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>))</span>
+                    <span class=o>:</span> <span class=nx>back</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>withInput</span><span class=p>(</span><span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;username&#39;</span><span class=p>))</span>
+                            <span class=o>-&gt;</span><span class=na>withErrors</span><span class=p>([</span><span class=s1>&#39;username&#39;</span> <span class=o>=&gt;</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>)]);</span>
+    <span class=p>}</span>
+</code></pre></td></tr></table></div></div><p><sub>app/Http/Controllers/Auth/PasswordResetLinkController.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=c1># app/Http/Controllers/Auth/PasswordResetLinkController.php
+</span><span class=c1></span>
+<span class=c1># Origin
+</span><span class=c1></span>    <span class=k>public</span> <span class=k>function</span> <span class=nf>store</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>validate</span><span class=p>([</span>
+            <span class=s1>&#39;email&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required|email&#39;</span><span class=p>,</span>
+        <span class=p>]);</span>
+
+        <span class=c1>// We will send the password reset link to this user. Once we have attempted
+</span><span class=c1></span>        <span class=c1>// to send the link, we will examine the response then see the message we
+</span><span class=c1></span>        <span class=c1>// need to show to the user. Finally, we&#39;ll send out a proper response.
+</span><span class=c1></span>        <span class=nv>$status</span> <span class=o>=</span> <span class=nx>Password</span><span class=o>::</span><span class=na>sendResetLink</span><span class=p>(</span>
+            <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;email&#39;</span><span class=p>)</span>
+        <span class=p>);</span>
+
+        <span class=k>return</span> <span class=nv>$status</span> <span class=o>==</span> <span class=nx>Password</span><span class=o>::</span><span class=na>RESET_LINK_SENT</span>
+                    <span class=o>?</span> <span class=nx>back</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>with</span><span class=p>(</span><span class=s1>&#39;status&#39;</span><span class=p>,</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>))</span>
+                    <span class=o>:</span> <span class=nx>back</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>withInput</span><span class=p>(</span><span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;email&#39;</span><span class=p>))</span>
+                            <span class=o>-&gt;</span><span class=na>withErrors</span><span class=p>([</span><span class=s1>&#39;email&#39;</span> <span class=o>=&gt;</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>)]);</span>
+    <span class=p>}</span>
+
+<span class=c1># To
+</span><span class=c1></span>    <span class=k>public</span> <span class=k>function</span> <span class=nf>store</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>validate</span><span class=p>([</span>
+            <span class=s1>&#39;username&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;required&#39;</span><span class=p>,</span>
+        <span class=p>]);</span>
+
+        <span class=c1>// We will send the password reset link to this user. Once we have attempted
+</span><span class=c1></span>        <span class=c1>// to send the link, we will examine the response then see the message we
+</span><span class=c1></span>        <span class=c1>// need to show to the user. Finally, we&#39;ll send out a proper response.
+</span><span class=c1></span>        <span class=nv>$status</span> <span class=o>=</span> <span class=nx>Password</span><span class=o>::</span><span class=na>sendResetLink</span><span class=p>(</span>
+            <span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;username&#39;</span><span class=p>)</span>
+        <span class=p>);</span>
+
+        <span class=k>return</span> <span class=nv>$status</span> <span class=o>==</span> <span class=nx>Password</span><span class=o>::</span><span class=na>RESET_LINK_SENT</span>
+                    <span class=o>?</span> <span class=nx>back</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>with</span><span class=p>(</span><span class=s1>&#39;status&#39;</span><span class=p>,</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>))</span>
+                    <span class=o>:</span> <span class=nx>back</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>withInput</span><span class=p>(</span><span class=nv>$request</span><span class=o>-&gt;</span><span class=na>only</span><span class=p>(</span><span class=s1>&#39;username&#39;</span><span class=p>))</span>
+                            <span class=o>-&gt;</span><span class=na>withErrors</span><span class=p>([</span><span class=s1>&#39;username&#39;</span> <span class=o>=&gt;</span> <span class=nx>__</span><span class=p>(</span><span class=nv>$status</span><span class=p>)]);</span>
+    <span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=9-add-username-field-to-register-view>9. Add username field to register view</h3><p><sub>resources/views/auth/register.blade.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -584,7 +840,7 @@ vi database/migrations/YYYY_MM_DD_XXXXXX_add_to_username_to_users.php
 
         <span class=o>&lt;</span><span class=nx>x</span><span class=o>-</span><span class=nx>input</span> <span class=nx>id</span><span class=o>=</span><span class=s2>&#34;username&#34;</span> <span class=nx>class</span><span class=o>=</span><span class=s2>&#34;block mt-1 w-full&#34;</span> <span class=nx>type</span><span class=o>=</span><span class=s2>&#34;text&#34;</span> <span class=nx>name</span><span class=o>=</span><span class=s2>&#34;username&#34;</span> <span class=o>:</span><span class=nx>value</span><span class=o>=</span><span class=s2>&#34;old(&#39;username&#39;)&#34;</span> <span class=nx>required</span> <span class=nx>autofocus</span> <span class=o>/&gt;</span>
     <span class=o>&lt;/</span><span class=nx>div</span><span class=o>&gt;</span>
-</code></pre></td></tr></table></div></div><h3 id=10-change-login-form>10. Change login form</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><h3 id=10-change-login-form>10. Change login form</h3><p><sub>resources/views/auth/login.blade.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
