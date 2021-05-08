@@ -1,9 +1,9 @@
 # Kubernetes YAML
 
 
-### Basic YAML Structure in Kubernetes
+## Basic YAML Structure in Kubernetes
 
-#### Basic YAML Structure
+### Basic YAML Structure
 
 ```yaml
 apiVersion:
@@ -17,7 +17,7 @@ spec:
 
 ```
 
-#### Version Information
+### Version Information
 
 | Kind       | Version |
 | ---------- | ------- |
@@ -26,9 +26,9 @@ spec:
 | ReplicaSet | apps/v1 |
 | Deployment | apps/v1 |
 
-### POD YAML
+## POD YAML
 
-#### pod-definition.yml
+### pod-definition.yml
 
 ```yaml
 apiVersion: v1
@@ -44,33 +44,33 @@ spec:
       image: nginx
 ```
 
-#### Create POD with YAML file
+### Create POD with YAML file
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-#### Create POD with command
+### Create POD with command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-#### Show PODs list
+### Show PODs list
 
 ```shell
 kubectl get pods
 ```
 
-#### Show POD detail
+### Show POD detail
 
 ```shell
 kubectl describe pod myapp-pod
 ```
 
-### Replication Controller YAML
+## Replication Controller YAML
 
-#### rc-definition.yml
+### rc-definition.yml
 
 ```yaml
 apiVersion: v1
@@ -94,27 +94,27 @@ spec: # -> Replication Controller
   replicas: 3
 ```
 
-#### Create Replication Controller
+### Create Replication Controller
 
 ```shell
 kubectl create -f rc-definition.yml
 ```
 
-#### Show Replication Controller list
+### Show Replication Controller list
 
 ```shell
 kubectl get replicationcontroller
 ```
 
-#### Show PODs list
+### Show PODs list
 
 ```shell
 kubectl get pods
 ```
 
-### ReplicaSet
+## ReplicaSet
 
-#### rs-definition.yml
+### rs-definition.yml
 
 ```yaml
 appVersion: apps/v1
@@ -141,55 +141,55 @@ spec: # -> ReplicaSet
       type: front-end
 ```
 
-#### Labels and Selector
+### Labels and Selector
 
 `selector` is to find the matched labels for managing the PODs.
 
-#### Create ReplicaSet
+### Create ReplicaSet
 
 ```shell
 kubectl create -f rs-definition.yml
 ```
 
-#### Show ReplicaSet list
+### Show ReplicaSet list
 
 ```shell
 kubectl get replicaset
 ```
 
-#### Show ReplicaSet detail
+### Show ReplicaSet detail
 
 ```shell
 kubectl describe replicaset myapp-replicaset
 ```
 
-#### Show PODs list
+### Show PODs list
 
 ```shell
 kubectl get pods
 ```
 
-#### Delete ReplicaSet
+### Delete ReplicaSet
 
 ```shell
 kubectl delete replicaset myapp-replicaset
 ```
 
-#### Scale
+### Scale
 
-##### Change `replicas` in the YAML file with `repliace`
+#### Change `replicas` in the YAML file with `repliace`
 
 ```shell
 kubectl replace -f rs-definition.yml
 ```
 
-##### Origin YAML file and `--replicas` option with `scale`
+#### Origin YAML file and `--replicas` option with `scale`
 
 ```shell
 kubectl scale --replicas=6 -f rs-definition.yml
 ```
 
-##### Change exist ReplicaSet's name and `--replicas` option with `scale`
+#### Change exist ReplicaSet's name and `--replicas` option with `scale`
 
 ```shell
 kubectl scale --replicas=6 replicaset myapp-replicaset

@@ -18,11 +18,11 @@ DNS Connect to a service in the same namespace If you want to connect to a datab
 </a><a href=javascript:void(0); class=menu-item title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
 <select class=language-select onchange="location=this.value"><option value=/kubernetes-namespace/ selected>English</option><option value=/kr/kubernetes-namespace/>한글</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Kubernetes Namespace</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/categories/kubernetes/><i class="far fa-folder fa-fw"></i>kubernetes</a>&nbsp;<a href=/categories/k8s/><i class="far fa-folder fa-fw"></i>k8s</a>&nbsp;<a href=/categories/orchestration/><i class="far fa-folder fa-fw"></i>orchestration</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-08>2021-05-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;297 words&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;2 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><a href=#you-must-know>You must know</a></li><li><a href=#dns>DNS</a><ul><li><a href=#connect-to-a-service-in-the-same-namespace>Connect to a service in the same namespace</a></li><li><a href=#connect-to-another-namespace-service>Connect to another namespace service</a></li><li><a href=#show-pods-of-the-specific-namespace>Show PODs of the specific namespace</a></li><li><a href=#create-pod-to-the-specific-namespace>Create POD to the specific namespace</a></li></ul></li><li><a href=#create-namespace>Create namespace</a></li><li><a href=#switch-namespace-of-the-terminal>Switch namespace of the terminal</a></li><li><a href=#show-pods-of-all-namespaces>Show PODs of all namespaces</a></li><li><a href=#resource-quota>Resource Quota</a></li></ul></li></ul></nav></div></div><div class=content id=content><h3 id=you-must-know>You must know</h3><p>Kubernetes generate <code>default</code> namespace when it&rsquo;s installed.<br>And there are <code>kube-system</code> and <code>kube-pulibc</code> namespaces.</p><h3 id=dns>DNS</h3><h4 id=connect-to-a-service-in-the-same-namespace>Connect to a service in the same namespace</h4><p>If you want to connect to a database that is named <code>db-service</code> in the same namespace that is <code>default</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#you-must-know>You must know</a></li><li><a href=#dns>DNS</a><ul><li><a href=#connect-to-a-service-in-the-same-namespace>Connect to a service in the same namespace</a></li><li><a href=#connect-to-another-namespace-service>Connect to another namespace service</a></li><li><a href=#show-pods-of-the-specific-namespace>Show PODs of the specific namespace</a></li><li><a href=#create-pod-to-the-specific-namespace>Create POD to the specific namespace</a></li></ul></li><li><a href=#create-namespace>Create namespace</a></li><li><a href=#switch-namespace-of-the-terminal>Switch namespace of the terminal</a></li><li><a href=#show-pods-of-all-namespaces>Show PODs of all namespaces</a></li><li><a href=#resource-quota>Resource Quota</a></li></ul></nav></div></div><div class=content id=content><h2 id=you-must-know>You must know</h2><p>Kubernetes generate <code>default</code> namespace when it&rsquo;s installed.<br>And there are <code>kube-system</code> and <code>kube-pulibc</code> namespaces.</p><h2 id=dns>DNS</h2><h3 id=connect-to-a-service-in-the-same-namespace>Connect to a service in the same namespace</h3><p>If you want to connect to a database that is named <code>db-service</code> in the same namespace that is <code>default</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>mysql</span><span class=p>.</span><span class=nx>connect</span><span class=p>(</span><span class=s2>&#34;db-service&#34;</span><span class=p>)</span>
-</code></pre></td></tr></table></div></div><h4 id=connect-to-another-namespace-service>Connect to another namespace service</h4><p>But if you want to connect to a database that is named <code>db-service</code> in the another namespace that is <code>dev</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h3 id=connect-to-another-namespace-service>Connect to another namespace service</h3><p>But if you want to connect to a database that is named <code>db-service</code> in the another namespace that is <code>dev</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>mysql</span><span class=p>.</span><span class=nx>connect</span><span class=p>(</span><span class=s2>&#34;db-service.dev.svc.cluster.local&#34;</span><span class=p>)</span>
-</code></pre></td></tr></table></div></div><p><code>cluster.local</code> - Default domain name of the kubernetes cluster<br><code>svc</code> - Sub domain for the service<br><code>dev</code> - Namespace<br><code>db-service</code> - Service name</p><h4 id=show-pods-of-the-specific-namespace>Show PODs of the specific namespace</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><p><code>cluster.local</code> - Default domain name of the kubernetes cluster<br><code>svc</code> - Sub domain for the service<br><code>dev</code> - Namespace<br><code>db-service</code> - Service name</p><h3 id=show-pods-of-the-specific-namespace>Show PODs of the specific namespace</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -32,7 +32,7 @@ kubectl get pods
 
 <span class=c1># Show PODs of the `kube-system` namespace</span>
 kubectl get pods --namespace<span class=o>=</span>kube-system
-</code></pre></td></tr></table></div></div><h4 id=create-pod-to-the-specific-namespace>Create POD to the specific namespace</h4><p><sub>pod-definition.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><h3 id=create-pod-to-the-specific-namespace>Create POD to the specific namespace</h3><p><sub>pod-definition.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -90,7 +90,7 @@ kubectl create -f pod-definition.yml
 <span class=c1># To the `dev` namespace</span>
 kubectl create -f pod-definition.yml --namespace<span class=o>=</span>dev
 kubectl create -f dev-pod-definition.yml
-</code></pre></td></tr></table></div></div><h3 id=create-namespace>Create namespace</h3><p><sub>namespace-dev.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h2 id=create-namespace>Create namespace</h2><p><sub>namespace-dev.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -108,7 +108,7 @@ kubectl create -f namesapce-dev.yml
 
 <span class=c1># Command</span>
 kubectl create namesapce dev
-</code></pre></td></tr></table></div></div><h3 id=switch-namespace-of-the-terminal>Switch namespace of the terminal</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h2 id=switch-namespace-of-the-terminal>Switch namespace of the terminal</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -116,9 +116,9 @@ kubectl create namesapce dev
 
 <span class=c1># Now, you can get PODs of `dev` namespace without `--namespace` option</span>
 kubectl pods
-</code></pre></td></tr></table></div></div><h3 id=show-pods-of-all-namespaces>Show PODs of all namespaces</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h2 id=show-pods-of-all-namespaces>Show PODs of all namespaces</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get pods --all-namespaces
-</code></pre></td></tr></table></div></div><h3 id=resource-quota>Resource Quota</h3><p><sub>compute-quota.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><h2 id=resource-quota>Resource Quota</h2><p><sub>compute-quota.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4

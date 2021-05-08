@@ -3,8 +3,6 @@
 
 ## vsftp Config
 
-### Modify config file
-
 ```bash
 vi /etc/vsftpd/vsftpd.conf
 ```
@@ -36,7 +34,7 @@ If you set `chroot_local_user` is YES, and you want to write file on the account
 set `allow_writeable_chroot` is YES.  
 {{</admonition>}}
 
-### vsftpd Restart
+## vsftpd Restart
 
 ```bash
 service vsftpd restart

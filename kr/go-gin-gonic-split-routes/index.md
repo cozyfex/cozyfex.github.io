@@ -3,11 +3,11 @@
 ## gin-gonic 에서 라우트 분리 예제
 ----
 
-##### github 소스파일로 바로가기
+#### github 소스파일로 바로가기
 
 [Example Source Link](https://github.com/cozyfex/route-sample)
 
-##### 디렉토리 구조
+#### 디렉토리 구조
 
 <sub>디렉토리 구조</sub>
 
@@ -24,7 +24,7 @@
     └── routes.go
 ```
 
-##### Source
+#### Source
 
 <sub>`/post/routes.go`</sub>
 

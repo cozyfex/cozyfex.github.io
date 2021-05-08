@@ -12,11 +12,11 @@
 </a><a href=javascript:void(0); class=menu-item title="Select Language">한글<i class="fas fa-chevron-right fa-fw"></i>
 <select class=language-select onchange="location=this.value"><option value=/kubernetes-namespace/>English</option><option value=/kr/kubernetes-namespace/ selected>한글</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Kubernetes Namespace</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/kr/categories/kubernetes/><i class="far fa-folder fa-fw"></i>kubernetes</a>&nbsp;<a href=/kr/categories/k8s/><i class="far fa-folder fa-fw"></i>k8s</a>&nbsp;<a href=/kr/categories/orchestration/><i class="far fa-folder fa-fw"></i>orchestration</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-08>2021-05-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;692 words&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;2 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><a href=#알고가자>알고가자!</a></li><li><a href=#dns>DNS</a><ul><li><a href=#같은-네임스페이스의-서비스에-연결하기>같은 네임스페이스의 서비스에 연결하기</a></li><li><a href=#다른-네임스페이스의-서비스에-연결하기>다른 네임스페이스의 서비스에 연결하기</a></li><li><a href=#특정-네임스페이스의-pod-리스트-확인>특정 네임스페이스의 POD 리스트 확인</a></li><li><a href=#특정-네임스페이스에-pod-생성하기>특정 네임스페이스에 POD 생성하기</a></li></ul></li><li><a href=#네임스페이스-생성>네임스페이스 생성</a></li><li><a href=#현재-터미널의-네임스페이스-변경하기>현재 터미널의 네임스페이스 변경하기</a></li><li><a href=#모든-네임스페이스의-pod-확인하기>모든 네임스페이스의 POD 확인하기</a></li><li><a href=#resource-quota>Resource Quota</a></li></ul></li></ul></nav></div></div><div class=content id=content><h3 id=알고가자>알고가자!</h3><p>쿠버네티스가 인스톨 될 때 <code>default</code> 네임스페이스가 생성된다.<br>그리고 <code>kube-system</code>과 <code>kube-public</code> 네임스페이스들이 있다.</p><h3 id=dns>DNS</h3><h4 id=같은-네임스페이스의-서비스에-연결하기>같은 네임스페이스의 서비스에 연결하기</h4><p>같은 네임스페이스의 데이터베이스 서비스인 <code>db-service</code>에 연결하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#알고가자>알고가자!</a></li><li><a href=#dns>DNS</a><ul><li><a href=#같은-네임스페이스의-서비스에-연결하기>같은 네임스페이스의 서비스에 연결하기</a></li><li><a href=#다른-네임스페이스의-서비스에-연결하기>다른 네임스페이스의 서비스에 연결하기</a></li><li><a href=#특정-네임스페이스의-pod-리스트-확인>특정 네임스페이스의 POD 리스트 확인</a></li><li><a href=#특정-네임스페이스에-pod-생성하기>특정 네임스페이스에 POD 생성하기</a></li></ul></li><li><a href=#네임스페이스-생성>네임스페이스 생성</a></li><li><a href=#현재-터미널의-네임스페이스-변경하기>현재 터미널의 네임스페이스 변경하기</a></li><li><a href=#모든-네임스페이스의-pod-확인하기>모든 네임스페이스의 POD 확인하기</a></li><li><a href=#resource-quota>Resource Quota</a></li></ul></nav></div></div><div class=content id=content><h2 id=알고가자>알고가자!</h2><p>쿠버네티스가 인스톨 될 때 <code>default</code> 네임스페이스가 생성된다.<br>그리고 <code>kube-system</code>과 <code>kube-public</code> 네임스페이스들이 있다.</p><h2 id=dns>DNS</h2><h3 id=같은-네임스페이스의-서비스에-연결하기>같은 네임스페이스의 서비스에 연결하기</h3><p>같은 네임스페이스의 데이터베이스 서비스인 <code>db-service</code>에 연결하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>mysql</span><span class=p>.</span><span class=nx>connect</span><span class=p>(</span><span class=s2>&#34;db-service&#34;</span><span class=p>)</span>
-</code></pre></td></tr></table></div></div><h4 id=다른-네임스페이스의-서비스에-연결하기>다른 네임스페이스의 서비스에 연결하기</h4><p><code>dev</code>라는 다른 네임스페이스의 데이터베이스 서비스에 연결하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h3 id=다른-네임스페이스의-서비스에-연결하기>다른 네임스페이스의 서비스에 연결하기</h3><p><code>dev</code>라는 다른 네임스페이스의 데이터베이스 서비스에 연결하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>mysql</span><span class=p>.</span><span class=nx>connect</span><span class=p>(</span><span class=s2>&#34;db-service.dev.svc.cluster.local&#34;</span><span class=p>)</span>
-</code></pre></td></tr></table></div></div><p><code>cluster.local</code> - 쿠버네티스 클러스터의 기본 도메인<br><code>svc</code> - 서비스의 서브 도메인<br><code>dev</code> - 네임스페이즈<br><code>db-service</code> - 서비스명</p><h4 id=특정-네임스페이스의-pod-리스트-확인>특정 네임스페이스의 POD 리스트 확인</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><p><code>cluster.local</code> - 쿠버네티스 클러스터의 기본 도메인<br><code>svc</code> - 서비스의 서브 도메인<br><code>dev</code> - 네임스페이즈<br><code>db-service</code> - 서비스명</p><h3 id=특정-네임스페이스의-pod-리스트-확인>특정 네임스페이스의 POD 리스트 확인</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -26,7 +26,7 @@ kubectl get pods
 
 <span class=c1># `kube-system` 네임스페이스의 POD 확인</span>
 kubectl get pods --namespace<span class=o>=</span>kube-system
-</code></pre></td></tr></table></div></div><h4 id=특정-네임스페이스에-pod-생성하기>특정 네임스페이스에 POD 생성하기</h4><p><sub>pod-definition.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><h3 id=특정-네임스페이스에-pod-생성하기>특정 네임스페이스에 POD 생성하기</h3><p><sub>pod-definition.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -84,7 +84,7 @@ kubectl create -f pod-definition.yml
 <span class=c1># `dev` 네임스페이스에 생성하기</span>
 kubectl create -f pod-definition.yml --namespace<span class=o>=</span>dev
 kubectl create -f dev-pod-definition.yml
-</code></pre></td></tr></table></div></div><h3 id=네임스페이스-생성>네임스페이스 생성</h3><p><sub>namespace-dev.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h2 id=네임스페이스-생성>네임스페이스 생성</h2><p><sub>namespace-dev.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -102,7 +102,7 @@ kubectl create -f namesapce-dev.yml
 
 <span class=c1># Command</span>
 kubectl create namesapce dev
-</code></pre></td></tr></table></div></div><h3 id=현재-터미널의-네임스페이스-변경하기>현재 터미널의 네임스페이스 변경하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h2 id=현재-터미널의-네임스페이스-변경하기>현재 터미널의 네임스페이스 변경하기</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -110,9 +110,9 @@ kubectl create namesapce dev
 
 <span class=c1># `dev` 네임스페이스의 POD들을 `--namespace` 옵션 없이 확인할 수 있다.</span>
 kubectl pods
-</code></pre></td></tr></table></div></div><h3 id=모든-네임스페이스의-pod-확인하기>모든 네임스페이스의 POD 확인하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table></div></div><h2 id=모든-네임스페이스의-pod-확인하기>모든 네임스페이스의 POD 확인하기</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get pods --all-namespaces
-</code></pre></td></tr></table></div></div><h3 id=resource-quota>Resource Quota</h3><p><sub>compute-quota.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table></div></div><h2 id=resource-quota>Resource Quota</h2><p><sub>compute-quota.yml</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4

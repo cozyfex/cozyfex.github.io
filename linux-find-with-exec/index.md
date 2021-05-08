@@ -1,7 +1,7 @@
 # Linux find with exec
 
 
-### find command
+## find command
 
 <sub>find command examples</sub>
 
@@ -11,7 +11,7 @@ find . -type f -user username
 find . -type f -group username
 ```
 
-### find with -exec
+## find with -exec
 
 <sub>find command with -exec</sub>
 

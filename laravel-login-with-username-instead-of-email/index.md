@@ -3,7 +3,7 @@
 
 ## Laravel Login with username instead of email
 
-### 1. Install Laravel
+## 1. Install Laravel
 
 There's a lot of way to install Laravel.\
 In this time, I am going to use `composer` that is a dependency manager for `PHP`.
@@ -12,7 +12,7 @@ In this time, I am going to use `composer` that is a dependency manager for `PHP
 composer create-project laravel/laravel login-project
 ```
 
-### 2. Install breeze that is a starter kit for authentication.
+## 2. Install breeze that is a starter kit for authentication.
 
 `breeze` is a starter kit for authentication in `Laravel`
 
@@ -22,7 +22,7 @@ composer require laravel/breeze --dev
 npm install && npm run dev
 ```
 
-### 3. Migrate
+## 3. Migrate
 
 You should migrate database for using `Laravel`
 
@@ -30,12 +30,12 @@ You should migrate database for using `Laravel`
 php artisan migrate
 ```
 
-### 4. Testing default login process with email
+## 4. Testing default login process with email
 
 Now, you need to test exist login process with email.\
 But, it's not a thing you should do.
 
-### 5. Create migration for username
+## 5. Create migration for username
 
 You need to create a `username` field for using it instead of `email` to login.
 
@@ -82,7 +82,7 @@ class AddUsernameToUsers extends Migration
 }
 ```
 
-### 6. Change User Model
+## 6. Change User Model
 
 <sub>app/Models/User.php</sub>
 
@@ -105,7 +105,7 @@ class AddUsernameToUsers extends Migration
     ]
 ```
 
-### 7. Change Request
+## 7. Change Request
 
 <sub>app/Http/Requests/Auth/LoginRequest.php</sub>
 
@@ -303,7 +303,7 @@ class LoginRequest extends FormRequest
 }
 ```
 
-### 8. Change Controllers
+## 8. Change Controllers
 
 <sub>app/Http/Controllers/Auth/RegisteredUserController.php</sub>
 
@@ -482,7 +482,7 @@ class LoginRequest extends FormRequest
     }
 ```
 
-### 9. Add username field to register view
+## 9. Add username field to register view
 
 <sub>resources/views/auth/register.blade.php</sub>
 
@@ -497,7 +497,7 @@ class LoginRequest extends FormRequest
     </div>
 ```
 
-### 10. Change login form
+## 10. Change login form
 
 <sub>resources/views/auth/login.blade.php</sub>
 
@@ -521,7 +521,7 @@ class LoginRequest extends FormRequest
     </div>
 ```
 
-### 11. Test with username
+## 11. Test with username
 
 Finally, you can register and login with username.\
 Test and using it!

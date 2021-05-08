@@ -3,7 +3,7 @@
 
 ## Laravel often used artisan commands
 
-### Create Controller
+## Create Controller
 
 ```shell
 # Create Controller
@@ -13,7 +13,7 @@ php artisan make:controller Auth/LoginController
 vi app/Http/Controllers/Auth/LoginController.php
 ````
 
-### Create Model with Create Table Migration
+## Create Model with Create Table Migration
 
 ```shell
 # Create Model with Migration File by Model
@@ -24,7 +24,7 @@ vi app/Models/Board.php
 vi database/migrations/YYYY_MM_DD_000000_create_boards_table.php
 ```
 
-### Create Modify Table Migration
+## Create Modify Table Migration
 
 ```shell
 # Create Migration File for Modify [users] table
@@ -34,7 +34,7 @@ php artisan make:migration add_username_to_users --table users
 vi database/migrations/YYYY_MM_DD_000000_add_username_to_users.php
 ```
 
-### Create Model with Factory, Migration, Seeder, and Controller
+## Create Model with Factory, Migration, Seeder, and Controller
 
 ```shell
 # Create Model, Factory, Migration, Seeder, and Controller for Profile
@@ -48,19 +48,19 @@ vi database/seeders/ProfileSeeder.php
 vi app/Http/Controllers/ProfileController.php
 ```
 
-### Apply to the Database from Migration File
+## Apply to the Database from Migration File
 
 ```shell
 php artisan migrate
 ```
 
-### Run Development Web Server
+## Run Development Web Server
 
 ```shell
 php artisan serve
 ```
 
-### Run Test
+## Run Test
 
 ```shell
 php artisan test
