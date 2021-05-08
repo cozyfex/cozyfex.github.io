@@ -40,16 +40,27 @@ mysql.connect("db-service")
 
 ### Connect to another namespace service
 
-But if you want to connect to a database that is named `db-service` in the another namespace that is `dev`.
+If you want to connect to a database that is named `db-service` in the another namespace that is `dev`.
 
 ```javascript
 mysql.connect("db-service.dev.svc.cluster.local")
 ```
 
-`cluster.local` - Default domain name of the kubernetes cluster\
-`svc` - Sub domain for the service\
-`dev` - Namespace\
-`db-service` - Service name
+{{<admonition note "cluster.local" true>}}  
+Default domain name of the kubernetes cluster  
+{{</admonition>}}
+
+{{<admonition note "svc" true>}}  
+Sub domain for the service  
+{{</admonition>}}
+
+{{<admonition note "dev" true>}}  
+Namespace  
+{{</admonition>}}
+
+{{<admonition note "db-service" true>}}  
+Service name  
+{{</admonition>}}
 
 ### Show PODs of the specific namespace
 

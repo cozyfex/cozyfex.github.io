@@ -46,10 +46,20 @@ mysql.connect("db-service")
 mysql.connect("db-service.dev.svc.cluster.local")
 ```
 
-`cluster.local` - 쿠버네티스 클러스터의 기본 도메인\
-`svc` - 서비스의 서브 도메인\
-`dev` - 네임스페이즈\
-`db-service` - 서비스명
+{{<admonition note "cluster.local" true>}}  
+쿠버네티스 클러스터의 기본 도메인  
+{{</admonition>}}
+
+{{<admonition note "svc" true>}}  
+서비스의 서브 도메인  
+{{</admonition>}}
+
+{{<admonition note "dev" true>}}  
+네임스페이스 {{</admonition>}}
+
+{{<admonition note "db-service" true>}}  
+서비스명  
+{{</admonition>}}
 
 ### 특정 네임스페이스의 POD 리스트 확인
 
