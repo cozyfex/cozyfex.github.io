@@ -1,12 +1,23 @@
-baseURL = "https://cozyfex.github.io/"
-# [en, zh-cn, fr, ...] determines default content language
-defaultContentLanguage = "en"
-# language code
-languageCode = "en"
 title = "CozyFex"
+baseURL = "https://cozyfex.github.io/"
 
 # Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
+
+# [en, zh-cn, fr, ...] determines default content language
+defaultContentLanguage = "en"
+
+[languages]
+[languages.en]
+wieght = 1
+hasCJKLanguage = false
+languageCode = "en"
+languageName = "English"
+[languages.kr]
+wieght = 2
+hasCJKLanguage = true
+languageCode = "kr"
+languageName = "한글"
 
 [menu]
 [[menu.main]]
@@ -313,12 +324,12 @@ fullscreen = true
 enable = true
 Twitter = true
 Facebook = true
-Linkedin = false
+Linkedin = true
 Whatsapp = true
 Pinterest = false
 Tumblr = false
 HackerNews = false
-Reddit = false
+Reddit = true
 VK = false
 Buffer = false
 Xing = false
@@ -336,7 +347,7 @@ Baidu = false
 Odnoklassniki = false
 Evernote = true
 Skype = false
-Trello = false
+Trello = true
 Mix = false
 #  Comment config
 [params.page.comment]
@@ -423,8 +434,8 @@ darkTheme = "github-dark"
 images = []
 # Publisher info
 [params.page.seo.publisher]
-name = ""
-logoUrl = ""
+name = "CozyFex"
+logoUrl = "/logo.png"
 
 #  TypeIt config
 [params.typeit]
