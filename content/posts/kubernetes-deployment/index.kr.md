@@ -23,11 +23,11 @@ keywords:
 
 ---
 
-### 알고가자!
+## 알고가자!
 
 `Deployment`는 자동으로 `ReplicaSet`을 생성한다.
 
-### YAML - deployment-definition.yml
+## YAML - deployment-definition.yml
 
 ```yaml
 appVersion: apps/v1
@@ -54,13 +54,13 @@ spec: # -> Deployment
       type: front-end
 ```
 
-### Create Deployment
+## Create Deployment
 
 ```shell
 kubectl create -f deployment-definition.yml
 ```
 
-### Deployment 리스트
+## Deployment 리스트
 
 ```shell
 # Deployment 확인
@@ -76,19 +76,19 @@ kubectl get pods
 kubectl get all
 ```
 
-### Deployment 상세정보
+## Deployment 상세정보
 
 ```shell
 kubectl describe deployment myapp-deployment
 ```
 
-### 실행중인 Deployment 확인
+## 실행중인 Deployment 확인
 
 ```shell
 kubectl edit deployment myapp-deployment
 ```
 
-### Deployment 삭제
+## Deployment 삭제
 
 ```shell
 kubectl delete deployment myapp-deployment

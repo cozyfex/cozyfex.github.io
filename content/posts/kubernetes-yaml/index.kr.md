@@ -25,9 +25,9 @@ keywords:
 
 ---
 
-### 쿠버네티스의 YAML 기본구조
+## 쿠버네티스의 YAML 기본구조
 
-#### 기본 YAML 구조
+### 기본 YAML 구조
 
 ```yaml
 apiVersion:
@@ -41,7 +41,7 @@ spec:
 
 ```
 
-#### 버전 정보
+### 버전 정보
 
 | Kind       | Version |
 | ---------- | ------- |
@@ -50,9 +50,9 @@ spec:
 | ReplicaSet | apps/v1 |
 | Deployment | apps/v1 |
 
-### POD YAML
+## POD YAML
 
-#### pod-definition.yml
+### pod-definition.yml
 
 ```yaml
 apiVersion: v1
@@ -68,33 +68,33 @@ spec:
       image: nginx
 ```
 
-#### YAML 파일로 POD 생성하기
+### YAML 파일로 POD 생성하기
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-#### 명령으로 POD 생성하기
+### 명령으로 POD 생성하기
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-#### POD 확인
+### POD 확인
 
 ```shell
 kubectl get pods
 ```
 
-#### POD 상세정보
+### POD 상세정보
 
 ```shell
 kubectl describe pod myapp-pod
 ```
 
-### Replication Controller YAML
+## Replication Controller YAML
 
-#### rc-definition.yml
+### rc-definition.yml
 
 ```yaml
 apiVersion: v1
@@ -118,27 +118,27 @@ spec: # -> Replication Controller
   replicas: 3
 ```
 
-#### Replication Controller 생성하기
+### Replication Controller 생성하기
 
 ```shell
 kubectl create -f rc-definition.yml
 ```
 
-#### Replication Controller 확인
+### Replication Controller 확인
 
 ```shell
 kubectl get replicationcontroller
 ```
 
-#### POD 확인
+### POD 확인
 
 ```shell
 kubectl get pods
 ```
 
-### ReplicaSet
+## ReplicaSet
 
-#### rs-definition.yml
+### rs-definition.yml
 
 ```yaml
 appVersion: apps/v1
@@ -165,55 +165,55 @@ spec: # -> ReplicaSet
       type: front-end
 ```
 
-#### Labels과 Selector
+### Labels과 Selector
 
 `selector`는 레이블과 매칭하여 POD을 관리하기 위한것이다.
 
-#### ReplicaSet 생성하기
+### ReplicaSet 생성하기
 
 ```shell
 kubectl create -f rs-definition.yml
 ```
 
-#### ReplicaSet 확인
+### ReplicaSet 확인
 
 ```shell
 kubectl get replicaset
 ```
 
-#### ReplicaSet 상세정보
+### ReplicaSet 상세정보
 
 ```shell
 kubectl describe replicaset myapp-replicaset
 ```
 
-#### POD 확인
+### POD 확인
 
 ```shell
 kubectl get pods
 ```
 
-#### ReplicaSet 삭제
+### ReplicaSet 삭제
 
 ```shell
 kubectl delete replicaset myapp-replicaset
 ```
 
-#### Scale
+### Scale
 
-#### `replace`와 YAML의 `replicas`로 변경하기
+### `replace`와 YAML의 `replicas`로 변경하기
 
 ```shell
 kubectl replace -f rs-definition.yml
 ```
 
-#### 변경되지 않은 YAML 파일과 `scale`의 `--replicas` 옵션으로 변경하기
+### 변경되지 않은 YAML 파일과 `scale`의 `--replicas` 옵션으로 변경하기
 
 ```shell
 kubectl scale --replicas=6 -f rs-definition.yml
 ```
 
-#### 기존의 ReplicaSet의 이름과 `scale`의 `--replicas` 옵션으로 변경하기
+### 기존의 ReplicaSet의 이름과 `scale`의 `--replicas` 옵션으로 변경하기
 
 ```shell
 kubectl scale --replicas=6 replicaset myapp-replicaset

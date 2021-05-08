@@ -39,11 +39,11 @@ keywords:
 
 Laravel은 Blade 템플릿을 사용한다.
 
-### extends
+## extends
 
 `@extends('file')`은 `file.blade.php` 파일을 불러온다.
 
-### section/show, section/endsection, yield, parent
+## section/show, section/endsection, yield, parent
 
 <sub>기본 파일</sub>
 
@@ -73,7 +73,7 @@ Laravel은 Blade 템플릿을 사용한다.
 @section('section-name2', 'This is section 2 value')
 ```
 
-### stack, push/endpush, prepend/endprepend
+## stack, push/endpush, prepend/endprepend
 
 <sub>기본 파일</sub>
 
@@ -101,7 +101,7 @@ Laravel은 Blade 템플릿을 사용한다.
 @endprepend
 ```
 
-### 레이아웃 파일
+## 레이아웃 파일
 
 <sub>resources/views/layouts/base.blade.php</sub>
 
@@ -127,7 +127,7 @@ Laravel은 Blade 템플릿을 사용한다.
 </html>
 ```
 
-### 부분 파일
+## 부분 파일
 
 <sub>resources/views/partials/menu.blade.php</sub>
 
@@ -141,7 +141,7 @@ Laravel은 Blade 템플릿을 사용한다.
 </ul>
 ```
 
-### 확장 파일
+## 확장 파일
 
 <sub>resources/views/web.blade.php</sub>
 

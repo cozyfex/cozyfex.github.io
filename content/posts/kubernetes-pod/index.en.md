@@ -25,13 +25,13 @@ keywords:
 
 ---
 
-### You must know
+## You must know
 
 `POD` is a unit of service.\
 If kubernetes needs to scale out, it replicates `POD` unit.\
 It's not to scale out container in a `POD`.
 
-### Manage Containers with Docker
+## Manage Containers with Docker
 
 ```shell
 # app1
@@ -49,9 +49,9 @@ docker run helper -link app3
 docker run helper -link app4
 ```
 
-### Manage Containers with POD
+## Manage Containers with POD
 
-#### pod-definition.yml
+### pod-definition.yml
 
 ```yaml
 apiVersion: v1
@@ -67,25 +67,25 @@ spec:
       image: nginx
 ```
 
-#### Create POD with YAML file
+### Create POD with YAML file
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-#### Create POD with command
+### Create POD with command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-#### Show PODs list
+### Show PODs list
 
 ```shell
 kubectl get pods
 ```
 
-#### Show POD detail
+### Show POD detail
 
 ```shell
 kubectl describe pod myapp-pod

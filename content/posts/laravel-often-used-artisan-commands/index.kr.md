@@ -25,7 +25,7 @@ keywords:
 
 ## Laravel 자주 사용하는 아티즌 명령
 
-### Controller 생성하기
+## Controller 생성하기
 
 ```shell
 # Create Controller
@@ -35,7 +35,7 @@ php artisan make:controller Auth/LoginController
 vi app/Http/Controllers/Auth/LoginController.php
 ````
 
-### 모델과 테이블 생성 마이그레이션 한번에 생성하기
+## 모델과 테이블 생성 마이그레이션 한번에 생성하기
 
 ```shell
 # Create Model with Migration File by Model
@@ -46,7 +46,7 @@ vi app/Models/Board.php
 vi database/migrations/YYYY_MM_DD_000000_create_boards_table.php
 ```
 
-### 테이블 수정 마이그레이션 생성하기
+## 테이블 수정 마이그레이션 생성하기
 
 ```shell
 # Create Migration File for Modify [users] table
@@ -56,7 +56,7 @@ php artisan make:migration add_username_to_users --table users
 vi database/migrations/YYYY_MM_DD_000000_add_username_to_users.php
 ```
 
-### 모델과 함께 팩토리, 마이그레이션, 시더, 컨트롤러 한번에 생성하기
+## 모델과 함께 팩토리, 마이그레이션, 시더, 컨트롤러 한번에 생성하기
 
 ```shell
 # Create Model, Factory, Migration, Seeder, and Controller for Profile
@@ -70,19 +70,19 @@ vi database/seeders/ProfileSeeder.php
 vi app/Http/Controllers/ProfileController.php
 ```
 
-### 마이그레이션들을 데이터베이스에 적용하기
+## 마이그레이션들을 데이터베이스에 적용하기
 
 ```shell
 php artisan migrate
 ```
 
-### 개발 웹서버 실행하기
+## 개발 웹서버 실행하기
 
 ```shell
 php artisan serve
 ```
 
-### 테스트 실행하기
+## 테스트 실행하기
 
 ```shell
 php artisan test

@@ -25,7 +25,7 @@ keywords:
 
 ## Laravel 이메일 대신 아이디로 로그인 하기
 
-### 1. Laravel 설치
+## 1. Laravel 설치
 
 `Laravel`을 설치하는 방법에는 여러가지가 있다.\
 여기서는 `PHP` 의존성 관리 툴인 `composer`를 이용한다.
@@ -34,7 +34,7 @@ keywords:
 composer create-project laravel/laravel login-project
 ```
 
-### 2. 인증을 위한 breeze 스타터킷 설치
+## 2. 인증을 위한 breeze 스타터킷 설치
 
 `breeze`는 라라벨 인증을 위한 스타터 킷이다.
 
@@ -44,7 +44,7 @@ composer require laravel/breeze --dev
 npm install && npm run dev
 ```
 
-### 3. 마이그레이트
+## 3. 마이그레이트
 
 `Laravel`을 이용하기 위해서 마이그레이션을 해야한다.
 
@@ -52,12 +52,12 @@ npm install && npm run dev
 php artisan migrate
 ```
 
-### 4. 기본 이메일 로그인 프로세스 테스트
+## 4. 기본 이메일 로그인 프로세스 테스트
 
 이제 기존 이메일을 이용하는 로그인 프로세스를 테스트해보자.\
 그렇지만 이 단계를 꼭 해야하는 것은 아니다.
 
-### 5. username을 위한 마이그레이션 생성하기
+## 5. username을 위한 마이그레이션 생성하기
 
 `username`을 사용하기 위해서는 `username` 필드를 생성해야 한다.
 
@@ -104,7 +104,7 @@ class AddUsernameToUsers extends Migration
 }
 ```
 
-### 6. User 모델 변경
+## 6. User 모델 변경
 
 <sub>app/Models/User.php</sub>
 
@@ -127,7 +127,7 @@ class AddUsernameToUsers extends Migration
     ]
 ```
 
-### 7. Request 변경
+## 7. Request 변경
 
 <sub>app/Http/Requests/Auth/LoginRequest.php</sub>
 
@@ -325,7 +325,7 @@ class LoginRequest extends FormRequest
 }
 ```
 
-### 8. Controllers 변경
+## 8. Controllers 변경
 
 <sub>app/Http/Controllers/Auth/RegisteredUserController.php</sub>
 
@@ -504,7 +504,7 @@ class LoginRequest extends FormRequest
     }
 ```
 
-### 9. 등록 뷰에 username 필드 추가
+## 9. 등록 뷰에 username 필드 추가
 
 <sub>resources/views/auth/register.blade.php</sub>
 
@@ -519,7 +519,7 @@ class LoginRequest extends FormRequest
     </div>
 ```
 
-### 10. 로그인 폼 변경
+## 10. 로그인 폼 변경
 
 <sub>resources/views/auth/login.blade.php</sub>
 
@@ -543,7 +543,7 @@ class LoginRequest extends FormRequest
     </div>
 ```
 
-### 11. username으로 로그인 테스트
+## 11. username으로 로그인 테스트
 
 마침내 사용자 등록과 로그인 유저네임으로 할 수 있게되었다!\
 테스트해보고 사용하면 된다!

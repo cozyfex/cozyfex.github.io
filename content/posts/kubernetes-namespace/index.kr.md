@@ -23,14 +23,14 @@ keywords:
 
 ---
 
-### 알고가자!
+## 알고가자!
 
 쿠버네티스가 인스톨 될 때 `default` 네임스페이스가 생성된다.\
 그리고 `kube-system`과 `kube-public` 네임스페이스들이 있다.
 
-### DNS
+## DNS
 
-#### 같은 네임스페이스의 서비스에 연결하기
+### 같은 네임스페이스의 서비스에 연결하기
 
 같은 네임스페이스의 데이터베이스 서비스인 `db-service`에 연결하기
 
@@ -38,7 +38,7 @@ keywords:
 mysql.connect("db-service")
 ```
 
-#### 다른 네임스페이스의 서비스에 연결하기
+### 다른 네임스페이스의 서비스에 연결하기
 
 `dev`라는 다른 네임스페이스의 데이터베이스 서비스에 연결하기
 
@@ -51,7 +51,7 @@ mysql.connect("db-service.dev.svc.cluster.local")
 `dev` - 네임스페이즈\
 `db-service` - 서비스명
 
-#### 특정 네임스페이스의 POD 리스트 확인
+### 특정 네임스페이스의 POD 리스트 확인
 
 ```shell
 # `default` 네임스페이스의 POD 확인
@@ -61,7 +61,7 @@ kubectl get pods
 kubectl get pods --namespace=kube-system
 ```
 
-#### 특정 네임스페이스에 POD 생성하기
+### 특정 네임스페이스에 POD 생성하기
 
 <sub>pod-definition.yml</sub>
 
@@ -107,7 +107,7 @@ kubectl create -f pod-definition.yml --namespace=dev
 kubectl create -f dev-pod-definition.yml
 ```
 
-### 네임스페이스 생성
+## 네임스페이스 생성
 
 <sub>namespace-dev.yml</sub>
 
@@ -128,7 +128,7 @@ kubectl create -f namesapce-dev.yml
 kubectl create namesapce dev
 ```
 
-### 현재 터미널의 네임스페이스 변경하기
+## 현재 터미널의 네임스페이스 변경하기
 
 ```shell
 kubectl config set-context $(kubectl config current-context) --namespace=dev
@@ -137,13 +137,13 @@ kubectl config set-context $(kubectl config current-context) --namespace=dev
 kubectl pods
 ```
 
-### 모든 네임스페이스의 POD 확인하기
+## 모든 네임스페이스의 POD 확인하기
 
 ```shell
 kubectl get pods --all-namespaces
 ```
 
-### Resource Quota
+## Resource Quota
 
 <sub>compute-quota.yml</sub>
 

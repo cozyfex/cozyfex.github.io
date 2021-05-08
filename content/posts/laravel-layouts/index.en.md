@@ -39,11 +39,11 @@ keywords:
 
 Laravel uses Blade Templates
 
-### extends
+## extends
 
 `@extends('file')` is loading `file.blade.php` file.
 
-### section/show, section/endsection, yield, parent
+## section/show, section/endsection, yield, parent
 
 <sub>Base File</sub>
 
@@ -73,7 +73,7 @@ Laravel uses Blade Templates
 @section('section-name2', 'This is section 2 value')
 ```
 
-### stack, push/endpush, prepend/endprepend
+## stack, push/endpush, prepend/endprepend
 
 <sub>Base File</sub>
 
@@ -101,7 +101,7 @@ Laravel uses Blade Templates
 @endprepend
 ```
 
-### Layout File
+## Layout File
 
 <sub>resources/views/layouts/base.blade.php</sub>
 
@@ -127,7 +127,7 @@ Laravel uses Blade Templates
 </html>
 ```
 
-### Partial File
+## Partial File
 
 <sub>resources/views/partials/menu.blade.php</sub>
 
@@ -141,7 +141,7 @@ Laravel uses Blade Templates
 </ul>
 ```
 
-### Extend File
+## Extend File
 
 <sub>resources/views/web.blade.php</sub>
 

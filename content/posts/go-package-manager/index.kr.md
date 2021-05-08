@@ -23,7 +23,7 @@ keywords:
 ## Go 패키지 메니저
 ----
 
-##### 초기화
+#### 초기화
 
 <sub>Go init</sub>
 
@@ -33,7 +33,7 @@ go init mod [Package Name]
 
 이 명령은 `go.mod` 파일을 생성한다.
 
-##### 생성 요구사항
+#### 생성 요구사항
 
 <sub>Go 요구사항</sub>
 

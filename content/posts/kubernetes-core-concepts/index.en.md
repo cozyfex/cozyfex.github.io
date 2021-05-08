@@ -40,7 +40,7 @@ Worker Nodes
 
 - Host Application as Containers
 
-### Kubernetes Architecture
+## Kubernetes Architecture
 
 Master Node
 
@@ -54,7 +54,7 @@ Worker Nodes
 - kubelet is manager of a node
 - Kube Proxy
 
-#### kube-api server Execute Process
+### kube-api server Execute Process
 
 1. Authenticate User
 2. Validate Request
@@ -63,7 +63,7 @@ Worker Nodes
 5. Scheduler
 6. Kubelet
 
-#### api-server options
+### api-server options
 
 ```shell
 cat /etc/kubernetes/manifests/kube-apiserver.yaml
@@ -77,11 +77,11 @@ cat /etc/systemd/system/kube-apiserver.service
 ps -aux | grep kube-apiserver
 ```
 
-### ETCD
+## ETCD
 
 ETCD is a distributed reliable key-value store that is Simple, Secure & Fast
 
-#### Install ETCD
+### Install ETCD
 
 1. Download Check official [ETCD](https://etcd.io). The direct link is [here](https://etcd.io/docs/v3.4/dl-build/).
 
@@ -91,7 +91,7 @@ ETCD is a distributed reliable key-value store that is Simple, Secure & Fast
 ./etcd
 ```
 
-#### Operate ETCD
+### Operate ETCD
 
 ```shell
 ./etcdctl set key1 value1
@@ -102,9 +102,9 @@ ETCD is a distributed reliable key-value store that is Simple, Secure & Fast
 # value1
 ```
 
-### ETCD in Kubernetes
+## ETCD in Kubernetes
 
-#### ETCD Cluster
+### ETCD Cluster
 
 - Nodes
 - PODs
@@ -115,9 +115,9 @@ ETCD is a distributed reliable key-value store that is Simple, Secure & Fast
 - Bindings
 - Others
 
-#### Setup
+### Setup
 
-##### Manual
+#### Manual
 
 ```shell
 wget DOWNLOAD_URL
@@ -128,7 +128,7 @@ wget DOWNLOAD_URL
 
 ```
 
-##### kubeadm
+#### kubeadm
 
 ```shell
 kubectl get pods -n kube-system
@@ -138,15 +138,15 @@ kubectl get pods -n kube-system
 kebuectl exec etcd-master -n kube-system etcdctl get / --prefix -keys-only
 ```
 
-##### ETCD Commands
+#### ETCD Commands
 
-###### To Set Version
+#### To Set Version
 
 ```shell
 export ETCDCTL_API=3
 ```
 
-###### ETCD Version 2
+#### ETCD Version 2
 
 ```shell
 etcdctl backup
@@ -156,7 +156,7 @@ etcdctl mkdir
 etcdctl set
 ```
 
-###### ETCD Version 3
+#### ETCD Version 3
 
 ```shell
 etcdctl snapshot save 
@@ -165,9 +165,9 @@ etcdctl get
 etcdctl put
 ```
 
-### kube-controller-manager
+## kube-controller-manager
 
-#### List
+### List
 
 - Node-Controller
 - Replication-Controller
@@ -181,18 +181,18 @@ etcdctl put
 - PV-Protection-Controller
 - Stateful-Set
 
-#### Main Functions
+### Main Functions
 
 - Watch Status
 - Remediate Situation
 
-#### Option Examples
+### Option Examples
 
 Node Monitor Period = 5s\
 Node Monitor Grace Period = 40s\
 POD Eviction Timeout = 5m
 
-#### kube-controller-manager Options
+### kube-controller-manager Options
 
 ```shell
 cat /etc/kubernetes/manifests/kube-controller-manager.yaml
@@ -206,11 +206,11 @@ cat /etc/systemd/system/kube-controller-manager.service
 ps -aux | grep kube-controller-manager
 ```
 
-### Kube Scheduler
+## Kube Scheduler
 
 kube-scheduler just decide which `POD` goes where.
 
-#### Rule
+### Rule
 
 Required CPU: 10
 
@@ -225,7 +225,7 @@ Node: 16
 1. Filter Nodes -> Except 4 Nodes
 2. Rank Nodes -> Picked Node: 16
 
-#### kube-scheduler Options
+### kube-scheduler Options
 
 ```shell
 cat /etc/kubernetes/manifests/kube-scheduler.yaml
@@ -239,21 +239,21 @@ cat /etc/systemd/system/kube-scheduler.service
 ps -aux | grep kube-scheduler
 ```
 
-### Kubelet
+## Kubelet
 
-#### Functions
+### Functions
 
 - Register Node
 - Create PODs
 - Monitor Node and PODs
 
-#### Options
+### Options
 
 ```shell
 ps -aux | grep kubelet
 ```
 
-### Kube Proxy
+## Kube Proxy
 
 It's to configure IP from the service name.
 

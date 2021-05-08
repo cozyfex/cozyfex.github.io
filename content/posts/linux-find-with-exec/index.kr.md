@@ -25,7 +25,7 @@ keywords:
 
 ---
 
-### find 명령
+## find 명령
 
 <sub>find command examples</sub>
 
@@ -35,7 +35,7 @@ find . -type f -user username
 find . -type f -group username
 ```
 
-### find와 -exec 옵션
+## find와 -exec 옵션
 
 <sub>find command with -exec</sub>
 

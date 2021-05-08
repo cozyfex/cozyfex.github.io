@@ -26,8 +26,6 @@ keywords:
 
 ## vsftp 설정
 
-### 설정파일 수정
-
 ```bash
 vi /etc/vsftpd/vsftpd.conf
 ```
@@ -58,7 +56,7 @@ allow_writeable_chroot=YES
 `chroot_local_user`를 YES로 설정하면 해당 계정으로 파일 쓰기를 위해서는 `allow_writeable_chroot`를 YES로 설정해야 한다.  
 {{</admonition>}}
 
-### vsftpd 재시작
+## vsftpd 재시작
 
 ```bash
 service vsftpd restart

@@ -28,18 +28,18 @@ keywords:
 ## analysis_options.yaml with Google Analysis
 ----
 
-##### analysis_options.yaml
+#### analysis_options.yaml
 
 This file is flutter project root.\
 It can make more good code by adding guideline to base lint.
 <br/><br/>
 
-##### [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
+#### [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
 
 This is a lint that was served from Google for analysis_options.yaml.
 <br/><br/>
 
-##### Install [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
+#### Install [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
 
 <sub>`pubspec.yaml`</sub>
 

@@ -23,14 +23,14 @@ keywords:
 
 ---
 
-### You must know
+## You must know
 
 Kubernetes generate `default` namespace when it's installed.\
 And there are `kube-system` and `kube-pulibc` namespaces.
 
-### DNS
+## DNS
 
-#### Connect to a service in the same namespace
+### Connect to a service in the same namespace
 
 If you want to connect to a database that is named `db-service` in the same namespace that is `default`.
 
@@ -38,7 +38,7 @@ If you want to connect to a database that is named `db-service` in the same name
 mysql.connect("db-service")
 ```
 
-#### Connect to another namespace service
+### Connect to another namespace service
 
 But if you want to connect to a database that is named `db-service` in the another namespace that is `dev`.
 
@@ -51,7 +51,7 @@ mysql.connect("db-service.dev.svc.cluster.local")
 `dev` - Namespace\
 `db-service` - Service name
 
-#### Show PODs of the specific namespace
+### Show PODs of the specific namespace
 
 ```shell
 # Show PODs of the `default` namespace
@@ -61,7 +61,7 @@ kubectl get pods
 kubectl get pods --namespace=kube-system
 ```
 
-#### Create POD to the specific namespace
+### Create POD to the specific namespace
 
 <sub>pod-definition.yml</sub>
 
@@ -107,7 +107,7 @@ kubectl create -f pod-definition.yml --namespace=dev
 kubectl create -f dev-pod-definition.yml
 ```
 
-### Create namespace
+## Create namespace
 
 <sub>namespace-dev.yml</sub>
 
@@ -128,7 +128,7 @@ kubectl create -f namesapce-dev.yml
 kubectl create namesapce dev
 ```
 
-### Switch namespace of the terminal
+## Switch namespace of the terminal
 
 ```shell
 kubectl config set-context $(kubectl config current-context) --namespace=dev
@@ -137,13 +137,13 @@ kubectl config set-context $(kubectl config current-context) --namespace=dev
 kubectl pods
 ```
 
-### Show PODs of all namespaces
+## Show PODs of all namespaces
 
 ```shell
 kubectl get pods --all-namespaces
 ```
 
-### Resource Quota
+## Resource Quota
 
 <sub>compute-quota.yml</sub>
 

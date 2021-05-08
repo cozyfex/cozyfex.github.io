@@ -31,20 +31,20 @@ keywords:
 그냥 내가 기억을 위해 기록한 것이다.  
 {{</admonition>}}
 
-### Cluster
+## Cluster
 
 같은 목적을 가진 컴퓨팅 집합.\
 쿠버네티스에는 `Master`와 `Node`로 구분된다.
 
-### Master
+## Master
 
 클러스터 전체를 관리하는 컨트롤러.
 
-### Node
+## Node
 
 컨테이너를 배포하는 물리적인 머신.
 
-### POD
+## POD
 
 쿠버네티스에서 배포하는 단위를 `POD`이라 한다.\
 `POD`은 여러개의 컨테이너의 묶음이다.\
@@ -56,7 +56,7 @@ keywords:
 같은 `POD`은 디스크 볼륨을 공유할 수 있다.  
 {{</admonition>}}
 
-### Container
+## Container
 
 리눅스를 기반한 가상화 기술.
 

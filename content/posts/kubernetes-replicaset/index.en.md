@@ -23,11 +23,11 @@ keywords:
 
 ---
 
-### You must know
+## You must know
 
 `selector` is to find the matched labels for managing the `POD`s in the `ReplicaSet`.
 
-### YAML - rs-definition.yml
+## YAML - rs-definition.yml
 
 ```yaml
 appVersion: apps/v1
@@ -54,51 +54,51 @@ spec: # -> ReplicaSet
       type: front-end
 ```
 
-### Create ReplicaSet
+## Create ReplicaSet
 
 ```shell
 kubectl create -f rs-definition.yml
 ```
 
-### Show ReplicaSet list
+## Show ReplicaSet list
 
 ```shell
 kubectl get replicaset
 ```
 
-### Show ReplicaSet detail
+## Show ReplicaSet detail
 
 ```shell
 kubectl describe replicaset myapp-replicaset
 ```
 
-### Change running ReplicaSet
+## Change running ReplicaSet
 
 ```shell
 kubectl edit replicaset myapp-replicaset
 ```
 
-### Delete ReplicaSet
+## Delete ReplicaSet
 
 ```shell
 kubectl delete replicaset myapp-replicaset
 ```
 
-### Scale
+## Scale
 
-#### Change `replicas` in the YAML file with `replace`
+### Change `replicas` in the YAML file with `replace`
 
 ```shell
 kubectl replace -f rs-definition.yml
 ```
 
-#### Origin YAML file and `--replicas` option with `scale`
+### Origin YAML file and `--replicas` option with `scale`
 
 ```shell
 kubectl scale --replicas=6 -f rs-definition.yml
 ```
 
-#### Change exist ReplicaSet's name and `--replicas` option with `scale`
+### Change exist ReplicaSet's name and `--replicas` option with `scale`
 
 ```shell
 kubectl scale --replicas=6 replicaset myapp-replicaset

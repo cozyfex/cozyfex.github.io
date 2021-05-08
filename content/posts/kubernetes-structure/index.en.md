@@ -31,20 +31,20 @@ So, it could be wrong.\
 I just record for memory.
 {{</admonition>}}
 
-### Cluster
+## Cluster
 
 A computing set they have a same purpose.\
 In Kubernetes, there are `Master` and `Node`.
 
-### Master
+## Master
 
 A controller for managing the `Cluster`.
 
-### Node
+## Node
 
 This is a physical machine that is for deploying containers.
 
-### POD
+## POD
 
 The `POD` is a deployment unit in Kubernetes.\
 A `POD` has multiple containers.\
@@ -56,7 +56,7 @@ In a `POD` is sharing IP and Port.
 In a `POD` can share disk volumes.  
 {{</admonition>}}
 
-### Container
+## Container
 
 This is a technology for virtualization based on linux.
 

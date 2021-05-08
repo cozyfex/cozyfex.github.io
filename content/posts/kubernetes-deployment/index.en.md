@@ -23,11 +23,11 @@ keywords:
 
 ---
 
-### You must know
+## You must know
 
 `Deployment` is going to create `ReplicaSet` automatically.
 
-### YAML - deployment-definition.yml
+## YAML - deployment-definition.yml
 
 ```yaml
 appVersion: apps/v1
@@ -54,13 +54,13 @@ spec: # -> Deployment
       type: front-end
 ```
 
-### Create Deployment
+## Create Deployment
 
 ```shell
 kubectl create -f deployment-definition.yml
 ```
 
-### Show Deployment list
+## Show Deployment list
 
 ```shell
 # Show Deployment
@@ -76,19 +76,19 @@ kubectl get pods
 kubectl get all
 ```
 
-### Show Deployment detail
+## Show Deployment detail
 
 ```shell
 kubectl describe deployment myapp-deployment
 ```
 
-### Change running Deployment
+## Change running Deployment
 
 ```shell
 kubectl edit deployment myapp-deployment
 ```
 
-### Delete Deployment
+## Delete Deployment
 
 ```shell
 kubectl delete deployment myapp-deployment

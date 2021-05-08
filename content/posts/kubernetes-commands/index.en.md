@@ -25,7 +25,7 @@ keywords:
 
 ---
 
-### Command Tip!
+## Command Tip!
 
 ```shell
 # Create POD with nginx image
@@ -45,65 +45,65 @@ kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-d
 kubectl create deployment --image=nginx --replicas=4 nginx --dry-run -o yaml > nginx-deployment.yml
 ```
 
-### POD
+## POD
 
-#### POD List
+### POD List
 
 ```shell
 kubectl get pods
 ```
 
-#### Create POD with YAML
+### Create POD with YAML
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-#### Create POD with Command
+### Create POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-#### POD Detail
+### POD Detail
 
 ```shell
 kubectl describe pod myapp-pod
 ```
 
-#### Change running POD
+### Change running POD
 
 ```shell
 kubectl edit pod myapp-pod
 ```
 
-#### Delete POD
+### Delete POD
 
 ```shell
 kubectl delete pod myapp-pod
 ```
 
-### ReplicaSet
+## ReplicaSet
 
-#### ReplicaSet List
+### ReplicaSet List
 
 ```shell
 kubectl get replicaset
 ```
 
-#### Create ReplicaSet with YAML
+### Create ReplicaSet with YAML
 
 ```shell
 kubectl create -f rs-definition.yml
 ```
 
-#### ReplicaSet Detail
+### ReplicaSet Detail
 
 ```shell
 kubectl describe replicaset myapp-replicaset
 ```
 
-#### Change running ReplicaSet
+### Change running ReplicaSet
 
 ```shell
 kubectl edit replicaset myapp-replicaset
@@ -111,7 +111,7 @@ kubectl edit replicaset myapp-replicaset
 
 If you change image and then, you need to delete all the PODs of the ReplicaSet.
 
-#### Delete ReplicaSet
+### Delete ReplicaSet
 
 ```shell
 kubectl delete replicaset myapp-replicaset
