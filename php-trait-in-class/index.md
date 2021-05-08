@@ -3,8 +3,7 @@
 
 ## PHP trait in Class
 
-The `trait` keyword is for merging classes.\
-`trait` 키워드는 클래스들을 합치기 위한 것이다.
+The `trait` keyword is for merging classes.
 
 ```php
 trait ExampleTrait {

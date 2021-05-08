@@ -1,43 +1,98 @@
 # Kubernetes Commands
 
 
+### Command Tip!
+
+```shell
+# Create POD with nginx image
+kubectl run nginx --image=nginx
+
+# Generate POD Manifest YAML file without create(--dry-run)
+kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yml
+
+
+# Create Deployment
+kubectl create deployment --image=nginx nginx
+
+# Generate Deployment Manifest YAML file without create(--dry-run)
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yml
+
+# Generate Deployment Manifest YAML file without create(--dry-run) with 4 replicas(--replicas=4)
+kubectl create deployment --image=nginx --replicas=4 nginx --dry-run -o yaml > nginx-deployment.yml
+```
+
 ### POD
 
-<sub>POD List</sub>
+#### POD List
 
 ```shell
 kubectl get pods
 ```
 
-<sub>Create POD with YAML</sub>
+#### Create POD with YAML
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-<sub>Create POD with Command</sub>
+#### Create POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-<sub>POD Detail</sub>
+#### POD Detail
 
 ```shell
 kubectl describe pod myapp-pod
 ```
 
-<sub>Change running POD</sub>
+#### Change running POD
 
 ```shell
 kubectl edit pod myapp-pod
 ```
 
-<sub>Delete POD</sub>
+#### Delete POD
 
 ```shell
 kubectl delete pod myapp-pod
 ```
+
+### ReplicaSet
+
+#### ReplicaSet List
+
+```shell
+kubectl get replicaset
+```
+
+#### Create ReplicaSet with YAML
+
+```shell
+kubectl create -f rs-definition.yml
+```
+
+#### ReplicaSet Detail
+
+```shell
+kubectl describe replicaset myapp-replicaset
+```
+
+#### Change running ReplicaSet
+
+```shell
+kubectl edit replicaset myapp-replicaset
+```
+
+If you change image and then, you need to delete all the PODs of the ReplicaSet.
+
+#### Delete ReplicaSet
+
+```shell
+kubectl delete replicaset myapp-replicaset
+```
+
 
 
 

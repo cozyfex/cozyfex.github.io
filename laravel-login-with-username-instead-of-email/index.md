@@ -6,9 +6,7 @@
 ### 1. Install Laravel
 
 There's a lot of way to install Laravel.\
-In this time, I am going to use `composer` that is a dependency manager for `PHP`.\
-`Laravel`을 설치하는 방법에는 여러가지가 있다.\
-여기서는 `PHP` 의존성 관리 툴인 `composer`를 이용한다.
+In this time, I am going to use `composer` that is a dependency manager for `PHP`.
 
 ```shell
 composer create-project laravel/laravel login-project
@@ -16,8 +14,7 @@ composer create-project laravel/laravel login-project
 
 ### 2. Install breeze that is a starter kit for authentication.
 
-`breeze` is a starter kit for authentication in `Laravel`\
-`breeze`는 라라벨 인증을 위한 스타터 킷이다.
+`breeze` is a starter kit for authentication in `Laravel`
 
 ```shell
 cd login-project
@@ -27,8 +24,7 @@ npm install && npm run dev
 
 ### 3. Migrate
 
-You should migrate database for using `Laravel`\
-`Laravel`을 이용하기 위해서 마이그레이션을 해야한다.
+You should migrate database for using `Laravel`
 
 ```shell
 php artisan migrate
@@ -37,14 +33,11 @@ php artisan migrate
 ### 4. Testing default login process with email
 
 Now, you need to test exist login process with email.\
-But it's not a thing you should do.\
-이제 기존 이메일을 이용하는 로그인 프로세스를 테스트해보자.\
-그렇지만 이 단계를 꼭 해야하는 것은 아니다.
+But, it's not a thing you should do.
 
 ### 5. Create migration for username
 
-You need to create a `username` field for using it instead of `email` to login.\
-`username`을 사용하기 위해서는 `username` 필드를 생성해야 한다.
+You need to create a `username` field for using it instead of `email` to login.
 
 ```shell
 php artisan make:migration add_to_username_to_users --table users
@@ -531,6 +524,4 @@ class LoginRequest extends FormRequest
 ### 11. Test with username
 
 Finally, you can register and login with username.\
-Test and using it!\
-마침내 사용자 등록과 로그인 유저네임으로 할 수 있게되었다!\
-테스트해보고 사용하면 된다!
+Test and using it!

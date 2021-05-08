@@ -5,13 +5,11 @@
 
 ## What is mean of `method`?
 
-The `method` means a function of a class in OOP.\
-`Method`란 객체지향 프로그래밍(OOP)에서 클래스의 함수를 의미한다.
+The `method` means a function of a class in OOP.
 
 ## Value vs Pointer receiver
 
-There are two ways to receive the structure.\
-구조체를 받는 방법은 두가지가 있다.
+There are two ways to receive the structure.
 
 ```go
 package main

@@ -51,7 +51,7 @@ cat /etc/systemd/system/kube-apiserver.service
 ps -aux | grep kube-apiserver
 ```
 
-### ETCD for Beginner
+### ETCD
 
 ETCD is a distributed reliable key-value store that is Simple, Secure & Fast
 

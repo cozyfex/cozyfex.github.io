@@ -2,4 +2,4 @@
 Manage Plan Schedule Monitor Nodes Worker Nodes
 Host Application as Containers Kubernetes Architecture Master Node
 kube-apiserver Controller-Manager Node-Manager Replication-Manager Worker Nodes
-kubelet is manager of a node Kube Proxy kube-api server Execute Process Authenticate User Validate Request Retrieve data Update ETCD Scheduler Kubelet api-server options 1 cat /etc/kubernetes/manifests/kube-apiserver.yaml 1 cat /etc/systemd/system/kube-apiserver.service 1 ps -aux | grep kube-apiserver ETCD for Beginner ETCD is a distributed reliable key-value store that is Simple, Secure &amp;amp; Fast</description></item></channel></rss>
+kubelet is manager of a node Kube Proxy kube-api server Execute Process Authenticate User Validate Request Retrieve data Update ETCD Scheduler Kubelet api-server options 1 cat /etc/kubernetes/manifests/kube-apiserver.yaml 1 cat /etc/systemd/system/kube-apiserver.service 1 ps -aux | grep kube-apiserver ETCD ETCD is a distributed reliable key-value store that is Simple, Secure &amp;amp; Fast</description></item></channel></rss>

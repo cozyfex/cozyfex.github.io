@@ -6,15 +6,12 @@
 ##### analysis_options.yaml
 
 This file is flutter project root.\
-It can make more good code by adding guideline to base lint.\
-이 파일은 flutter project의 루트에 위치한다.\
-기본 lint에 더 상세한 설정을 추가해서 더 좋은 코드를 만든다.
+It can make more good code by adding guideline to base lint.
 <br/><br/>
 
 ##### [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
 
-This is a lint that was served from Google for analysis_options.yaml.\
-구글에서 제공하는 analysis_options.yaml에 추가 가능한 lint이다.
+This is a lint that was served from Google for analysis_options.yaml.
 <br/><br/>
 
 ##### Install [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}

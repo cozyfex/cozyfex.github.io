@@ -3,8 +3,7 @@
 
 ## Laravel Dump and Die
 
-The `dd` keyword is to show object's detail in Laravel.\
-`dd` 키워드는 객체의 상세정보를 보기 위한 함수이다.
+The `dd` keyword is to show object's detail in Laravel.
 
 ```php
 namespace App\Http\Contollers\Auth;

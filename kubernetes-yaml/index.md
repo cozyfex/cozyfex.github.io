@@ -3,7 +3,7 @@
 
 ### Basic YAML Structure in Kubernetes
 
-<sub>Basic YAML Structure</sub>
+#### Basic YAML Structure
 
 ```yaml
 apiVersion:
@@ -17,6 +17,8 @@ spec:
 
 ```
 
+#### Version Information
+
 | Kind       | Version |
 | ---------- | ------- |
 | POD        | v1      |
@@ -24,9 +26,9 @@ spec:
 | ReplicaSet | apps/v1 |
 | Deployment | apps/v1 |
 
-#### POD YAML
+### POD YAML
 
-<sub>pod-definition.yml</sub>
+#### pod-definition.yml
 
 ```yaml
 apiVersion: v1
@@ -42,26 +44,155 @@ spec:
       image: nginx
 ```
 
-<sub>Create POD with YAML file</sub>
+#### Create POD with YAML file
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-<sub>Create POD with command</sub>
+#### Create POD with command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-<sub>Show PODs list</sub>
+#### Show PODs list
 
 ```shell
 kubectl get pods
 ```
 
-<sub>Show POD detail</sub>
+#### Show POD detail
 
 ```shell
 kubectl describe pod myapp-pod
 ```
+
+### Replication Controller YAML
+
+#### rc-definition.yml
+
+```yaml
+apiVersion: v1
+kind: ReplicationController
+metadata: # -> Replication Controller
+  name: myapp-rc
+  labels:
+    app: myapp
+    type: front-end
+spec: # -> Replication Controller
+  template:
+    metadata: # -> POD
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec: # -> POD
+      containers:
+        - name: nginx-continer
+          image: nginx
+  replicas: 3
+```
+
+#### Create Replication Controller
+
+```shell
+kubectl create -f rc-definition.yml
+```
+
+#### Show Replication Controller list
+
+```shell
+kubectl get replicationcontroller
+```
+
+#### Show PODs list
+
+```shell
+kubectl get pods
+```
+
+### ReplicaSet
+
+#### rs-definition.yml
+
+```yaml
+appVersion: apps/v1
+kind: ReplicaSet
+metadata: # -> ReplicaSet
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec: # -> ReplicaSet
+  template:
+    metadata: # -> POD
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec: # -> POD
+      containers:
+        - name: nginx-continer
+          image: nginx
+  replicas: 3
+  selector: # -> `selector` is not required by Replication Controller
+    matchLabels:
+      type: front-end
+```
+
+#### Labels and Selector
+
+`selector` is to find the matched labels for managing the PODs.
+
+#### Create ReplicaSet
+
+```shell
+kubectl create -f rs-definition.yml
+```
+
+#### Show ReplicaSet list
+
+```shell
+kubectl get replicaset
+```
+
+#### Show ReplicaSet detail
+
+```shell
+kubectl describe replicaset myapp-replicaset
+```
+
+#### Show PODs list
+
+```shell
+kubectl get pods
+```
+
+#### Delete ReplicaSet
+
+```shell
+kubectl delete replicaset myapp-replicaset
+```
+
+#### Scale
+
+##### Change `replicas` in the YAML file with `repliace`
+
+```shell
+kubectl replace -f rs-definition.yml
+```
+
+##### Origin YAML file and `--replicas` option with `scale`
+
+```shell
+kubectl scale --replicas=6 -f rs-definition.yml
+```
+
+##### Change exist ReplicaSet's name and `--replicas` option with `scale`
+
+```shell
+kubectl scale --replicas=6 replicaset myapp-replicaset
+```
+
+
