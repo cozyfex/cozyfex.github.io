@@ -67,13 +67,13 @@ spec:
       image: nginx
 ```
 
-### Create POD with YAML file
+### Create a POD with YAML file
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-### Create POD with Command
+### Create a POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx

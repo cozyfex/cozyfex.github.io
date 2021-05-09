@@ -28,14 +28,14 @@ keywords:
 ## Command Tip!
 
 ```shell
-# Create POD with nginx image
+# Create a POD with nginx image
 kubectl run nginx --image=nginx
 
 # Generate POD Manifest YAML file without create(--dry-run)
 kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yml
 
 
-# Create Deployment
+# Create a Deployment
 kubectl create deployment --image=nginx nginx
 
 # Generate Deployment Manifest YAML file without create(--dry-run)

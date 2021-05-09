@@ -104,7 +104,7 @@ spec:
 
 ### Commands
 
-#### Create Service
+#### Create a Service
 
 ```shell
 kubectl create -f service-definition.yml
@@ -155,7 +155,7 @@ spec:
 
 ### Commands
 
-#### Create Service
+#### Create a Service
 
 ```shell
 kubectl create -f service-definition.yml
@@ -207,7 +207,7 @@ spec:
 
 ### Commands
 
-#### Create Service
+#### Create a Service
 
 ```shell
 kubectl create -f service-definition.yml

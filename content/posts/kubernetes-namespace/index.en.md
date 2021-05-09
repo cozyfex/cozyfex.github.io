@@ -72,7 +72,7 @@ kubectl get pods
 kubectl get pods --namespace=kube-system
 ```
 
-### Create POD to the specific namespace
+### Create a POD to the specific namespace
 
 <sub>pod-definition.yml</sub>
 
@@ -107,7 +107,7 @@ spec:
       image: nginx
 ```
 
-<sub>Create POD</sub>
+<sub>Create a POD</sub>
 
 ```shell
 # To the `default` namespace

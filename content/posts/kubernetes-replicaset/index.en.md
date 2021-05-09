@@ -54,7 +54,7 @@ spec: # -> ReplicaSet
       type: front-end
 ```
 
-## Create ReplicaSet
+## Create a ReplicaSet
 
 ```shell
 kubectl create -f rs-definition.yml

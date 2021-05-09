@@ -28,14 +28,14 @@ keywords:
 ## Command Tip!
 
 ```shell
-# Create POD with nginx image
+# Create a POD with nginx image
 kubectl run nginx --image=nginx
 
 # Generate POD Manifest YAML file without create(--dry-run)
 kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yml
 
 
-# Create Deployment
+# Create a Deployment
 kubectl create deployment --image=nginx nginx
 
 # Generate Deployment Manifest YAML file without create(--dry-run)
@@ -53,13 +53,13 @@ kubectl create deployment --image=nginx --replicas=4 nginx --dry-run -o yaml > n
 kubectl get pods
 ```
 
-### Create POD with YAML
+### Create a POD with YAML
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-### Create POD with Command
+### Create a POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx
@@ -91,7 +91,7 @@ kubectl delete pod myapp-pod
 kubectl get replicaset
 ```
 
-### Create ReplicaSet with YAML
+### Create a ReplicaSet with YAML
 
 ```shell
 kubectl create -f rs-definition.yml

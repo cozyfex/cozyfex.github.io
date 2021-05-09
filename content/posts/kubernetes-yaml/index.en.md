@@ -68,13 +68,13 @@ spec:
       image: nginx
 ```
 
-### Create POD with YAML file
+### Create a POD with YAML file
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-### Create POD with Command
+### Create a POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx
@@ -118,7 +118,7 @@ spec: # -> Replication Controller
   replicas: 3
 ```
 
-### Create Replication Controller
+### Create a Replication Controller
 
 ```shell
 kubectl create -f rc-definition.yml
@@ -169,7 +169,7 @@ spec: # -> ReplicaSet
 
 `selector` is to find the matched labels for managing the PODs.
 
-### Create ReplicaSet
+### Create a ReplicaSet
 
 ```shell
 kubectl create -f rs-definition.yml
