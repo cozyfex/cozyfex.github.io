@@ -25,21 +25,19 @@ keywords:
 - analysis_options.yaml
 
 ---
-## analysis_options.yaml with Google Analysis
-----
 
-#### analysis_options.yaml
+## analysis_options.yaml
 
 이 파일은 flutter project의 루트에 위치한다.\
 기본 lint에 더 상세한 설정을 추가해서 더 좋은 코드를 만든다.
 <br/><br/>
 
-#### [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
+## [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
 
 구글에서 제공하는 analysis_options.yaml에 추가 가능한 lint이다.
 <br/><br/>
 
-#### Install [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
+## Install [pedantic](https://pub.dev/packages/pedantic){:target="_blank"}
 
 <sub>`pubspec.yaml`</sub>
 
