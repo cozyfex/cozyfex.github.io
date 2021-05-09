@@ -84,7 +84,7 @@ spec:
       image: nginx
 ```
 
-<sub>Create POD</sub>
+<sub>Create a POD</sub>
 
 ```shell
 # `default` 네임스페이스에 생성

@@ -32,7 +32,7 @@ spec: # -> Deployment
       type: front-end
 ```
 
-## Create Deployment
+## Create a Deployment
 
 ```shell
 kubectl create -f deployment-definition.yml
