@@ -1,8 +1,6 @@
 # Laravel Often Used Artisan Commands
 
 
-## Laravel often used artisan commands
-
 ## Create Controller
 
 ```shell

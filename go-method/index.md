@@ -1,11 +1,9 @@
 # Go Method
 
 
-# Method in Go
+## What is mean of `Method`?
 
-## What is mean of `method`?
-
-The `method` means a function of a class in OOP.
+The `Method` means a function of a class in OOP.
 
 ## Value vs Pointer receiver
 
@@ -32,10 +30,10 @@ func (r *Rect) areaWithPointer() int {
 
 func main() {
 	rect := Rect{10, 20}
-	println(rect.areaWithValue()) // 220
-	println(rect.width) // 10
+	println(rect.areaWithValue())   // 220
+	println(rect.width)             // 10
 	println(rect.areaWithPointer()) // 220
-	println(rect.width) // 11
+	println(rect.width)             // 11
 }
 ```
 

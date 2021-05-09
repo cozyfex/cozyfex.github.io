@@ -38,7 +38,7 @@ spec: # -> Deployment
 kubectl create -f deployment-definition.yml
 ```
 
-## Show Deployment list
+## Show Deployment List
 
 ```shell
 # Show Deployment
@@ -54,13 +54,13 @@ kubectl get pods
 kubectl get all
 ```
 
-## Show Deployment detail
+## Show Deployment Detail
 
 ```shell
 kubectl describe deployment myapp-deployment
 ```
 
-## Change running Deployment
+## Change Running Deployment
 
 ```shell
 kubectl edit deployment myapp-deployment

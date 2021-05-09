@@ -145,7 +145,7 @@ etcdctl put
 
 - Node-Controller
 - Replication-Controller
-- Replicaset
+- ReplicaSet
 - Service-Account-Controller
 - CronJob
 - Job-Controller
@@ -190,7 +190,7 @@ Required CPU: 10
 
 Node: 4
 
-Node: 5
+Node: 4
 
 Node: 12
 

@@ -1,7 +1,7 @@
-# Javascript Hosting
+# Javascript hoisting
 
 
-## What is the hosting?
+## What is the hoisting?
 
 It's a characteristic that is assigned in the top level when it's assigned with var in the interpreting progress.
 
@@ -14,7 +14,7 @@ foo = 'It is foo.';
 console.log(foo); // It is foo.
 ```
 
-This characteristic occur wrong situation like below code.
+This characteristic occurs wrong situation like below code.
 
 ```javascript
 console.log(foo); // undefined
@@ -37,19 +37,19 @@ bar();
 ```
 
 The reason why it's printed as undefined, it referenced foo of function region scope in the function.\
-So we noticed hosting is working in each scope.
+So we noticed hoisting is working in each scope.
 
 How about assign a function?
 
 ```javascript
 console.log(typeof foo); // function
-foo(); // hosting function test
+foo(); // hoisting function test
 function foo() {
-    console.log('hosting function test');
+    console.log('hoisting function test');
 }
 
 console.log(typeof foo); // function
-foo(); // hosting function test
+foo(); // hoisting function test
 ```
 
 Then how about when you assign the function to a value?
@@ -57,7 +57,7 @@ Then how about when you assign the function to a value?
 ```javascript
 console.log(typeof foo); // undefined
 var foo = function () {
-    console.log('hosting function test');
+    console.log('hoisting function test');
 }
 console.log(typeof foo); // function
 ```

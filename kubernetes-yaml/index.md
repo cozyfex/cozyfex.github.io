@@ -50,19 +50,19 @@ spec:
 kubectl create -f pod-definition.yml
 ```
 
-### Create POD with command
+### Create POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-### Show PODs list
+### Show PODs List
 
 ```shell
 kubectl get pods
 ```
 
-### Show POD detail
+### Show POD Detail
 
 ```shell
 kubectl describe pod myapp-pod
@@ -100,13 +100,13 @@ spec: # -> Replication Controller
 kubectl create -f rc-definition.yml
 ```
 
-### Show Replication Controller list
+### Show Replication Controller List
 
 ```shell
 kubectl get replicationcontroller
 ```
 
-### Show PODs list
+### Show PODs List
 
 ```shell
 kubectl get pods
@@ -151,19 +151,19 @@ spec: # -> ReplicaSet
 kubectl create -f rs-definition.yml
 ```
 
-### Show ReplicaSet list
+### Show ReplicaSet List
 
 ```shell
 kubectl get replicaset
 ```
 
-### Show ReplicaSet detail
+### Show ReplicaSet Detail
 
 ```shell
 kubectl describe replicaset myapp-replicaset
 ```
 
-### Show PODs list
+### Show PODs List
 
 ```shell
 kubectl get pods
@@ -189,7 +189,7 @@ kubectl replace -f rs-definition.yml
 kubectl scale --replicas=6 -f rs-definition.yml
 ```
 
-#### Change exist ReplicaSet's name and `--replicas` option with `scale`
+#### Change Running ReplicaSet's name and `--replicas` option with `scale`
 
 ```shell
 kubectl scale --replicas=6 replicaset myapp-replicaset

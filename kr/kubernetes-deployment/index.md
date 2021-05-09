@@ -32,13 +32,13 @@ spec: # -> Deployment
       type: front-end
 ```
 
-## Create Deployment
+## Deployment 생성
 
 ```shell
 kubectl create -f deployment-definition.yml
 ```
 
-## Deployment 리스트
+## Deployment 확인
 
 ```shell
 # Deployment 확인
@@ -60,7 +60,7 @@ kubectl get all
 kubectl describe deployment myapp-deployment
 ```
 
-## 실행중인 Deployment 확인
+## 실행중인 Deployment 변경
 
 ```shell
 kubectl edit deployment myapp-deployment
