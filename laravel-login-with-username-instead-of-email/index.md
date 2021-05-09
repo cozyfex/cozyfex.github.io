@@ -1,8 +1,6 @@
 # Laravel Login With Username Instead of Email
 
 
-## Laravel Login with username instead of email
-
 ## 1. Install Laravel
 
 There's a lot of way to install Laravel.\
