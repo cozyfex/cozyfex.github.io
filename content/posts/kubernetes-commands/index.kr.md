@@ -71,7 +71,7 @@ kubectl run myapp-pod --image nginx
 kubectl describe pod myapp-pod
 ```
 
-### 동작중인 POD 변경
+### 실행중인 POD 변경
 
 ```shell
 kubectl edit pod myapp-pod
@@ -103,7 +103,7 @@ kubectl create -f rs-definition.yml
 kubectl describe replicaset myapp-replicaset
 ```
 
-### 동작중인 ReplicaSet 변경
+### 실행중인 ReplicaSet 변경
 
 ```shell
 kubectl edit replicaset myapp-replicaset
