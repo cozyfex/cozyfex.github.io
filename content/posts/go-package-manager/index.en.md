@@ -23,7 +23,7 @@ keywords:
 ## Go package manager
 ----
 
-#### Initialize
+### Initialize
 
 <sub>Go init</sub>
 
@@ -33,7 +33,7 @@ go init mod [Package Name]
 
 This command generate a `go.mod` file.
 
-#### Generate requirements
+### Generate requirements
 
 <sub>Go requirements</sub>
 
