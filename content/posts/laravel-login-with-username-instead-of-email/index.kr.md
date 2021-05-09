@@ -23,8 +23,6 @@ keywords:
 
 ---
 
-## Laravel 이메일 대신 아이디로 로그인
-
 ## 1. Laravel 설치
 
 `Laravel`을 설치하는 방법에는 여러가지가 있다.\
