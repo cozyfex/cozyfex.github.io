@@ -28,10 +28,10 @@ keywords:
 ## 알고가자!
 
 `POD`은 서비스 단위로 이해하는게 좋다.\
-쿠버네티스는 스테일 아웃을 할 때 `POD` 단위로 복제한다.\
+쿠버네티스는 스케일 아웃을 할 때 `POD` 단위로 복제한다.\
 `POD` 내부에 컨테이너를 개별로 스케일 아웃 하지 않는다.
 
-## 도커로 컨테이너 관리하기
+## 도커로 컨테이너 관리
 
 ```shell
 # app1
@@ -49,7 +49,7 @@ docker run helper -link app3
 docker run helper -link app4
 ```
 
-## POD으로 컨테이너 관리하기
+## POD으로 컨테이너 관리
 
 ### pod-definition.yml
 
@@ -67,13 +67,13 @@ spec:
       image: nginx
 ```
 
-### YAML파일로 POD 생성하기
+### YAML파일로 POD 생성
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-### 명령으로 POD 생성하기
+### 명령으로 POD 생성
 
 ```shell
 kubectl run myapp-pod --image nginx

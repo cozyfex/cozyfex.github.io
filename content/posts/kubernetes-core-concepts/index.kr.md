@@ -83,7 +83,7 @@ ETCD는 신뢰할 수 있는 분산된 간단하고 안전하고 빠른 키-벨�
 
 ### Install ETCD
 
-1. 다운로드는 공식 사이트를 참고하면 된다. [ETCD](https://etcd.io). The direct link is [here](https://etcd.io/docs/v3.4/dl-build/).
+1. 다운로드는 공식 사이트를 참고하면 된다. [ETCD](https://etcd.io). 바로가기 링크는 [여기](https://etcd.io/docs/v3.4/dl-build/).
 
 2. 실행
 
@@ -171,7 +171,7 @@ etcdctl put
 
 - Node-Controller
 - Replication-Controller
-- Replicaset
+- ReplicaSet
 - Service-Account-Controller
 - CronJob
 - Job-Controller
@@ -216,7 +216,7 @@ Required CPU: 10
 
 Node: 4
 
-Node: 5
+Node: 4
 
 Node: 12
 

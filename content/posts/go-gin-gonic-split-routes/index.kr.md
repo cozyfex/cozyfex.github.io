@@ -1,5 +1,5 @@
 ---
-title: "Go Gin Gonic 라우트 분리하기"
+title: "Go Gin Gonic 라우트 분리"
 
 date: 2021-04-17T00:12:00+0900
 
@@ -23,14 +23,12 @@ keywords:
 - route
 
 ---
-## gin-gonic 에서 라우트 분리 예제
-----
 
-#### github 소스파일로 바로가기
+## github 소스파일로 바로가기
 
 [Example Source Link](https://github.com/cozyfex/route-sample)
 
-#### 디렉토리 구조
+## 디렉토리 구조
 
 <sub>디렉토리 구조</sub>
 
@@ -47,7 +45,7 @@ keywords:
     └── routes.go
 ```
 
-#### Source
+## Source
 
 <sub>`/post/routes.go`</sub>
 

@@ -21,11 +21,9 @@ keywords:
 
 ---
 
-# Method in Go
+## `메소드`란?
 
-## `method`란?
-
-`Method`란 객체지향 프로그래밍(OOP)에서 클래스의 함수를 의미한다.
+`메소드`란 객체지향 프로그래밍(OOP)에서 클래스의 함수를 의미한다.
 
 ## Value(값) vs Pointer(주소) receiver
 
@@ -52,10 +50,10 @@ func (r *Rect) areaWithPointer() int {
 
 func main() {
 	rect := Rect{10, 20}
-	println(rect.areaWithValue()) // 220
-	println(rect.width) // 10
+	println(rect.areaWithValue())   // 220
+	println(rect.width)             // 10
 	println(rect.areaWithPointer()) // 220
-	println(rect.width) // 11
+	println(rect.width)             // 11
 }
 ```
 

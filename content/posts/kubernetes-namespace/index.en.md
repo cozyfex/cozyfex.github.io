@@ -38,7 +38,7 @@ If you want to connect to a database that is named `db-service` in the same name
 mysql.connect("db-service")
 ```
 
-### Connect to another namespace service
+### Connect to a service in the another namespace
 
 If you want to connect to a database that is named `db-service` in the another namespace that is `dev`.
 

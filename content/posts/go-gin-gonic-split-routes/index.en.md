@@ -23,14 +23,12 @@ keywords:
 - route
 
 ---
-## Example for split routes gin-gonic
-----
 
-#### Go to source in github
+## Go to source in github
 
 [Example Source Link](https://github.com/cozyfex/route-sample)
 
-#### Directory structure
+## Directory structure
 
 <sub>Directory structure</sub>
 
@@ -47,7 +45,7 @@ keywords:
     └── routes.go
 ```
 
-#### Source
+## Source
 
 <sub>`/post/routes.go`</sub>
 

@@ -12,12 +12,12 @@ categories:
 tags:
 
 - javascript
-- hosting
+- hoisting
 
 keywords:
 
 - javascript
-- hosting
+- hoisting
 
 ---
 
@@ -56,20 +56,20 @@ function bar() {
 bar();
 ```
 
-"Loot at here!"에서 undefined가 출력되는 이유는 function 안에서 foo가 다시 선언되어 함수 내 최상위에서 다시 호이스팅 되어서 지역변수 스코프의 foo를 참조하기 때문이다.\
-이 예제로 우리는 호이스팅은 각각의 스코프마다 작동한는것을 알 수 있다.\
+"Loot at here!"에서 undefined가 출력되는 이유는 function 안에서 foo가 다시 선언되어 함수 내 최상위에서 다시 호이스팅 되어서 지역변수 스코프의 foo를 참조 때문이다.\
+이 예제로 우리는 호이스팅은 각각의 스코프마다 작동한는것을 알 수 있다.
 
 함수 선언은 어떨까?
 
 ```javascript
 console.log(typeof foo); // function
-foo(); // hosting function test
+foo(); // hoisting function test
 function foo() {
-    console.log('hosting function test');
+    console.log('hoisting function test');
 }
 
 console.log(typeof foo); // function
-foo(); // hosting function test
+foo(); // hoisting function test
 ```
 
 그렇다면 변수에 함수를 할당해보면 어떨까?
@@ -77,7 +77,7 @@ foo(); // hosting function test
 ```javascript
 console.log(typeof foo); // undefined
 var foo = function () {
-    console.log('hosting function test');
+    console.log('hoisting function test');
 }
 console.log(typeof foo); // function
 ```

@@ -60,19 +60,19 @@ spec: # -> ReplicaSet
 kubectl create -f rs-definition.yml
 ```
 
-## Show ReplicaSet list
+## Show ReplicaSet List
 
 ```shell
 kubectl get replicaset
 ```
 
-## Show ReplicaSet detail
+## Show ReplicaSet Detail
 
 ```shell
 kubectl describe replicaset myapp-replicaset
 ```
 
-## Change running ReplicaSet
+## Change Running ReplicaSet
 
 ```shell
 kubectl edit replicaset myapp-replicaset
@@ -98,7 +98,7 @@ kubectl replace -f rs-definition.yml
 kubectl scale --replicas=6 -f rs-definition.yml
 ```
 
-### Change exist ReplicaSet's name and `--replicas` option with `scale`
+### Change Running ReplicaSet's name and `--replicas` option with `scale`
 
 ```shell
 kubectl scale --replicas=6 replicaset myapp-replicaset

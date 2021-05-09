@@ -68,13 +68,13 @@ spec:
       image: nginx
 ```
 
-### YAML 파일로 POD 생성하기
+### YAML 파일로 POD 생성
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-### 명령으로 POD 생성하기
+### 명령으로 POD 생성
 
 ```shell
 kubectl run myapp-pod --image nginx
@@ -118,7 +118,7 @@ spec: # -> Replication Controller
   replicas: 3
 ```
 
-### Replication Controller 생성하기
+### Replication Controller 생성
 
 ```shell
 kubectl create -f rc-definition.yml
@@ -167,9 +167,9 @@ spec: # -> ReplicaSet
 
 ### Labels과 Selector
 
-`selector`는 레이블과 매칭하여 POD을 관리하기 위한것이다.
+`selector`는 레이블과 매칭하여 POD을 관리 위한것이다.
 
-### ReplicaSet 생성하기
+### ReplicaSet 생성
 
 ```shell
 kubectl create -f rs-definition.yml
@@ -201,21 +201,20 @@ kubectl delete replicaset myapp-replicaset
 
 ### Scale
 
-### `replace`와 YAML의 `replicas`로 변경하기
+#### `replace`와 YAML의 `replicas`로 변경
 
 ```shell
 kubectl replace -f rs-definition.yml
 ```
 
-### 변경되지 않은 YAML 파일과 `scale`의 `--replicas` 옵션으로 변경하기
+#### 변경되지 않은 YAML 파일과 `scale`의 `--replicas` 옵션으로 변경
 
 ```shell
 kubectl scale --replicas=6 -f rs-definition.yml
 ```
 
-### 기존의 ReplicaSet의 이름과 `scale`의 `--replicas` 옵션으로 변경하기
+#### 기존의 ReplicaSet의 이름과 `scale`의 `--replicas` 옵션으로 변경
 
 ```shell
 kubectl scale --replicas=6 replicaset myapp-replicaset
 ```
-

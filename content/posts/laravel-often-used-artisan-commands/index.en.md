@@ -23,8 +23,6 @@ keywords:
 
 ---
 
-## Laravel often used artisan commands
-
 ## Create Controller
 
 ```shell

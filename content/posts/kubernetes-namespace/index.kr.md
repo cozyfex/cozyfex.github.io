@@ -30,17 +30,17 @@ keywords:
 
 ## DNS
 
-### 같은 네임스페이스의 서비스에 연결하기
+### 같은 네임스페이스의 서비스에 연결
 
-같은 네임스페이스의 데이터베이스 서비스인 `db-service`에 연결하기
+`default`라는 같은 네임스페이스의 데이터베이스 서비스인 `db-service`에 연결
 
 ```javascript
 mysql.connect("db-service")
 ```
 
-### 다른 네임스페이스의 서비스에 연결하기
+### 다른 네임스페이스의 서비스에 연결
 
-`dev`라는 다른 네임스페이스의 데이터베이스 서비스에 연결하기
+`dev`라는 다른 네임스페이스의 데이터베이스 서비스인 `db-service`에 연결
 
 ```javascript
 mysql.connect("db-service.dev.svc.cluster.local")
@@ -71,12 +71,12 @@ kubectl get pods
 kubectl get pods --namespace=kube-system
 ```
 
-### 특정 네임스페이스에 POD 생성하기
+### 특정 네임스페이스에 POD 생성
 
 <sub>pod-definition.yml</sub>
 
 ```yaml
-# `default` 네임스페이스에 생성하기
+# `default` 네임스페이스에 생성
 appVersion: v1
 kind: Pod
 metadata:
@@ -92,7 +92,7 @@ spec:
 <sub>dev-pod-definition.yml</sub>
 
 ```yaml
-# `dev` 네임스페이스에 생성하기
+# `dev` 네임스페이스에 생성
 appVersion: v1
 kind: Pod
 metadata:
@@ -109,10 +109,10 @@ spec:
 <sub>Create POD</sub>
 
 ```shell
-# `default` 네임스페이스에 생성하기
+# `default` 네임스페이스에 생성
 kubectl create -f pod-definition.yml
 
-# `dev` 네임스페이스에 생성하기
+# `dev` 네임스페이스에 생성
 kubectl create -f pod-definition.yml --namespace=dev
 kubectl create -f dev-pod-definition.yml
 ```
@@ -128,7 +128,7 @@ metadata:
   name: dev
 ```
 
-<sub>네임스페이스 생성하기</sub>
+<sub>네임스페이스 생성</sub>
 
 ```shell
 # With YAML file
@@ -138,7 +138,7 @@ kubectl create -f namesapce-dev.yml
 kubectl create namesapce dev
 ```
 
-## 현재 터미널의 네임스페이스 변경하기
+## 현재 터미널의 네임스페이스 변경
 
 ```shell
 kubectl config set-context $(kubectl config current-context) --namespace=dev
@@ -147,7 +147,7 @@ kubectl config set-context $(kubectl config current-context) --namespace=dev
 kubectl pods
 ```
 
-## 모든 네임스페이스의 POD 확인하기
+## 모든 네임스페이스의 POD 확인
 
 ```shell
 kubectl get pods --all-namespaces
@@ -172,7 +172,7 @@ spec:
     limits.memory: 10Gi
 ```
 
-<sub>Quota 생성하기</sub>
+<sub>Quota 생성</sub>
 
 ```shell
 kubectl create -f compute-quota.yml

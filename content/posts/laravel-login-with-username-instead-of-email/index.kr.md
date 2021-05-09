@@ -1,5 +1,5 @@
 ---
-title: "Laravel 이메일 대신 아이디로 로그인 하기"
+title: "Laravel 이메일 대신 아이디로 로그인"
 
 date: 2021-05-06T13:36:03+09:00
 
@@ -23,7 +23,7 @@ keywords:
 
 ---
 
-## Laravel 이메일 대신 아이디로 로그인 하기
+## Laravel 이메일 대신 아이디로 로그인
 
 ## 1. Laravel 설치
 
@@ -46,7 +46,7 @@ npm install && npm run dev
 
 ## 3. 마이그레이트
 
-`Laravel`을 이용하기 위해서 마이그레이션을 해야한다.
+`Laravel`을 이용 위해서 마이그레이션을 해야한다.
 
 ```shell
 php artisan migrate
@@ -57,9 +57,9 @@ php artisan migrate
 이제 기존 이메일을 이용하는 로그인 프로세스를 테스트해보자.\
 그렇지만 이 단계를 꼭 해야하는 것은 아니다.
 
-## 5. username을 위한 마이그레이션 생성하기
+## 5. username을 위한 마이그레이션 생성
 
-`username`을 사용하기 위해서는 `username` 필드를 생성해야 한다.
+`username`을 사용 위해서는 `username` 필드를 생성해야 한다.
 
 ```shell
 php artisan make:migration add_to_username_to_users --table users

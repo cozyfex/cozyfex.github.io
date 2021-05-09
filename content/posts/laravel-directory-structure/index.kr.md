@@ -32,7 +32,7 @@ keywords:
 > 기본적으로 이 디렉토리는 존재하지 않지만, 채널을 생성 할 때 만들어진다.
 > ### `app/Console`
 >> `Console` 디렉토리는 커스텀 아티즌 명령들이 있다.
-> `make:command` 명령오로 생성할 수 있다.
+> `make:command` 명령으로 생성할 수 있다.
 > ### `app/Events`
 >> 이 디렉토리는 기본적으로 존재하지 않지만 `event:generate`와 `make:event` 아티즌 명령어로 만들 수 있다.
 > `Events` 디렉토리는 이벤트 클래스들이 위치한다.
@@ -78,11 +78,11 @@ keywords:
 
 ## `public`
 
-> `public` 디렉토리는 모든 요청과 설정의 오토로딩의 시작점인 'index.php' 파일이 위차한 곳이다. 이 디렉토리는 이미지, JavaScript, CSS 등을 포함한다.
+> `public` 디렉토리는 모든 요청과 설정의 오토로딩의 시작점인 'index.php' 파일이 위치한 곳이다. 이 디렉토리는 이미지, JavaScript, CSS 등을 포함한다.
 
 ## `resources`
 
-> `resource` 디렉토리는 뷰, 컴파일 되지 않은 JavaScript, CSS 파일같은 것들이 위치한다. 그리고 이 디렉토리는 언어 파일들도 위치한다.
+> `resources` 디렉토리는 뷰, 컴파일 되지 않은 JavaScript, CSS 파일같은 것들이 위치한다. 그리고 이 디렉토리는 언어 파일들도 위치한다.
 
 ## `routes`
 
@@ -111,7 +111,7 @@ keywords:
 
 ## `tests`
 
-> `tests` 디렉토리는 자동화된 테스트들이 위치힌다.
+> `tests` 디렉토리는 자동화된 테스트들이 위치한다.
 
 ## `vendor`
 

@@ -73,19 +73,19 @@ spec:
 kubectl create -f pod-definition.yml
 ```
 
-### Create POD with command
+### Create POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-### Show PODs list
+### Show PODs List
 
 ```shell
 kubectl get pods
 ```
 
-### Show POD detail
+### Show POD Detail
 
 ```shell
 kubectl describe pod myapp-pod
