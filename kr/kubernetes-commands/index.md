@@ -1,4 +1,4 @@
-# Kubernetes 명령
+# Kubernetes Commands
 
 
 ## Command Tip!
@@ -23,37 +23,41 @@ kubectl create deployment --image=nginx --replicas=4 nginx --dry-run -o yaml > n
 
 ## POD
 
-### POD 리스트
+### POD List
 
 ```shell
+# Basic
 kubectl get pods
+
+# Wide
+kubectl get pods -o wide
 ```
 
-### YAML로 POD 생성
+### Create a POD with YAML
 
 ```shell
 kubectl create -f pod-definition.yml
 ```
 
-### 명령으로 POD 생성
+### Create a POD with Command
 
 ```shell
 kubectl run myapp-pod --image nginx
 ```
 
-### POD 상세정보
+### POD Detail
 
 ```shell
 kubectl describe pod myapp-pod
 ```
 
-### 실행중인 POD 변경
+### Change Running POD
 
 ```shell
 kubectl edit pod myapp-pod
 ```
 
-### POD 삭제
+### Delete POD
 
 ```shell
 kubectl delete pod myapp-pod
@@ -61,25 +65,25 @@ kubectl delete pod myapp-pod
 
 ## ReplicaSet
 
-### ReplicaSet 확인
+### ReplicaSet List
 
 ```shell
 kubectl get replicaset
 ```
 
-### YAML로 ReplicaSet 생성
+### Create a ReplicaSet with YAML
 
 ```shell
 kubectl create -f rs-definition.yml
 ```
 
-### ReplicaSet 상세정보
+### ReplicaSet Detail
 
 ```shell
 kubectl describe replicaset myapp-replicaset
 ```
 
-### 실행중인 ReplicaSet 변경
+### Change Running ReplicaSet
 
 ```shell
 kubectl edit replicaset myapp-replicaset
@@ -87,10 +91,18 @@ kubectl edit replicaset myapp-replicaset
 
 If you change image and then, you need to delete all the PODs of the ReplicaSet.
 
-### ReplicaSet 삭제
+### Delete ReplicaSet
 
 ```shell
 kubectl delete replicaset myapp-replicaset
+```
+
+## Node
+
+### Node List
+
+```shell
+kubectl get nodes
 ```
 
 

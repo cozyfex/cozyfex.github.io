@@ -26,7 +26,11 @@ kubectl create deployment --image=nginx --replicas=4 nginx --dry-run -o yaml > n
 ### POD List
 
 ```shell
+# Basic
 kubectl get pods
+
+# Wide
+kubectl get pods -o wide
 ```
 
 ### Create a POD with YAML
@@ -91,6 +95,14 @@ If you change image and then, you need to delete all the PODs of the ReplicaSet.
 
 ```shell
 kubectl delete replicaset myapp-replicaset
+```
+
+## Node
+
+### Node List
+
+```shell
+kubectl get nodes
 ```
 
 
