@@ -79,6 +79,10 @@
 
 ### Selector 1
 
+```shell
+kubectl get pods --selector app=backend,shape=rectangle
+```
+
 | Key | Value |  
 |:-:|:-:|  
 | app | backend |  
@@ -92,6 +96,10 @@
 {{</admonition>}}
 
 ### Selector 2
+
+```shell
+kubectl get pods --selector app=frontend,color=red
+```
 
 | Key | Value |  
 |:-:|:-:|  
@@ -107,6 +115,10 @@
 
 ### Selector 3
 
+```shell
+kubectl get pods --selector color=green,shape=rectangle
+```
+
 | Key | Value |  
 |:-:|:-:|  
 | color | green |  
@@ -118,4 +130,76 @@
 | POD I-bgr |  
 {{</admonition>}}
 
+## YAML
 
+<sub>replicaset-definition.yml</sub>
+
+```yaml
+appVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: simple-webapp
+  labels:
+    app: App1
+    function: Front-end
+spec:
+  replicas: 3
+  selector: # -> This selector is matching below labels in template.
+    matchLabels:
+      app: App1
+  template:
+    metadata:
+      labels:
+        app: App1
+        function: Front-end
+    spec:
+      containers:
+        - name: simple-webapp
+          image: simple-webapp
+```
+
+<sub>service-definition.yml</sub>
+
+```yaml
+appVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector: # -> This selector is find ReplicaSet and PODs.
+    app: App1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+```
+
+## Annotations Example
+
+<sub>replicaset-annotation-definition.yml</sub>
+
+```yaml
+appVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: simple-webapp
+  labels:
+    app: App1
+    function: Front-end
+  annotations:
+    buildVersion: 1.34
+spec:
+  replicas: 3
+  selector: # -> This selector is matching below labels in template.
+    matchLabels:
+      app: App1
+  template:
+    metadata:
+      labels:
+        app: App1
+        function: Front-end
+    spec:
+      containers:
+        - name: simple-webapp
+          image: simple-webapp
+```
