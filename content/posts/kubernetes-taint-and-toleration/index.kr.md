@@ -95,7 +95,7 @@ PODSpec 에 toleration 이 없이면, 스케줄러는 그 POD 을 이 Node 에 �
 ### POD YAML
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod

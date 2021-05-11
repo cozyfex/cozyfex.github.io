@@ -37,7 +37,7 @@ If the scheduler is running, the scheduler is binding a new `POD` that is undefi
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx

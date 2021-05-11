@@ -71,7 +71,7 @@ The ranges are 30000-32767.
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -87,7 +87,7 @@ spec:
 <sub>service-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: myapp-service
@@ -123,7 +123,7 @@ kubectl get services
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -139,7 +139,7 @@ spec:
 <sub>service-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: back-end
@@ -174,7 +174,7 @@ kubectl get services
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -190,7 +190,7 @@ spec:
 <sub>service-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: myapp-service

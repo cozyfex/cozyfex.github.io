@@ -52,7 +52,7 @@ kubectl label nodes node-1 size=Large
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod

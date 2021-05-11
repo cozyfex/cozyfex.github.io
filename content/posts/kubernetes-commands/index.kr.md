@@ -59,8 +59,8 @@ kubectl get pods -o wide
 # Selector
 kubectl get pods --selector key=value
 
-# Selector with no headers
-kubectl get pods --selector key=value --no-headers
+# Selector with no headers and count PODs
+kubectl get pods --selector key=value --no-headers | wc -l
 ```
 
 ### Create a POD with YAML
@@ -132,7 +132,31 @@ kubectl delete replicaset myapp-replicaset
 ### Node List
 
 ```shell
+# Default
 kubectl get nodes
+
+# Show Labels
+kubectl get nodes --show-labels
+```
+
+### Set label to Node
+
+<sub>Set label to Node Command Structure</sub>
+
+```shell
+kubectl label nodes [node-name] [key]=[value]
+```
+
+| Name | Example |  
+|:-:|:-:|  
+| [node-name] | node01 |  
+| [key] | size |  
+| [value] | Large |
+
+<sub>Set label to Node Command</sub>
+
+```shell
+kubectl label nodes node01 size=Large
 ```
 
 

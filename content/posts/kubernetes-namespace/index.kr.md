@@ -77,7 +77,7 @@ kubectl get pods --namespace=kube-system
 
 ```yaml
 # `default` 네임스페이스에 생성
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -93,7 +93,7 @@ spec:
 
 ```yaml
 # `dev` 네임스페이스에 생성
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -122,7 +122,7 @@ kubectl create -f dev-pod-definition.yml
 <sub>namespace-dev.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Namespace
 metadata:
   name: dev
@@ -158,7 +158,7 @@ kubectl get pods --all-namespaces
 <sub>compute-quota.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: compute-quota

@@ -96,7 +96,7 @@ In the `tolerations` definitions, you need to set double quotes(") for the value
 ### POD YAML
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod

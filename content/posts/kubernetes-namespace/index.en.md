@@ -78,7 +78,7 @@ kubectl get pods --namespace=kube-system
 
 ```yaml
 # To the `default` namespace
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -94,7 +94,7 @@ spec:
 
 ```yaml
 # To the `dev` namespace
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -123,7 +123,7 @@ kubectl create -f dev-pod-definition.yml
 <sub>namespace-dev.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Namespace
 metadata:
   name: dev
@@ -159,7 +159,7 @@ kubectl get pods --all-namespaces
 <sub>compute-quota.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: compute-quota

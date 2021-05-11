@@ -47,7 +47,7 @@ keywords:
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx
@@ -87,7 +87,7 @@ nginx   0/1     Pending     0           3s
 <sub>pod-nodename-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx
