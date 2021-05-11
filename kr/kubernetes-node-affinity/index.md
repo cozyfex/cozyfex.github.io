@@ -37,13 +37,14 @@ spec:
     - name: nginx
       image: nginx
   affinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: size
-              operator: In
-              values:
-                - Large
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: size
+                operator: In
+                values:
+                  - Large
 ```
 
 ## `affinity` 타입
@@ -122,13 +123,14 @@ spec:
     - name: nginx-container
       image: nginx
   affinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: size
-              operator: In
-              values:
-                - Large
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: size
+                operator: In
+                values:
+                  - Large
 ```
 
 ### Small Node 에 POD 들을 스케줄링 하지 않기
@@ -143,13 +145,14 @@ spec:
     - name: nginx-container
       image: nginx
   affinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: size
-              operator: NotIn
-              values:
-                - Small
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: size
+                operator: NotIn
+                values:
+                  - Small
 ```
 
 ### Medium 또는 Small Node 에 POD 들을 스케줄링
@@ -164,13 +167,78 @@ spec:
     - name: nginx-container
       image: nginx
   affinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: size
-              operator: In
-              values:
-                - Medinum
-                - Small
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: size
+                operator: In
+                values:
+                  - Medinum
+                  - Small
+```
+
+## Deployment 와 `affinity`
+
+<sub>blue-deployment.yml</sub>
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue
+spec:
+  template:
+    metadata:
+      name: blue-pod
+      labels:
+        app: blue-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: color
+                    operator: In
+                    values:
+                      - blue
+  replicas: 3
+  selector:
+    matchLabels:
+      app: blue-app
+```
+
+<sub>red-deployment.yml</sub>
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: red-app
+  template:
+    metadata:
+      name: red-pod
+      labels:
+        app: red-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
 ```
 
