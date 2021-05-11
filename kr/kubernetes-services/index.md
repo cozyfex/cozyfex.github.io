@@ -47,7 +47,7 @@ NodePort는 Node의 Port이다.
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -63,7 +63,7 @@ spec:
 <sub>service-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: myapp-service
@@ -99,7 +99,7 @@ kubectl get services
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -115,7 +115,7 @@ spec:
 <sub>service-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: back-end
@@ -150,7 +150,7 @@ kubectl get services
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: myapp-pod
@@ -166,7 +166,7 @@ spec:
 <sub>service-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: myapp-service

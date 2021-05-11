@@ -23,7 +23,7 @@ Pending.
 <sub>pod-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx
@@ -63,7 +63,7 @@ Oops!! It's Pending status!!
 <sub>pod-nodename-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: nginx

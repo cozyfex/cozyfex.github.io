@@ -8,7 +8,7 @@
 ## YAML - rs-definition.yml
 
 ```yaml
-appVersion: apps/v1
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata: # -> ReplicaSet
   name: myapp-replicaset

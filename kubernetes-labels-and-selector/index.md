@@ -135,7 +135,7 @@ kubectl get pods --selector color=green,shape=rectangle
 <sub>replicaset-definition.yml</sub>
 
 ```yaml
-appVersion: apps/v1
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: simple-webapp
@@ -161,7 +161,7 @@ spec:
 <sub>service-definition.yml</sub>
 
 ```yaml
-appVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: my-service
@@ -179,7 +179,7 @@ spec:
 <sub>replicaset-annotation-definition.yml</sub>
 
 ```yaml
-appVersion: apps/v1
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: simple-webapp
