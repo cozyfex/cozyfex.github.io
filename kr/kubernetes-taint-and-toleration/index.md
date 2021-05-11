@@ -1,7 +1,7 @@
 # Kubernetes Taint and Toleration
 
 
-## You must know
+## 알고가자!
 
 {{<admonition note "Taint and Toleration" true>}}  
 주로 특정 Node 에 특정 POD 들을 바인딩 하지 않기 위해 사용한다.  
