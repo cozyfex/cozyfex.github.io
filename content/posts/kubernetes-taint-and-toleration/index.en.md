@@ -14,12 +14,14 @@ categories:
 tags:
 
 - kubernetes
+- scheduler
 - taint
 - toleration
 
 keywords:
 
 - kubernetes
+- scheduler
 - taint
 - toleration
 

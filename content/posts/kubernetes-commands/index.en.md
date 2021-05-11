@@ -55,6 +55,12 @@ kubectl get pods
 
 # Wide
 kubectl get pods -o wide
+
+# Selector
+kubectl get pods --selector key=value
+
+# Selector with no headers and count PODs
+kubectl get pods --selector key=value --no-headers | wc -l
 ```
 
 ### Create a POD with YAML
