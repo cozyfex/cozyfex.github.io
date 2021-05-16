@@ -56,8 +56,14 @@ kubectl run --restart=Never --image=nginx --dry-run=client -o yaml --command sle
 
 ### Find a Node of the POD
 
+{{<admonition note "How to figure out it's a static POD?" true>}}  
+In a `POD`'s name, there is a postfix like `-master` that is `-<node-name>`.  
+{{</admonition>}}
+
 ```shell
 kubectl get pods -o wide
+
+kubectl get pods --all-namespaces -o wite | grep "\-master"
 ```
 
 ### Connect to the Node

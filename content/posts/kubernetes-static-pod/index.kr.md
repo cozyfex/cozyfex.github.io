@@ -57,8 +57,14 @@ kubectl run --restart=Never --image=nginx --dry-run=client -o yaml --command sle
 
 ### 대상 `POD` 의 노드 확인
 
+{{<admonition note "어떻게 Static POD 을 구별 할 수 있나?" true>}}  
+`POD` 의 이름에는 `-master` 같은 `-<node-name>` 형식의 접미사가 붙는다.  
+{{</admonition>}}
+
 ```shell
 kubectl get pods -o wide
+
+kubectl get pods --all-namespaces -o wite | grep "\-master"
 ```
 
 ### 해당 노드로 접속
