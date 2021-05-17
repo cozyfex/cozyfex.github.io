@@ -5,7 +5,7 @@
 
 {{<admonition note initContainers true>}}  
 `initContainers` is just executing on starting the `POD`.  
-The `initContainers` is run one at a time in sequential order.  
+The `initContainers` runs one at a time in sequential order.  
 If any of the `initContainers` fail to complete, Kubernetes restarts the `POD` repeatedly until the Init Container succeeds.  
 {{</admonition>}}
 

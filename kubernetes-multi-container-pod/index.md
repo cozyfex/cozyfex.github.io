@@ -1,4 +1,4 @@
-# Kubernetes Multi-Container Pod
+# Kubernetes Multi-Container POD
 
 
 ## Multi-Container POD
