@@ -69,6 +69,12 @@ kubectl edit pod myapp-pod
 kubectl delete pod myapp-pod
 ```
 
+### Generate a YAML file from and exist POD
+
+```shell
+kubectl get pod myapp-pod -o yaml > my-new-pod.yml
+```
+
 ## ReplicaSet
 
 ### ReplicaSet List
