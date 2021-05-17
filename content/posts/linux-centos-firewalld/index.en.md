@@ -1,5 +1,5 @@
 ---
-title: "Linux CentOS Firewall"
+title: "Linux CentOS Firewalld"
 
 date: 2021-05-17T17:43:32+09:00
 
