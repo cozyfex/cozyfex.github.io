@@ -23,12 +23,12 @@ keywords:
 
 ---
 
-## What is initContainers?
+## initContainers 란?
 
 {{<admonition note initContainers true>}}  
-`initContainers` is just executing on starting the `POD`.  
-The `initContainers` runs one at a time in sequential order.  
-If any of the `initContainers` fail to complete, Kubernetes restarts the `POD` repeatedly until the Init Container succeeds.  
+`initContainers` 는 `POD` 이 시작 할 때 실행되는 것이다.  
+`initContainers` 는 정의된 순서대로 실행된다.  
+`initContainers` 들 중, 하나라도 실패하면 쿠버네티스는 `POD` 을 성공할 때 까지 재시작 한다.  
 {{</admonition>}}
 
 ## initContainers YAML

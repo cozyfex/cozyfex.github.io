@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Multi-Container POD"
+title: "Kubernetes 다중 컨체이너 POD"
 
 date: 2021-05-17T01:52:48+09:00
 
@@ -23,10 +23,10 @@ keywords:
 
 ---
 
-## Multi-Container POD
+## 다중 컨테이너 POD
 
-{{<admonition note "Multi-Container Lifecycle">}}  
-The containers of the `POD` have same lifecycle.  
+{{<admonition note "다중 컨테이너 생명 주기">}}  
+`POD` 의 컨테이너들은 같은 생명 주기를 같는다.  
 {{</admonition>}}
 
 <sub>pod-definition.yaml</sub>
