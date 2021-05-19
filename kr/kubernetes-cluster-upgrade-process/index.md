@@ -1,4 +1,4 @@
-# Kubernetes Cluster Upgrade Process
+# Kubernetes 클러스터 업그레이드 프로세스
 
 
 ## Kubernetes 코어 컴포넌트 버전 명명 규칙
