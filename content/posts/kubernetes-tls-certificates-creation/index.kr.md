@@ -14,14 +14,14 @@ tags:
 - kubernetes
 - security
 - tls
-- certificate creation
+- certificates creation
 
 keywords:
 
 - kubernetes
 - security
 - tls
-- certificate creation
+- certificates creation
 
 ---
 

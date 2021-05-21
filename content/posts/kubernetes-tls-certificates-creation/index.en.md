@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes TLS Certificate Creation"
+title: "Kubernetes TLS Certificates Creation"
 
 date: 2021-05-19T19:59:26+09:00
 
@@ -14,14 +14,14 @@ tags:
 - kubernetes
 - security
 - tls
-- certificate creation
+- certificates creation
 
 keywords:
 
 - kubernetes
 - security
 - tls
-- certificate creation
+- certificates creation
 
 ---
 
