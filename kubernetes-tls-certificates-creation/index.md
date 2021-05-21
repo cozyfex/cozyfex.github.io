@@ -1,4 +1,4 @@
-# Kubernetes TLS Certificate Creation
+# Kubernetes TLS Certificates Creation
 
 
 ## Generate Tools
