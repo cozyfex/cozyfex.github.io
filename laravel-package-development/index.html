@@ -1,0 +1,1880 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Laravel Package Development - CozyFex</title><meta name=Description content="Cozy Coding! Cozy Felix! Cozy Life!"><meta property="og:title" content="Laravel Package Development"><meta property="og:description" content="Required Knowledge Composer Composer  Composer is a tool for dependency management in PHP.   Packagist Packagist  Packagist is the default Composer package repository.   Laravel Laravel  Laravel is a web application framework in PHP.   GitHub GitHub  GitHub is a code hosting platform for version control and collaboration.   Install Laravel Note  I don&rsquo;t explain how to set environment up for PHP and Composer in this post."><meta property="og:type" content="article"><meta property="og:url" content="https://cozyfex.github.io/laravel-package-development/"><meta property="og:image" content="https://cozyfex.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-05-22T14:08:57+09:00"><meta property="article:modified_time" content="2021-05-22T14:08:57+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://cozyfex.github.io/logo.png"><meta name=twitter:title content="Laravel Package Development"><meta name=twitter:description content="Required Knowledge Composer Composer  Composer is a tool for dependency management in PHP.   Packagist Packagist  Packagist is the default Composer package repository.   Laravel Laravel  Laravel is a web application framework in PHP.   GitHub GitHub  GitHub is a code hosting platform for version control and collaboration.   Install Laravel Note  I don&rsquo;t explain how to set environment up for PHP and Composer in this post."><meta name=application-name content="CozyFex"><meta name=apple-mobile-web-app-title content="CozyFex"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cozyfex.github.io/laravel-package-development/><link rel=prev href=https://cozyfex.github.io/kubernetes-tls-certificates-api/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Laravel Package Development","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cozyfex.github.io\/laravel-package-development\/"},"genre":"posts","keywords":"php, laravel, composer, package, packagist, github","wordcount":3640,"url":"https:\/\/cozyfex.github.io\/laravel-package-development\/","datePublished":"2021-05-22T14:08:57+09:00","dateModified":"2021-05-22T14:08:57+09:00","publisher":{"@type":"Organization","name":"CozyFex","logo":"https:\/\/cozyfex.github.io\/logo.png"},"author":{"@type":"Person","name":"CozyFex"},"description":""}</script><script data-ad-client=ca-pub-8304559883145938 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/laravel-package-development/ selected>English</option><option value=/kr/laravel-package-development/>한글</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a><a href=javascript:void(0); class=menu-item title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value"><option value=/laravel-package-development/ selected>English</option><option value=/kr/laravel-package-development/>한글</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Laravel Package Development</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/categories/php/><i class="far fa-folder fa-fw"></i>php</a>&nbsp;<a href=/categories/laravel/><i class="far fa-folder fa-fw"></i>laravel</a>&nbsp;<a href=/categories/composer/><i class="far fa-folder fa-fw"></i>composer</a>&nbsp;<a href=/categories/package/><i class="far fa-folder fa-fw"></i>package</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-22>2021-05-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;3640 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;18 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#required-knowledge>Required Knowledge</a><ul><li><a href=#composer>Composer</a></li><li><a href=#packagist>Packagist</a></li><li><a href=#laravel>Laravel</a></li><li><a href=#github>GitHub</a></li></ul></li><li><a href=#install-laravel>Install Laravel</a></li><li><a href=#settings-for-package-development>Settings for Package Development</a><ul><li><a href=#directory-structure>Directory Structure</a><ul><li><a href=#create-a-packages-directory>Create a Packages Directory</a></li><li><a href=#create-a-vendor-directory>Create a Vendor Directory</a></li><li><a href=#create-a-package-directory>Create a Package Directory</a></li></ul></li><li><a href=#create-a-source-directory>Create a Source Directory</a></li><li><a href=#initialize-git>Initialize <code>git</code></a><ul><li><a href=#github-initialization>GitHub Initialization</a></li><li><a href=#git-local-initialization><code>git</code> Local Initialization</a></li><li><a href=#check-sync-local-and-github>Check Sync Local and GitHub</a><ul><li><a href=#push-to-repository>Push to Repository</a></li><li><a href=#check-github-repository>Check GitHub Repository</a></li></ul></li></ul></li><li><a href=#initialize-composer>Initialize <code>composer</code></a><ul><li><a href=#using-composer>Using <code>composer</code></a></li><li><a href=#using-template>Using Template</a></li><li><a href=#core-attributes>Core Attributes</a><ul><li><a href=#name><code>name</code></a></li><li><a href=#support><code>support</code></a></li><li><a href=#authors><code>authors</code></a></li><li><a href=#require><code>require</code></a></li><li><a href=#autoload><code>autoload</code></a></li><li><a href=#extra><code>extra</code></a></li></ul></li></ul></li></ul></li><li><a href=#create-a-package-sources>Create a Package Sources</a><ul><li><a href=#create-a-provider>Create a Provider</a></li><li><a href=#create-views>Create Views</a><ul><li><a href=#create-a-directory>Create a Directory</a></li><li><a href=#create-view-files>Create View Files</a></li><li><a href=#view-settings-in-provider>View Settings in Provider</a></li></ul></li><li><a href=#create-controllers>Create Controllers</a><ul><li><a href=#create-a-directory-1>Create a Directory</a></li><li><a href=#exist-session-controller>Exist Session Controller</a></li><li><a href=#none-session-controller>None Session Controller</a></li></ul></li><li><a href=#create-routes>Create Routes</a><ul><li><a href=#create-a-routesphp>Create a <code>routes.php</code></a></li><li><a href=#routes-settings-in-provider>Routes Settings in Provider</a></li></ul></li></ul></li><li><a href=#connection-laravel-and-package>Connection Laravel and Package</a><ul><li><a href=#register-autoload-to-laravel-composerjson>Register Autoload to Laravel <code>composer.json</code></a></li><li><a href=#generate-vendor-autoload>Generate Vendor Autoload</a></li><li><a href=#add-provider-to-laravel-providers>Add Provider to Laravel Providers</a></li></ul></li><li><a href=#interim-check>Interim Check</a></li><li><a href=#additional-features>Additional Features</a><ul><li><a href=#migration>Migration</a><ul><li><a href=#create-a-migrations-directory>Create a <code>migrations</code> Directory</a></li><li><a href=#generate-migration-file>Generate Migration File</a></li><li><a href=#migrations-settings-in-provider>Migrations Settings in Provider</a></li></ul></li><li><a href=#model>Model</a><ul><li><a href=#create-a-models-directory>Create a <code>Models</code> Directory</a></li><li><a href=#generate-a-model>Generate a Model</a></li></ul></li><li><a href=#command>Command</a><ul><li><a href=#create-a-commands-directory>Create a <code>Commands</code> Directory</a></li><li><a href=#generate-a-command>Generate a Command</a></li><li><a href=#command-settings-in-provider>Command Settings in Provider</a></li><li><a href=#check-command>Check Command</a></li></ul></li><li><a href=#publish-packageserviceprovider>Publish PackageServiceProvider</a><ul><li><a href=#laravel-publish-path-functions>Laravel Publish Path Functions</a><ul><li><a href=#resource_path><code>resource_path</code></a></li><li><a href=#config_path><code>config_path</code></a></li><li><a href=#public_path><code>public_path</code></a></li><li><a href=#database_path><code>database_path</code></a></li></ul></li><li><a href=#publish-command>Publish Command</a></li><li><a href=#check-published-directory>Check Published Directory</a></li></ul></li></ul></li><li><a href=#push-package-to-github>Push Package to GitHub</a><ul><li><a href=#commit>Commit</a></li><li><a href=#tagging>Tagging</a></li><li><a href=#push-tag>Push Tag</a></li></ul></li><li><a href=#register-package-to-packagistorg>Register Package to <code>packagist.org</code></a></li><li><a href=#check-package-on-new-laravel-project>Check Package on New Laravel Project!</a><ul><li><a href=#generate-new-laravel-project>Generate New Laravel Project</a></li><li><a href=#composer-require-mypackage>Composer Require MyPackage</a></li><li><a href=#run-and-check-links-again>Run and Check Links Again</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=required-knowledge>Required Knowledge</h2><h3 id=composer>Composer</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Composer<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>Composer</code> is a tool for dependency management in PHP.</div></div></div><h3 id=packagist>Packagist</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Packagist<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>Packagist</code> is the default <code>Composer</code> package repository.</div></div></div><h3 id=laravel>Laravel</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Laravel<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>Laravel</code> is a web application framework in PHP.</div></div></div><h3 id=github>GitHub</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>GitHub<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>GitHub</code> is a code hosting platform for version control and collaboration.</div></div></div><h2 id=install-laravel>Install Laravel</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Note<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>I don&rsquo;t explain how to set environment up for <code>PHP</code> and <code>Composer</code> in this post.</div></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>composer create-project laravel/laravel my-project
+</code></pre></td></tr></table></div></div><h2 id=settings-for-package-development>Settings for Package Development</h2><h3 id=directory-structure>Directory Structure</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Directory Structure<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>&lt;Laravel Project></code>/<code>&lt;Packages Direcotry></code>/<code>&lt;Vendor Name></code>/<code>&lt;Package Name></code>/src</div></div></div><h4 id=create-a-packages-directory>Create a Packages Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>cd</span> my-project
+mkdir packages
+</code></pre></td></tr></table></div></div><h4 id=create-a-vendor-directory>Create a Vendor Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>cd</span> packages
+mkdir cozyfex
+</code></pre></td></tr></table></div></div><h4 id=create-a-package-directory>Create a Package Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>cd</span> cozyfex
+mkdir my-package
+</code></pre></td></tr></table></div></div><h3 id=create-a-source-directory>Create a Source Directory</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>cd</span> my-package
+mkdir src
+</code></pre></td></tr></table></div></div><h3 id=initialize-git>Initialize <code>git</code></h3><h4 id=github-initialization>GitHub Initialization</h4><ul><li>Go to <code>GitHub</code> and register</li><li>Create a repository <code>laravel-my-package</code></li></ul><h4 id=git-local-initialization><code>git</code> Local Initialization</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package</span>
+
+<span class=c1># Init</span>
+git init
+
+<span class=c1># Setting ignore</span>
+vi .gitignore
+
+<span class=c1># Add remote repository, below is example for this post.</span>
+git remote add origin git@github.com:cozyfex/laravel-my-package.git
+</code></pre></td></tr></table></div></div><h4 id=check-sync-local-and-github>Check Sync Local and GitHub</h4><h5 id=push-to-repository>Push to Repository</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>git add -A
+git commit -m <span class=s2>&#34;First commit&#34;</span>
+git push -u origin master
+</code></pre></td></tr></table></div></div><h5 id=check-github-repository>Check GitHub Repository</h5><ul><li>Go to your GitHub repository and check!</li></ul><h3 id=initialize-composer>Initialize <code>composer</code></h3><h4 id=using-composer>Using <code>composer</code></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package</span>
+composer init
+</code></pre></td></tr></table></div></div><h4 id=using-template>Using Template</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package</span>
+vi composer.json
+</code></pre></td></tr></table></div></div><p><sub>composer.json</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+  <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;cozyfex/my-package&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;Laravel Package Development&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;keywords&#34;</span><span class=p>:</span> <span class=p>[</span>
+    <span class=s2>&#34;laravel&#34;</span><span class=p>,</span>
+    <span class=s2>&#34;package&#34;</span><span class=p>,</span>
+    <span class=s2>&#34;development&#34;</span>
+  <span class=p>],</span>
+  <span class=nt>&#34;license&#34;</span><span class=p>:</span> <span class=s2>&#34;MIT&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;support&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;issues&#34;</span><span class=p>:</span> <span class=s2>&#34;https://github.com/cozyfex/laravel-my-package/issues&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;source&#34;</span><span class=p>:</span> <span class=s2>&#34;https://github.com/cozyfex/laravel-my-package&#34;</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;authors&#34;</span><span class=p>:</span> <span class=p>[</span>
+    <span class=p>{</span>
+      <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;Felix D.H. Kang&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;email&#34;</span><span class=p>:</span> <span class=s2>&#34;cozyfex@gmail.com&#34;</span>
+    <span class=p>}</span>
+  <span class=p>],</span>
+  <span class=nt>&#34;require&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;php&#34;</span><span class=p>:</span> <span class=s2>&#34;^7.3|^8.0&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;laravel/framework&#34;</span><span class=p>:</span> <span class=s2>&#34;^8.0.0&#34;</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;autoload&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;psr-4&#34;</span><span class=p>:</span> <span class=p>{</span>
+      <span class=nt>&#34;CozyFex\\MyPackage\\&#34;</span><span class=p>:</span> <span class=s2>&#34;src/&#34;</span>
+    <span class=p>}</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;extra&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;laravel&#34;</span><span class=p>:</span> <span class=p>{</span>
+      <span class=nt>&#34;providers&#34;</span><span class=p>:</span> <span class=p>[</span>
+        <span class=s2>&#34;CozyFex\\MyPackage\\PackageServiceProvider&#34;</span>
+      <span class=p>]</span>
+    <span class=p>}</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;minimum-stability&#34;</span><span class=p>:</span> <span class=s2>&#34;dev&#34;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h4 id=core-attributes>Core Attributes</h4><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Note<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>If you want to more detail about attributes of <code>composer.json</code>, go to official <a href=https://getcomposer.org/ target=_blank rel="noopener noreffer">Composer Document</a>.</div></div></div><h5 id=name><code>name</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>name<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>&lt;vendor_name></code>/<code>&lt;package_name></code></div></div></div><h5 id=support><code>support</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>support<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>This is for supporting urls.</div></div></div><h5 id=authors><code>authors</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>authors<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>This is information of <code>authors</code>.</div></div></div><h5 id=require><code>require</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>require<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>This is main attribute of <code>composer</code>.<br>The information is to solve dependency of a project or a library.<br>This package is depended <code>laravel/framework</code>.</div></div></div><h5 id=autoload><code>autoload</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>autoload<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>This is setting for autoload the package sources.</div></div></div><h5 id=extra><code>extra</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>extra<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>This is for providing package provider to <code>laravel</code>.<br>We will create a <code>PackageServiceProvider</code> file in this post later.</div></div></div><h2 id=create-a-package-sources>Create a Package Sources</h2><h3 id=create-a-provider>Create a Provider</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+php artisan make:provider PackageServiceProvider
+mv app/Providers/PackageServiceProvider.php packages/cozyfex/my-package/src/
+</code></pre></td></tr></table></div></div><h3 id=create-views>Create Views</h3><h4 id=create-a-directory>Create a Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package/src</span>
+mkdir views
+
+<span class=nb>cd</span> views
+<span class=c1># my-project/packages/cozyfex/my-package/src/views</span>
+mkdir MyPackage
+</code></pre></td></tr></table></div></div><h4 id=create-view-files>Create View Files</h4><p><sub>exist_session.blade.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-html data-lang=html><span class=cp>&lt;!DOCTYPE html&gt;</span>
+<span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
+<span class=p>&lt;</span><span class=nt>head</span><span class=p>&gt;</span>
+    <span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>Exist Session<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
+<span class=p>&lt;/</span><span class=nt>head</span><span class=p>&gt;</span>
+<span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+<span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>Exist Session<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+<span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+<span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
+</code></pre></td></tr></table></div></div><p><sub>none_session.blade.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-html data-lang=html><span class=cp>&lt;!DOCTYPE html&gt;</span>
+<span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
+<span class=p>&lt;</span><span class=nt>head</span><span class=p>&gt;</span>
+    <span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>None Session<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
+<span class=p>&lt;/</span><span class=nt>head</span><span class=p>&gt;</span>
+<span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+<span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>None Session<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+<span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+<span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
+</code></pre></td></tr></table></div></div><h4 id=view-settings-in-provider>View Settings in Provider</h4><p><sub>my-project/packages/cozyfex/my-package/src/PackageServiceProvider.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Support\ServiceProvider</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>PackageServiceProvider</span> <span class=k>extends</span> <span class=nx>ServiceProvider</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Register services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>register</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Bootstrap services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>boot</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1># Here!
+</span><span class=c1></span>        <span class=c1># The &#39;my-package&#39; is a namespace.
+</span><span class=c1></span>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadViewsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/views&#39;</span><span class=p>,</span> <span class=s1>&#39;my-package&#39;</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=create-controllers>Create Controllers</h3><h4 id=create-a-directory-1>Create a Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package/src</span>
+mkdir Controllers
+</code></pre></td></tr></table></div></div><h4 id=exist-session-controller>Exist Session Controller</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+php artisan make:controller -r ExistSessionController
+mv app/Http/Controllers/ExistSessionController.php packages/cozyfex/my-package/src/Controllers/
+</code></pre></td></tr></table></div></div><p><sub>ExistSessionController.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage\Controllers</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Http\Request</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>App\Http\Controllers\Controller</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>ExistSessionController</span> <span class=k>extends</span> <span class=nx>Controller</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Display a listing of the resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>index</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=k>return</span> <span class=nx>response</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>view</span><span class=p>(</span><span class=s1>&#39;my-package::MyPackage.exist_session&#39;</span><span class=p>);</span>
+    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Show the form for creating a new resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>create</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Store a newly created resource in storage.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  \Illuminate\Http\Request  $request
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>store</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Display the specified resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>show</span><span class=p>(</span><span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Show the form for editing the specified resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>edit</span><span class=p>(</span><span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Update the specified resource in storage.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  \Illuminate\Http\Request  $request
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>update</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>,</span> <span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Remove the specified resource from storage.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>destroy</span><span class=p>(</span><span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h4 id=none-session-controller>None Session Controller</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+php artisan make:controller -r NoneSessionController
+mv app/Http/Controllers/NoneSessionController.php packages/cozyfex/my-package/src/Controllers/
+</code></pre></td></tr></table></div></div><p><sub>NoneSessionController.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage\Controllers</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Http\Request</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>App\Http\Controllers\Controller</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>NoneSessionController</span> <span class=k>extends</span> <span class=nx>Controller</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Display a listing of the resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>index</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=k>return</span> <span class=nx>response</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>view</span><span class=p>(</span><span class=s1>&#39;my-package::MyPackage.none_session&#39;</span><span class=p>);</span>
+    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Show the form for creating a new resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>create</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Store a newly created resource in storage.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  \Illuminate\Http\Request  $request
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>store</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Display the specified resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>show</span><span class=p>(</span><span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Show the form for editing the specified resource.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>edit</span><span class=p>(</span><span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Update the specified resource in storage.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  \Illuminate\Http\Request  $request
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>update</span><span class=p>(</span><span class=nx>Request</span> <span class=nv>$request</span><span class=p>,</span> <span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Remove the specified resource from storage.
+</span><span class=sd>     *
+</span><span class=sd>     * @param  int  $id
+</span><span class=sd>     *
+</span><span class=sd>     * @return \Illuminate\Http\Response
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>destroy</span><span class=p>(</span><span class=nv>$id</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=create-routes>Create Routes</h3><h4 id=create-a-routesphp>Create a <code>routes.php</code></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package/src</span>
+vi routes.php
+</code></pre></td></tr></table></div></div><p><sub>routes.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Support\Facades\Route</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>CozyFex\MyPackage\Controllers\ExistSessionController</span><span class=p>;</span>
+<span class=k>use</span> <span class=nx>CozyFex\MyPackage\Controllers\NoneSessionController</span><span class=p>;</span>
+
+<span class=nx>Route</span><span class=o>::</span><span class=na>middleware</span><span class=p>([</span><span class=s1>&#39;web&#39;</span><span class=p>,</span> <span class=s1>&#39;auth&#39;</span><span class=p>])</span><span class=o>-&gt;</span><span class=na>resource</span><span class=p>(</span><span class=s1>&#39;exist&#39;</span><span class=p>,</span> <span class=nx>ExistSessionController</span><span class=o>::</span><span class=na>class</span><span class=p>);</span>
+<span class=nx>Route</span><span class=o>::</span><span class=na>middleware</span><span class=p>([</span><span class=s1>&#39;web&#39;</span><span class=p>])</span><span class=o>-&gt;</span><span class=na>resource</span><span class=p>(</span><span class=s1>&#39;none&#39;</span><span class=p>,</span> <span class=nx>NoneSessionController</span><span class=o>::</span><span class=na>class</span><span class=p>);</span>
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Middleware<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><p>At this time, I want to tell you about <code>middleware</code>.<br>Above the source, there are two <code>middleware</code>.<br>The names are <code>web</code> and <code>auth</code>.<br>The <code>web</code> is to access web session.(The session is starting in <code>web</code> middleware.)<br>If you don&rsquo;t use <code>web</code>, you cannot access the session in your package.<br>That means, if you use only the <code>auth</code> middleware without the <code>web</code>, the <code>auth</code> middleware is not going to work.</p><p>If you want to know more details about <code>Laravel</code> <code>middleware</code>, go to the <a href=https://laravel.com/docs/8.x/middleware target=_blank rel="noopener noreffer">Official Document</a></p></div></div></div><h4 id=routes-settings-in-provider>Routes Settings in Provider</h4><p><sub>my-project/packages/cozyfex/my-package/src/PackageServiceProvider.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Support\ServiceProvider</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>PackageServiceProvider</span> <span class=k>extends</span> <span class=nx>ServiceProvider</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Register services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>register</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Bootstrap services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>boot</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadViewsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/views&#39;</span><span class=p>,</span> <span class=s1>&#39;my-package&#39;</span><span class=p>);</span>
+        <span class=c1># Here!
+</span><span class=c1></span>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadRoutesFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/routes.php&#39;</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h2 id=connection-laravel-and-package>Connection Laravel and Package</h2><h3 id=register-autoload-to-laravel-composerjson>Register Autoload to Laravel <code>composer.json</code></h3><p><sub>my-project/composer.json</sub></p><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>"CozyFex\\MyPackage\\": "packages/cozyfex/my-package/src"</code></div></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+  <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;laravel/laravel&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;project&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;The Laravel Framework.&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;keywords&#34;</span><span class=p>:</span> <span class=p>[</span>
+    <span class=s2>&#34;framework&#34;</span><span class=p>,</span>
+    <span class=s2>&#34;laravel&#34;</span>
+  <span class=p>],</span>
+  <span class=nt>&#34;license&#34;</span><span class=p>:</span> <span class=s2>&#34;MIT&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;require&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;php&#34;</span><span class=p>:</span> <span class=s2>&#34;^7.3|^8.0&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;fideloper/proxy&#34;</span><span class=p>:</span> <span class=s2>&#34;^4.4&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;fruitcake/laravel-cors&#34;</span><span class=p>:</span> <span class=s2>&#34;^2.0&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;guzzlehttp/guzzle&#34;</span><span class=p>:</span> <span class=s2>&#34;^7.0.1&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;laravel/framework&#34;</span><span class=p>:</span> <span class=s2>&#34;^8.40&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;laravel/tinker&#34;</span><span class=p>:</span> <span class=s2>&#34;^2.5&#34;</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;require-dev&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;facade/ignition&#34;</span><span class=p>:</span> <span class=s2>&#34;^2.5&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;fakerphp/faker&#34;</span><span class=p>:</span> <span class=s2>&#34;^1.9.1&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;laravel/sail&#34;</span><span class=p>:</span> <span class=s2>&#34;^1.0.1&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;mockery/mockery&#34;</span><span class=p>:</span> <span class=s2>&#34;^1.4.2&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;nunomaduro/collision&#34;</span><span class=p>:</span> <span class=s2>&#34;^5.0&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;phpunit/phpunit&#34;</span><span class=p>:</span> <span class=s2>&#34;^9.3.3&#34;</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;autoload&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;psr-4&#34;</span><span class=p>:</span> <span class=p>{</span>
+      <span class=nt>&#34;App\\&#34;</span><span class=p>:</span> <span class=s2>&#34;app/&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;Database\\Factories\\&#34;</span><span class=p>:</span> <span class=s2>&#34;database/factories/&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;Database\\Seeders\\&#34;</span><span class=p>:</span> <span class=s2>&#34;database/seeders/&#34;</span><span class=p>,</span>
+      <span class=nt>&#34;CozyFex\\MyPackage\\&#34;</span><span class=p>:</span> <span class=s2>&#34;packages/cozyfex/my-package/src&#34;</span>
+    <span class=p>}</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;autoload-dev&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;psr-4&#34;</span><span class=p>:</span> <span class=p>{</span>
+      <span class=nt>&#34;Tests\\&#34;</span><span class=p>:</span> <span class=s2>&#34;tests/&#34;</span>
+    <span class=p>}</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;scripts&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;post-autoload-dump&#34;</span><span class=p>:</span> <span class=p>[</span>
+      <span class=s2>&#34;Illuminate\\Foundation\\ComposerScripts::postAutoloadDump&#34;</span><span class=p>,</span>
+      <span class=s2>&#34;@php artisan package:discover --ansi&#34;</span>
+    <span class=p>],</span>
+    <span class=nt>&#34;post-root-package-install&#34;</span><span class=p>:</span> <span class=p>[</span>
+      <span class=s2>&#34;@php -r \&#34;file_exists(&#39;.env&#39;) || copy(&#39;.env.example&#39;, &#39;.env&#39;);\&#34;&#34;</span>
+    <span class=p>],</span>
+    <span class=nt>&#34;post-create-project-cmd&#34;</span><span class=p>:</span> <span class=p>[</span>
+      <span class=s2>&#34;@php artisan key:generate --ansi&#34;</span>
+    <span class=p>]</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;extra&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;laravel&#34;</span><span class=p>:</span> <span class=p>{</span>
+      <span class=nt>&#34;dont-discover&#34;</span><span class=p>:</span> <span class=p>[]</span>
+    <span class=p>}</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;config&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;optimize-autoloader&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+    <span class=nt>&#34;preferred-install&#34;</span><span class=p>:</span> <span class=s2>&#34;dist&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;sort-packages&#34;</span><span class=p>:</span> <span class=kc>true</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;minimum-stability&#34;</span><span class=p>:</span> <span class=s2>&#34;dev&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;prefer-stable&#34;</span><span class=p>:</span> <span class=kc>true</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=generate-vendor-autoload>Generate Vendor Autoload</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>IMPORTANT!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>This is very IMPORTANT!!<br>DON&rsquo;T MISS IT!!</div></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+composer dump-autoload
+</code></pre></td></tr></table></div></div><h3 id=add-provider-to-laravel-providers>Add Provider to Laravel Providers</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Provider<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>CozyFex\MyPackage\PackageServiceProvider::class</code></div></div></div><p><sub>my-project/config/app.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>return</span> <span class=p>[</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Application Name
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | This value is the name of your application. This value is used when the
+</span><span class=cm>    | framework needs to place the application&#39;s name in a notification or
+</span><span class=cm>    | any other location as required by the application or its packages.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;name&#39;</span> <span class=o>=&gt;</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;APP_NAME&#39;</span><span class=p>,</span> <span class=s1>&#39;Laravel&#39;</span><span class=p>),</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Application Environment
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | This value determines the &#34;environment&#34; your application is currently
+</span><span class=cm>    | running in. This may determine how you prefer to configure various
+</span><span class=cm>    | services the application utilizes. Set this in your &#34;.env&#34; file.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;env&#39;</span> <span class=o>=&gt;</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;APP_ENV&#39;</span><span class=p>,</span> <span class=s1>&#39;production&#39;</span><span class=p>),</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Application Debug Mode
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | When your application is in debug mode, detailed error messages with
+</span><span class=cm>    | stack traces will be shown on every error that occurs within your
+</span><span class=cm>    | application. If disabled, a simple generic error page is shown.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;debug&#39;</span> <span class=o>=&gt;</span> <span class=p>(</span><span class=nx>bool</span><span class=p>)</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;APP_DEBUG&#39;</span><span class=p>,</span> <span class=k>false</span><span class=p>),</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Application URL
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | This URL is used by the console to properly generate URLs when using
+</span><span class=cm>    | the Artisan command line tool. You should set this to the root of
+</span><span class=cm>    | your application so that it is used when running Artisan tasks.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;url&#39;</span> <span class=o>=&gt;</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;APP_URL&#39;</span><span class=p>,</span> <span class=s1>&#39;http://localhost&#39;</span><span class=p>),</span>
+
+    <span class=s1>&#39;asset_url&#39;</span> <span class=o>=&gt;</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;ASSET_URL&#39;</span><span class=p>,</span> <span class=k>null</span><span class=p>),</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Application Timezone
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | Here you may specify the default timezone for your application, which
+</span><span class=cm>    | will be used by the PHP date and date-time functions. We have gone
+</span><span class=cm>    | ahead and set this to a sensible default for you out of the box.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;timezone&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;UTC&#39;</span><span class=p>,</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Application Locale Configuration
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | The application locale determines the default locale that will be used
+</span><span class=cm>    | by the translation service provider. You are free to set this value
+</span><span class=cm>    | to any of the locales which will be supported by the application.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;locale&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;en&#39;</span><span class=p>,</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Application Fallback Locale
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | The fallback locale determines the locale to use when the current one
+</span><span class=cm>    | is not available. You may change the value to correspond to any of
+</span><span class=cm>    | the language folders that are provided through your application.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;fallback_locale&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;en&#39;</span><span class=p>,</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Faker Locale
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | This locale will be used by the Faker PHP library when generating fake
+</span><span class=cm>    | data for your database seeds. For example, this will be used to get
+</span><span class=cm>    | localized telephone numbers, street address information and more.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;faker_locale&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;en_US&#39;</span><span class=p>,</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Encryption Key
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | This key is used by the Illuminate encrypter service and should be set
+</span><span class=cm>    | to a random, 32 character string, otherwise these encrypted strings
+</span><span class=cm>    | will not be safe. Please do this before deploying an application!
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;key&#39;</span> <span class=o>=&gt;</span> <span class=nx>env</span><span class=p>(</span><span class=s1>&#39;APP_KEY&#39;</span><span class=p>),</span>
+
+    <span class=s1>&#39;cipher&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;AES-256-CBC&#39;</span><span class=p>,</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Autoloaded Service Providers
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | The service providers listed here will be automatically loaded on the
+</span><span class=cm>    | request to your application. Feel free to add your own services to
+</span><span class=cm>    | this array to grant expanded functionality to your applications.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;providers&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
+
+        <span class=cm>/*
+</span><span class=cm>         * Laravel Framework Service Providers...
+</span><span class=cm>         */</span>
+        <span class=nx>Illuminate\Auth\AuthServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Broadcasting\BroadcastServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Bus\BusServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Cache\CacheServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Foundation\Providers\ConsoleSupportServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Cookie\CookieServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Database\DatabaseServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Encryption\EncryptionServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Filesystem\FilesystemServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Foundation\Providers\FoundationServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Hashing\HashServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Mail\MailServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Notifications\NotificationServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Pagination\PaginationServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Pipeline\PipelineServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Queue\QueueServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Redis\RedisServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Auth\Passwords\PasswordResetServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Session\SessionServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Translation\TranslationServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\Validation\ValidationServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>Illuminate\View\ViewServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+
+        <span class=cm>/*
+</span><span class=cm>         * Package Service Providers...
+</span><span class=cm>         */</span>
+        
+        <span class=c1># Here!
+</span><span class=c1></span>        <span class=nx>CozyFex\MyPackage\PackageServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+
+        <span class=cm>/*
+</span><span class=cm>         * Application Service Providers...
+</span><span class=cm>         */</span>
+        <span class=nx>App\Providers\AppServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>App\Providers\AuthServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=c1>// App\Providers\BroadcastServiceProvider::class,
+</span><span class=c1></span>        <span class=nx>App\Providers\EventServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=nx>App\Providers\RouteServiceProvider</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+
+    <span class=p>],</span>
+
+    <span class=cm>/*
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    | Class Aliases
+</span><span class=cm>    |--------------------------------------------------------------------------
+</span><span class=cm>    |
+</span><span class=cm>    | This array of class aliases will be registered when this application
+</span><span class=cm>    | is started. However, feel free to register as many as you wish as
+</span><span class=cm>    | the aliases are &#34;lazy&#34; loaded so they don&#39;t hinder performance.
+</span><span class=cm>    |
+</span><span class=cm>    */</span>
+
+    <span class=s1>&#39;aliases&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
+
+        <span class=s1>&#39;App&#39;</span>          <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\App</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Arr&#39;</span>          <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Arr</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Artisan&#39;</span>      <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Artisan</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Auth&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Auth</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Blade&#39;</span>        <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Blade</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Broadcast&#39;</span>    <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Broadcast</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Bus&#39;</span>          <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Bus</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Cache&#39;</span>        <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Cache</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Config&#39;</span>       <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Config</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Cookie&#39;</span>       <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Cookie</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Crypt&#39;</span>        <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Crypt</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Date&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Date</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;DB&#39;</span>           <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\DB</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Eloquent&#39;</span>     <span class=o>=&gt;</span> <span class=nx>Illuminate\Database\Eloquent\Model</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Event&#39;</span>        <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Event</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;File&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\File</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Gate&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Gate</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Hash&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Hash</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Http&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Http</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Lang&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Lang</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Log&#39;</span>          <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Log</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Mail&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Mail</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Notification&#39;</span> <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Notification</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Password&#39;</span>     <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Password</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Queue&#39;</span>        <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Queue</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Redirect&#39;</span>     <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Redirect</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=c1>// &#39;Redis&#39; =&gt; Illuminate\Support\Facades\Redis::class,
+</span><span class=c1></span>        <span class=s1>&#39;Request&#39;</span>      <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Request</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Response&#39;</span>     <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Response</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Route&#39;</span>        <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Route</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Schema&#39;</span>       <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Schema</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Session&#39;</span>      <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Session</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Storage&#39;</span>      <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Storage</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Str&#39;</span>          <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Str</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;URL&#39;</span>          <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\URL</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;Validator&#39;</span>    <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\Validator</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+        <span class=s1>&#39;View&#39;</span>         <span class=o>=&gt;</span> <span class=nx>Illuminate\Support\Facades\View</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+
+    <span class=p>],</span>
+
+<span class=p>];</span>
+</code></pre></td></tr></table></div></div><h2 id=interim-check>Interim Check</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Links<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><p>Run <code>php artisan serve</code></p><p>You can check below links now.</p><p><code>http://localhost:8000/none</code><br>This link works good.</p><p><code>http://localhost:8000/exist</code><br>This link is not going to work as well.<br>Don&rsquo;t worry, it was predictable.<br>Because we don&rsquo;t install any login process.<br>If you want to check all, run below commands in the project directory.<br><code>composer require laravel/breeze</code><br><code>php artisan breeze:install</code><br><code>npm install && npm run dev</code></p></div></div></div><h2 id=additional-features>Additional Features</h2><h3 id=migration>Migration</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Migration<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>Before into this section, make sure database connection in <code>Laravel</code>.</div></div></div><h4 id=create-a-migrations-directory>Create a <code>migrations</code> Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package/src</span>
+mkdir migrations
+</code></pre></td></tr></table></div></div><h4 id=generate-migration-file>Generate Migration File</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+php artisan make:migration --create<span class=o>=</span>boards create_board
+mv database/migrations/2021_05_22_080925_create_board.php packages/cozyfex/my-package/src/migrations/
+
+<span class=c1># If you want to change table scheme, &#39;--create&#39; to &#39;--table&#39;</span>
+php artisan make:migration --table<span class=o>=</span>boards add_feild_to_board
+</code></pre></td></tr></table></div></div><p><sub>my-project/packages/cozyfex/my-package/src/migrations/2021_05_22_080925_create_board.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Database\Migrations\Migration</span><span class=p>;</span>
+<span class=k>use</span> <span class=nx>Illuminate\Database\Schema\Blueprint</span><span class=p>;</span>
+<span class=k>use</span> <span class=nx>Illuminate\Support\Facades\Schema</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>CreateBoard</span> <span class=k>extends</span> <span class=nx>Migration</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Run the migrations.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>up</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=nx>Schema</span><span class=o>::</span><span class=na>create</span><span class=p>(</span><span class=s1>&#39;boards&#39;</span><span class=p>,</span> <span class=k>function</span> <span class=p>(</span><span class=nx>Blueprint</span> <span class=nv>$table</span><span class=p>)</span> <span class=p>{</span>
+            <span class=nv>$table</span><span class=o>-&gt;</span><span class=na>id</span><span class=p>();</span>
+            <span class=nv>$table</span><span class=o>-&gt;</span><span class=na>foreignId</span><span class=p>(</span><span class=s1>&#39;user_id&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>constrained</span><span class=p>();</span>
+            <span class=nv>$table</span><span class=o>-&gt;</span><span class=na>string</span><span class=p>(</span><span class=s1>&#39;author&#39;</span><span class=p>);</span>
+            <span class=nv>$table</span><span class=o>-&gt;</span><span class=na>string</span><span class=p>(</span><span class=s1>&#39;title&#39;</span><span class=p>);</span>
+            <span class=nv>$table</span><span class=o>-&gt;</span><span class=na>text</span><span class=p>(</span><span class=s1>&#39;content&#39;</span><span class=p>);</span>
+            <span class=nv>$table</span><span class=o>-&gt;</span><span class=na>timestamps</span><span class=p>();</span>
+        <span class=p>});</span>
+    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Reverse the migrations.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>down</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=nx>Schema</span><span class=o>::</span><span class=na>dropIfExists</span><span class=p>(</span><span class=s1>&#39;boards&#39;</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h4 id=migrations-settings-in-provider>Migrations Settings in Provider</h4><p><sub>my-project/packages/cozyfex/my-package/src/PackageServiceProvider.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Support\ServiceProvider</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>PackageServiceProvider</span> <span class=k>extends</span> <span class=nx>ServiceProvider</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Register services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>register</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Bootstrap services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>boot</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadViewsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/views&#39;</span><span class=p>,</span> <span class=s1>&#39;my-package&#39;</span><span class=p>);</span>
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadRoutesFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/routes.php&#39;</span><span class=p>);</span>
+        <span class=c1># Here!
+</span><span class=c1></span>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadMigrationsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/migrations&#39;</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=model>Model</h3><h4 id=create-a-models-directory>Create a <code>Models</code> Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package/src</span>
+mkdir Models
+</code></pre></td></tr></table></div></div><h4 id=generate-a-model>Generate a Model</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+php artisan make:model Board
+mv app/Models/Board.php packages/cozyfex/my-package/src/Models/
+</code></pre></td></tr></table></div></div><p><sub>my-project/packages/cozyfex/my-package/src/Models/Board.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage\Models</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Database\Eloquent\Factories\HasFactory</span><span class=p>;</span>
+<span class=k>use</span> <span class=nx>Illuminate\Database\Eloquent\Model</span><span class=p>;</span>
+<span class=k>use</span> <span class=nx>Illuminate\Database\Eloquent\Relations\BelongsTo</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>App\Models\User</span> <span class=k>as</span> <span class=nx>AppUser</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>Board</span> <span class=k>extends</span> <span class=nx>Model</span>
+<span class=p>{</span>
+    <span class=k>use</span> <span class=nx>HasFactory</span><span class=p>;</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * @return BelongsTo
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>users</span><span class=p>()</span><span class=o>:</span> <span class=nx>BelongsTo</span>
+    <span class=p>{</span>
+        <span class=k>return</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>belongsTo</span><span class=p>(</span><span class=nx>AppUser</span><span class=o>::</span><span class=na>class</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=command>Command</h3><h4 id=create-a-commands-directory>Create a <code>Commands</code> Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project/packages/cozyfex/my-package/src</span>
+mkdir Commands
+</code></pre></td></tr></table></div></div><h4 id=generate-a-command>Generate a Command</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+php artisan make:command InstallCommand
+mv app/Console/Commands/InstallCommand.php packages/cozyfex/my-package/src/Commands
+</code></pre></td></tr></table></div></div><p><sub>my-project/packages/cozyfex/my-package/src/Commands/InstallCommand.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage\Commands</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Console\Command</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>InstallCommand</span> <span class=k>extends</span> <span class=nx>Command</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * The name and signature of the console command.
+</span><span class=sd>     *
+</span><span class=sd>     * @var string
+</span><span class=sd>     */</span>
+    <span class=k>protected</span> <span class=nv>$signature</span> <span class=o>=</span> <span class=s1>&#39;cozyfex:my-package:install&#39;</span><span class=p>;</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * The console command description.
+</span><span class=sd>     *
+</span><span class=sd>     * @var string
+</span><span class=sd>     */</span>
+    <span class=k>protected</span> <span class=nv>$description</span> <span class=o>=</span> <span class=s1>&#39;Command description&#39;</span><span class=p>;</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Create a new command instance.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=fm>__construct</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=k>parent</span><span class=o>::</span><span class=na>__construct</span><span class=p>();</span>
+    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Execute the console command.
+</span><span class=sd>     *
+</span><span class=sd>     * @return int
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>handle</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>call</span><span class=p>(</span><span class=s1>&#39;migrate&#39;</span><span class=p>);</span>
+
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>info</span><span class=p>(</span><span class=s1>&#39;[CozyFex MyPackage] was installed successfully!&#39;</span><span class=p>);</span>
+
+        <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h4 id=command-settings-in-provider>Command Settings in Provider</h4><p><sub>my-project/packages/cozyfex/my-package/src/PackageServiceProvider.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Support\ServiceProvider</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>CozyFex\MyPackage\Commands\InstallCommand</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>PackageServiceProvider</span> <span class=k>extends</span> <span class=nx>ServiceProvider</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Register services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>register</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Bootstrap services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>boot</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadViewsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/views&#39;</span><span class=p>,</span> <span class=s1>&#39;my-package&#39;</span><span class=p>);</span>
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadRoutesFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/routes.php&#39;</span><span class=p>);</span>
+        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadMigrationsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/migrations&#39;</span><span class=p>);</span>
+
+        <span class=c1># Here!
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>app</span><span class=o>-&gt;</span><span class=na>runningInConsole</span><span class=p>())</span> <span class=p>{</span>
+            <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>commands</span><span class=p>([</span>
+                <span class=nx>InstallCommand</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+            <span class=p>]);</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h4 id=check-command>Check Command</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># my-project</span>
+php artisan
+
+<span class=c1># Only cozyfex</span>
+php artisan <span class=p>|</span> grep cozyfex
+</code></pre></td></tr></table></div></div><h3 id=publish-packageserviceprovider>Publish PackageServiceProvider</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Publish in Laravel<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>I don&rsquo;t guarantee this package is perfect fit to your project.<br>Some of them want to use this package, but they also want to change a part of the package.<br>Reason why the <code>Laravel</code> provides a function for that in <code>Provider</code>.</div></div></div><p><sub>my-project/packages/cozyfex/my-package/src/PackageServiceProvider.php</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+
+<span class=k>namespace</span> <span class=nx>CozyFex\MyPackage</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>Illuminate\Support\ServiceProvider</span><span class=p>;</span>
+
+<span class=k>use</span> <span class=nx>CozyFex\MyPackage\Commands\InstallCommand</span><span class=p>;</span>
+
+<span class=k>class</span> <span class=nc>PackageServiceProvider</span> <span class=k>extends</span> <span class=nx>ServiceProvider</span>
+<span class=p>{</span>
+    <span class=sd>/**
+</span><span class=sd>     * Register services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>register</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>//
+</span><span class=c1></span>    <span class=p>}</span>
+
+    <span class=sd>/**
+</span><span class=sd>     * Bootstrap services.
+</span><span class=sd>     *
+</span><span class=sd>     * @return void
+</span><span class=sd>     */</span>
+    <span class=k>public</span> <span class=k>function</span> <span class=nf>boot</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1># Load View
+</span><span class=c1></span>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadViewsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/views&#39;</span><span class=p>,</span> <span class=s1>&#39;my-package&#39;</span><span class=p>);</span>
+
+        <span class=c1># Load Route
+</span><span class=c1></span>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadRoutesFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/routes.php&#39;</span><span class=p>);</span>
+
+        <span class=c1># Load Migration
+</span><span class=c1></span>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>loadMigrationsFrom</span><span class=p>(</span><span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/migrations&#39;</span><span class=p>);</span>
+
+        <span class=c1># Here!
+</span><span class=c1></span>        <span class=c1># Publish View
+</span><span class=c1></span>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>publishes</span><span class=p>([</span>
+            <span class=no>__DIR__</span><span class=o>.</span><span class=s1>&#39;/views&#39;</span> <span class=o>=&gt;</span> <span class=nx>resource_path</span><span class=p>(</span><span class=s1>&#39;views/CozyFex&#39;</span><span class=p>),</span>
+        <span class=p>]);</span>
+
+        <span class=c1># Commands
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>app</span><span class=o>-&gt;</span><span class=na>runningInConsole</span><span class=p>())</span> <span class=p>{</span>
+            <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>commands</span><span class=p>([</span>
+                <span class=nx>InstallCommand</span><span class=o>::</span><span class=na>class</span><span class=p>,</span>
+            <span class=p>]);</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h4 id=laravel-publish-path-functions>Laravel Publish Path Functions</h4><h5 id=resource_path><code>resource_path</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>resource_path<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>my-project/resources</code></div></div></div><h5 id=config_path><code>config_path</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>config_path<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>my-project/config</code></div></div></div><h5 id=public_path><code>public_path</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>public_path<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>my-project/public</code></div></div></div><h5 id=database_path><code>database_path</code></h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>database_path<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>my-project/database</code></div></div></div><h4 id=publish-command>Publish Command</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>php artisan vendor:publish
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>Which provider or tag<span class=err>&#39;</span>s files would you like to publish?:
+  <span class=o>[</span><span class=m>0</span> <span class=o>]</span> Publish files from all providers and tags listed below
+  <span class=o>[</span><span class=m>1</span> <span class=o>]</span> Provider: CozyFex<span class=se>\M</span>yPackage<span class=se>\P</span>ackageServiceProvider
+  <span class=o>[</span><span class=m>2</span> <span class=o>]</span> Provider: Facade<span class=se>\I</span>gnition<span class=se>\I</span>gnitionServiceProvider
+  <span class=o>[</span><span class=m>3</span> <span class=o>]</span> Provider: Fideloper<span class=se>\P</span>roxy<span class=se>\T</span>rustedProxyServiceProvider
+  <span class=o>[</span><span class=m>4</span> <span class=o>]</span> Provider: Fruitcake<span class=se>\C</span>ors<span class=se>\C</span>orsServiceProvider
+  <span class=o>[</span><span class=m>5</span> <span class=o>]</span> Provider: Illuminate<span class=se>\F</span>oundation<span class=se>\P</span>roviders<span class=se>\F</span>oundationServiceProvider
+  <span class=o>[</span><span class=m>6</span> <span class=o>]</span> Provider: Illuminate<span class=se>\M</span>ail<span class=se>\M</span>ailServiceProvider
+  <span class=o>[</span><span class=m>7</span> <span class=o>]</span> Provider: Illuminate<span class=se>\N</span>otifications<span class=se>\N</span>otificationServiceProvider
+  <span class=o>[</span><span class=m>8</span> <span class=o>]</span> Provider: Illuminate<span class=se>\P</span>agination<span class=se>\P</span>aginationServiceProvider
+  <span class=o>[</span><span class=m>9</span> <span class=o>]</span> Provider: Laravel<span class=se>\S</span>ail<span class=se>\S</span>ailServiceProvider
+  <span class=o>[</span>10<span class=o>]</span> Provider: Laravel<span class=se>\T</span>inker<span class=se>\T</span>inkerServiceProvider
+  <span class=o>[</span>11<span class=o>]</span> Tag: cors
+  <span class=o>[</span>12<span class=o>]</span> Tag: flare-config
+  <span class=o>[</span>13<span class=o>]</span> Tag: ignition-config
+  <span class=o>[</span>14<span class=o>]</span> Tag: laravel-errors
+  <span class=o>[</span>15<span class=o>]</span> Tag: laravel-mail
+  <span class=o>[</span>16<span class=o>]</span> Tag: laravel-notifications
+  <span class=o>[</span>17<span class=o>]</span> Tag: laravel-pagination
+  <span class=o>[</span>18<span class=o>]</span> Tag: sail
+&gt; <span class=m>1</span>
+</code></pre></td></tr></table></div></div><h4 id=check-published-directory>Check Published Directory</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>cd</span> my-project/resources/views
+</code></pre></td></tr></table></div></div><h2 id=push-package-to-github>Push Package to GitHub</h2><h3 id=commit>Commit</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>git status
+git add -A
+git commit -m <span class=s2>&#34;My package&#34;</span>
+git push origin master
+</code></pre></td></tr></table></div></div><h3 id=tagging>Tagging</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>For Packagist Versioning<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>This tag is used for versioning of Packagist.</div></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>git tag v1.0.0
+</code></pre></td></tr></table></div></div><h3 id=push-tag>Push Tag</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>git push origin v1.0.0
+</code></pre></td></tr></table></div></div><h2 id=register-package-to-packagistorg>Register Package to <code>packagist.org</code></h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Recommendation<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>I recommend to sign up with your GitHub account.<br>This is for register a <code>web hook</code> in GitHub by <code>packagist.org</code>.<br>Of course, you need to agree with it.</div></div></div><div class=mermaid id=id-1></div><h2 id=check-package-on-new-laravel-project>Check Package on New Laravel Project!</h2><h3 id=generate-new-laravel-project>Generate New Laravel Project</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>composer create-project laravel/laravel new-project
+</code></pre></td></tr></table></div></div><h3 id=composer-require-mypackage>Composer Require MyPackage</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># new-project</span>
+<span class=nb>cd</span> new-project
+composer require cozyfex/my-package
+</code></pre></td></tr></table></div></div><h3 id=run-and-check-links-again>Run and Check Links Again</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>php artisan serve
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Links<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><a href=http://localhost:8000/none target=_blank rel="noopener noreffer">http://localhost:8000/none</a><br><a href=http://localhost:8000/exist target=_blank rel="noopener noreffer">http://localhost:8000/exist</a></div></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2021-05-22</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/laravel-package-development/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development" data-hashtags=php,laravel,composer,package,packagist,github><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://cozyfex.github.io/laravel-package-development/ data-hashtag=php><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://cozyfex.github.io/laravel-package-development/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://cozyfex.github.io/laravel-package-development/><i class="fab fa-reddit fa-fw"></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development"><i data-svg-src=/lib/simple-icons/icons/line.min.svg></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development"><i class="fab fa-weibo fa-fw"></i></a><a href=javascript:void(0); title="Share on Myspace" data-sharer=myspace data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development" data-description><i data-svg-src=/lib/simple-icons/icons/myspace.min.svg></i></a><a href=javascript:void(0); title="Share on Blogger" data-sharer=blogger data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=javascript:void(0); title="Share on Evernote" data-sharer=evernote data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development"><i class="fab fa-evernote fa-fw"></i></a><a href=javascript:void(0); title="Share on Trello" data-sharer=trello data-url=https://cozyfex.github.io/laravel-package-development/ data-title="Laravel Package Development" data-description><i class="fab fa-trello fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/php/>php</a>,&nbsp;<a href=/tags/laravel/>laravel</a>,&nbsp;<a href=/tags/composer/>composer</a>,&nbsp;<a href=/tags/package/>package</a>,&nbsp;<a href=/tags/packagist/>packagist</a>,&nbsp;<a href=/tags/github/>github</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/kubernetes-tls-certificates-api/ class=prev rel=prev title="Kubernetes TLS Certificates API"><i class="fas fa-angle-left fa-fw"></i>Kubernetes TLS Certificates API</a></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Wirtten by <a href=https://blog.cozyfex.com/ target=_blank rel="noopener noreffer" title=CozyFex>CozyFex</a></div><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.cozyfex.com target=_blank>CozyFex</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/mermaid/mermaid.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/mermaid/mermaid.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},data:{"id-1":"graph TD;\n\nL(Login 'packagist.org') --\u003e S(Go to 'Submit' menu on right top side)\n\nS --\u003e C(Copy and Paste GitHub repository URL to input box that is above 'Check' button)\n\nC --\u003e CC(Click 'Check' button)\n\nCC --\u003e M(Click `Submit` button)"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-SFCQYN1X5J',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-SFCQYN1X5J" async></script></body></html>
