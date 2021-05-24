@@ -245,3 +245,36 @@ docker ps -a
 docker logs <container-id>
 ```
 
+## Find Service with a Port
+
+### Check Logs
+
+```shell
+docker logs <container-id>
+```
+
+<sub>Example Logs</sub>
+
+```
+W0523 09:18:49.420831       1 clientconn.go:1223] grpc: addrConn.createTransport failed to connect to {https://127.0.0.1:2379  <nil> 0 <nil>}. Err :connection error: desc = "transport: authentication handshake failed: x509: certificate signed by unknown authority". Reconnecting...
+```
+
+{{<admonition note "Check Logs" ture>}}  
+You can check `connect to` section.  
+There's `https://127.0.0.1:2379`.  
+Now you know the problem port `2379`!  
+{{</admonition>}}
+
+### Find Service
+
+```shell
+find /etc/kubernetes/manifests/ -type f | xargs grep 2379
+```
+
+### Fix Problem!
+
+{{<admonition note "Fix" ture>}}  
+Fix the problem!  
+{{</admonition>}}
+
+

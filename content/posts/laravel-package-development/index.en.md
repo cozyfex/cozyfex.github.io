@@ -1406,18 +1406,12 @@ This is for register a `web hook` in GitHub by `packagist.org`.
 Of course, you need to agree with it.  
 {{</admonition>}}
 
-{{<mermaid>}}
-
-graph TD;
-
-L(Login 'packagist.org') --> S(Go to 'Submit' menu on right top side)
-
-S --> C(Copy and Paste GitHub repository URL to input box that is above 'Check' button)
-
-C --> CC(Click 'Check' button)
-
-CC --> M(Click `Submit` button)
-
+{{<mermaid>}}  
+graph TD;  
+L(Login 'packagist.org') --> S(Go to 'Submit' menu on right top side)  
+S --> C(Copy and Paste GitHub repository URL to input box that is above 'Check' button)  
+C --> CC(Click 'Check' button)  
+CC --> M(Click `Submit` button)  
 {{</mermaid>}}
 
 ## Check Package on New Laravel Project!

@@ -245,3 +245,35 @@ docker ps -a
 docker logs <container-id>
 ```
 
+## 포트로 서비스 찾기
+
+### Logs 확인
+
+```shell
+docker logs <container-id>
+```
+
+<sub>Example Logs</sub>
+
+```
+W0523 09:18:49.420831       1 clientconn.go:1223] grpc: addrConn.createTransport failed to connect to {https://127.0.0.1:2379  <nil> 0 <nil>}. Err :connection error: desc = "transport: authentication handshake failed: x509: certificate signed by unknown authority". Reconnecting...
+```
+
+{{<admonition note "Check Logs" ture>}}  
+`connect to` 부분을 확인해보자.  
+거기에 `https://127.0.0.1:2379` 부분이 있다.  
+이제 문제가 있는 포트가 `2379` 라는걸 알 수 있다!  
+{{</admonition>}}
+
+### Service 찾기
+
+```shell
+find /etc/kubernetes/manifests/ -type f | xargs grep 2379
+```
+
+### 문제 해결!
+
+{{<admonition note "해결" ture>}}  
+문제 해결!  
+{{</admonition>}}
+

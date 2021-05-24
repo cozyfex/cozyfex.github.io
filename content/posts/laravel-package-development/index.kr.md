@@ -1406,18 +1406,12 @@ GitHub 계정으로 가입하기를 추천한다.
 당연히, 동의가 필요하다.  
 {{</admonition>}}
 
-{{<mermaid>}}
-
-graph TD;
-
-L(Login 'packagist.org') --> S(Go to 'Submit' menu on right top side)
-
-S --> C(Copy and Paste GitHub repository URL to input box that is above 'Check' button)
-
-C --> CC(Click 'Check' button)
-
-CC --> M(Click `Submit` button)
-
+{{<mermaid>}}  
+graph TD;  
+L(Login 'packagist.org') --> S(Go to 'Submit' menu on right top side)  
+S --> C(Copy and Paste GitHub repository URL to input box that is above 'Check' button)  
+C --> CC(Click 'Check' button)  
+CC --> M(Click `Submit` button)  
 {{</mermaid>}}
 
 ## 새 Laravel 프로젝트에서 패키지 확인!
