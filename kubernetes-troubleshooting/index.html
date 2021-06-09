@@ -1,0 +1,1422 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Kubernetes Troubleshooting - CozyFex</title><meta name=Description content="Cozy Coding! Cozy Felix! Cozy Life!"><meta property="og:title" content="Kubernetes Troubleshooting"><meta property="og:description" content="Application Troubleshooting Check Service Status 1  curl http://web-service-ip:node-port   1  curl: (7) Failed to connect to web-service-ip port node-port: Connection timed out   1  kubectl describe svc nginx-deployment   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  Name: nginx-deployment Namespace: default Labels: app=nginx Annotations: <none> Selector: app=nginx Type: NodePort IP Family Policy: SingleStack IP Families: IPv4 IP: 10."><meta property="og:type" content="article"><meta property="og:url" content="https://cozyfex.github.io/kubernetes-troubleshooting/"><meta property="og:image" content="https://cozyfex.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-06-05T19:04:31+09:00"><meta property="article:modified_time" content="2021-06-05T19:04:31+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://cozyfex.github.io/logo.png"><meta name=twitter:title content="Kubernetes Troubleshooting"><meta name=twitter:description content="Application Troubleshooting Check Service Status 1  curl http://web-service-ip:node-port   1  curl: (7) Failed to connect to web-service-ip port node-port: Connection timed out   1  kubectl describe svc nginx-deployment   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  Name: nginx-deployment Namespace: default Labels: app=nginx Annotations: <none> Selector: app=nginx Type: NodePort IP Family Policy: SingleStack IP Families: IPv4 IP: 10."><meta name=application-name content="CozyFex"><meta name=apple-mobile-web-app-title content="CozyFex"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cozyfex.github.io/kubernetes-troubleshooting/><link rel=prev href=https://cozyfex.github.io/kubernetes-manual-test/><link rel=next href=https://cozyfex.github.io/kubernetes-jsonpath/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Kubernetes Troubleshooting","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cozyfex.github.io\/kubernetes-troubleshooting\/"},"genre":"posts","keywords":"kubernetes, troubleshooting, application, control-plane, worker node, network","wordcount":4210,"url":"https:\/\/cozyfex.github.io\/kubernetes-troubleshooting\/","datePublished":"2021-06-05T19:04:31+09:00","dateModified":"2021-06-05T19:04:31+09:00","publisher":{"@type":"Organization","name":"CozyFex","logo":"https:\/\/cozyfex.github.io\/logo.png"},"author":{"@type":"Person","name":"CozyFex"},"description":""}</script><script data-ad-client=ca-pub-8304559883145938 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/kubernetes-troubleshooting/ selected>English</option><option value=/kr/kubernetes-troubleshooting/>한글</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a><a href=javascript:void(0); class=menu-item title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value"><option value=/kubernetes-troubleshooting/ selected>English</option><option value=/kr/kubernetes-troubleshooting/>한글</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Kubernetes Troubleshooting</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/categories/kubernetes/><i class="far fa-folder fa-fw"></i>kubernetes</a>&nbsp;<a href=/categories/k8s/><i class="far fa-folder fa-fw"></i>k8s</a>&nbsp;<a href=/categories/orchestration/><i class="far fa-folder fa-fw"></i>orchestration</a>&nbsp;<a href=/categories/troubleshooting/><i class="far fa-folder fa-fw"></i>troubleshooting</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-06-05>2021-06-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;4210 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;20 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#application-troubleshooting>Application Troubleshooting</a><ul><li><a href=#check-service-status>Check Service Status</a></li><li><a href=#check-pod>Check POD</a></li></ul></li><li><a href=#control-plane-troubleshooting>Control-Plane Troubleshooting</a><ul><li><a href=#check-pods>Check PODs</a></li><li><a href=#show-pod-logs>Show POD Logs</a></li></ul></li><li><a href=#worker-node-troubleshooting>Worker Node Troubleshooting</a><ul><li><a href=#check-node-status>Check Node Status</a></li><li><a href=#check-node-system>Check Node System</a><ul><li><a href=#get-node-ip>Get Node IP</a></li><li><a href=#ssh-node>SSH Node</a></li><li><a href=#top>TOP</a></li><li><a href=#disk>Disk</a></li></ul></li><li><a href=#check-kubelet-status>Check Kubelet Status</a></li><li><a href=#check-certificates>Check Certificates</a></li></ul></li><li><a href=#network-troubleshooting>Network Troubleshooting</a><ul><li><a href=#network-plugin-in-kubernetes>Network Plugin in Kubernetes</a></li><li><a href=#cni-plugins>CNI Plugins</a><ul><li><a href=#weave-net>Weave Net</a></li><li><a href=#flannel>Flannel</a></li><li><a href=#calico>Calico</a></li></ul></li><li><a href=#dns-in-kubernetes>DNS in Kubernetes</a><ul><li><a href=#coredns-deployment>CoreDNS Deployment</a></li><li><a href=#coredns-serviceaccount>CoreDNS ServiceAccount</a></li><li><a href=#coredns-service>CoreDNS Service</a></li><li><a href=#coredns-clusterrole>CoreDNS ClusterRole</a><ul><li><a href=#systemcoredns>system:coredns</a></li><li><a href=#systemkube-dns>system:kube-dns</a></li></ul></li><li><a href=#coredns-clusterrolebinding>CoreDNS ClusterRoleBinding</a><ul><li><a href=#systemcoredns-1>system:coredns</a></li><li><a href=#systemkube-dns-1>system:kube-dns</a></li></ul></li><li><a href=#coredns-configmap>CoreDNS ConfigMap</a></li><li><a href=#coredns-troubleshooting>CoreDNS Troubleshooting</a><ul><li><a href=#coredns-pods-pending>CoreDNS PODs Pending</a></li><li><a href=#coredns-pods-crashloopbackoff-or-error>CoreDNS PODs CrashLoopBackOff or Error</a></li><li><a href=#valid-endpoints>Valid <code>endpoints</code></a></li></ul></li></ul></li><li><a href=#kube-proxy>Kube-Proxy</a><ul><li><a href=#check-kube-proxy-pods-in-the-kube-system-namespace>Check <code>kube-proxy</code> PODs in the <code>kube-system</code> Namespace</a></li><li><a href=#check-kube-proxy-logs>Check <code>kube-proxy</code> Logs</a></li><li><a href=#check-kube-proxy-configmap>Check <code>kube-proxy</code> ConfigMap</a></li><li><a href=#kube-proxy-daemonset><code>kube-proxy</code> DaemonSet</a></li></ul></li><li><a href=#endpoints-of-kube-dns>Endpoints of <code>kube-dns</code></a><ul><li><a href=#endpoint-labels>EndPoint Labels</a></li><li><a href=#service-selector>Service Selector</a></li></ul></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=application-troubleshooting>Application Troubleshooting</h2><h3 id=check-service-status>Check Service Status</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>curl http://web-service-ip:node-port
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>curl: (7) Failed to connect to web-service-ip port node-port: Connection timed out
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl describe svc nginx-deployment
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:                     nginx-deployment
+Namespace:                default
+Labels:                   app=nginx
+Annotations:              &lt;none&gt;
+Selector:                 app=nginx
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.99.164.69
+IPs:                      10.99.164.69
+Port:                     &lt;unset&gt;  80/TCP
+TargetPort:               80/TCP
+NodePort:                 &lt;unset&gt;  32377/TCP
+Endpoints:                10.38.0.1:80,10.46.0.1:80,10.46.0.2:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   &lt;none&gt;
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>You&rsquo;d better check <code>Selector</code> and <code>Endpoints</code>.</div></div></div><h3 id=check-pod>Check POD</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get pods
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME                                READY   STATUS    RESTARTS   AGE
+nginx                               1/1     Running   0          40m
+nginx-deployment-588c8fc79c-9n8ns   1/1     Running   0          25m
+nginx-deployment-588c8fc79c-g56l8   1/1     Running   0          25m
+nginx-deployment-588c8fc79c-zx88c   1/1     Running   0          22m
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl describe pod nginx-deployment-588c8fc79c-9n8ns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME                                READY   STATUS    RESTARTS   AGE
+nginx                               1/1     Running   0          40m
+nginx-deployment-588c8fc79c-9n8ns   1/1     Running   0          25m
+nginx-deployment-588c8fc79c-g56l8   1/1     Running   0          25m
+nginx-deployment-588c8fc79c-zx88c   1/1     Running   0          22m
+cozyfex@master01:~$ kubectl describe pod nginx-deployment-588c8fc79c-9n8ns
+Name:         nginx-deployment-588c8fc79c-9n8ns
+Namespace:    default
+Priority:     0
+Node:         node01/10.0.2.20
+Start Time:   Sat, 05 Jun 2021 09:49:07 +0000
+Labels:       app=nginx
+              pod-template-hash=588c8fc79c
+Annotations:  &lt;none&gt;
+Status:       Running
+IP:           10.38.0.1
+IPs:
+  IP:           10.38.0.1
+Controlled By:  ReplicaSet/nginx-deployment-588c8fc79c
+Containers:
+  nginx-continaer:
+    Container ID:   docker://cd01500188e99587c916dfa80b76ad473c77a6e63edf8a95101a973bd07caa45
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:6d75c99af15565a301e48297fa2d121e15d80ad526f8369c526324f0f7ccb750
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 05 Jun 2021 09:49:12 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-85qt8 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-85qt8:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  26m   default-scheduler  Successfully assigned default/nginx-deployment-588c8fc79c-9n8ns to node01
+  Normal  Pulling    26m   kubelet            Pulling image &#34;nginx&#34;
+  Normal  Pulled     26m   kubelet            Successfully pulled image &#34;nginx&#34; in 4.067766683s
+  Normal  Created    26m   kubelet            Created container nginx-continaer
+  Normal  Started    26m   kubelet            Started container nginx-continaer
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl logs nginx-deployment-588c8fc79c-9n8ns -f
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2021/06/05 09:49:12 [notice] 1#1: using the &#34;epoll&#34; event method
+2021/06/05 09:49:12 [notice] 1#1: nginx/1.21.0
+2021/06/05 09:49:12 [notice] 1#1: built by gcc 8.3.0 (Debian 8.3.0-6)
+2021/06/05 09:49:12 [notice] 1#1: OS: Linux 5.4.0-73-generic
+2021/06/05 09:49:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2021/06/05 09:49:12 [notice] 1#1: start worker processes
+2021/06/05 09:49:12 [notice] 1#1: start worker process 32
+2021/06/05 09:49:12 [notice] 1#1: start worker process 33
+
+</code></pre></td></tr></table></div></div><h2 id=control-plane-troubleshooting>Control-Plane Troubleshooting</h2><h3 id=check-pods>Check PODs</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get pods
+</code></pre></td></tr></table></div></div><h3 id=show-pod-logs>Show POD Logs</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system logs kube-apiserver-master01
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>I0605 10:16:01.097348       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:16:33.568771       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:16:33.568819       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:16:33.568828       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:17:10.625041       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:17:10.625350       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:17:10.625502       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:17:43.058295       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:17:43.058576       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:17:43.058671       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:18:25.933021       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:18:25.933251       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:18:25.933325       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:19:06.900362       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:19:06.900437       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:19:06.900449       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:19:38.801946       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:19:38.801988       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:19:38.801996       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:20:10.404108       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:20:10.404264       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:20:10.404401       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+I0605 10:20:48.514912       1 client.go:360] parsed scheme: &#34;passthrough&#34;
+I0605 10:20:48.515586       1 passthrough.go:48] ccResolverWrapper: sending update to cc: {[{https://127.0.0.1:2379  &lt;nil&gt; 0 &lt;nil&gt;}] &lt;nil&gt; &lt;nil&gt;}
+I0605 10:20:48.516205       1 clientconn.go:948] ClientConn switching balancer to &#34;pick_first&#34;
+</code></pre></td></tr></table></div></div><h2 id=worker-node-troubleshooting>Worker Node Troubleshooting</h2><h3 id=check-node-status>Check Node Status</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get nodes
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME       STATUS   ROLES                  AGE     VERSION
+master01   Ready    control-plane,master   41h     v1.21.1
+master02   Ready    control-plane,master   41h     v1.21.1
+node01     Ready    &lt;none&gt;                 9h      v1.21.1
+node02     Ready    &lt;none&gt;                 3h50m   v1.21.1
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl describe node node01
+</code></pre></td></tr></table></div></div><h3 id=check-node-system>Check Node System</h3><h4 id=get-node-ip>Get Node IP</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get nodes -o wide
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME       STATUS   ROLES                  AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
+master01   Ready    control-plane,master   41h     v1.21.1   10.0.2.10     &lt;none&gt;        Ubuntu 20.04.2 LTS   5.4.0-74-generic   docker://20.10.2
+master02   Ready    control-plane,master   41h     v1.21.1   10.0.2.11     &lt;none&gt;        Ubuntu 20.04.2 LTS   5.4.0-74-generic   docker://20.10.2
+node01     Ready    &lt;none&gt;                 9h      v1.21.1   10.0.2.20     &lt;none&gt;        Ubuntu 20.04.2 LTS   5.4.0-73-generic   docker://20.10.2
+node02     Ready    &lt;none&gt;                 3h52m   v1.21.1   10.0.2.21     &lt;none&gt;        Ubuntu 20.04.2 LTS   5.4.0-73-generic   docker://20.10.2
+</code></pre></td></tr></table></div></div><h4 id=ssh-node>SSH Node</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ssh 10.0.2.20
+</code></pre></td></tr></table></div></div><h4 id=top>TOP</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>top
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>top - 10:32:04 up  2:05,  1 user,  load average: 0.25, 0.23, 0.23
+Tasks: 137 total,   1 running, 136 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.8 us,  0.7 sy,  0.0 ni, 98.3 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   1987.5 total,    758.5 free,    386.2 used,    842.8 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.   1479.2 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    720 root      20   0 1939300 102728  69372 S   2.3   5.0   3:22.61 kubelet
+    732 root      20   0 1332544 114156  51392 S   0.7   5.6   1:03.30 dockerd
+    184 root     -51   0       0      0      0 S   0.3   0.0   0:01.19 irq/18-vmwgfx
+    731 root      20   0 1043376  52000  26880 S   0.3   2.6   0:09.57 containerd
+   8467 root      20   0  747376  39592  29948 S   0.3   1.9   0:02.16 kube-proxy
+      1 root      20   0  102208  11776   8480 S   0.0   0.6   0:03.21 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.01 kthreadd
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0H
+      9 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu_wq
+     10 root      20   0       0      0      0 S   0.0   0.0   0:00.69 ksoftirqd/0
+     11 root      20   0       0      0      0 I   0.0   0.0   0:05.14 rcu_sched
+     12 root      rt   0       0      0      0 S   0.0   0.0   0:00.06 migration/0
+     13 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/0
+     14 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+     15 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1
+     16 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/1
+     17 root      rt   0       0      0      0 S   0.0   0.0   0:00.49 migration/1
+     18 root      20   0       0      0      0 S   0.0   0.0   0:00.40 ksoftirqd/1
+     20 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/1:0H-kblockd
+     21 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kdevtmpfs
+     22 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 netns
+     23 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_kthre
+     24 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kauditd
+     25 root      20   0       0      0      0 S   0.0   0.0   0:00.00 khungtaskd
+     26 root      20   0       0      0      0 S   0.0   0.0   0:00.00 oom_reaper
+     27 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 writeback
+     28 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kcompactd0
+     29 root      25   5       0      0      0 S   0.0   0.0   0:00.00 ksmd
+     30 root      39  19       0      0      0 S   0.0   0.0   0:00.10 khugepaged
+     77 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kintegrityd
+</code></pre></td></tr></table></div></div><h4 id=disk>Disk</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>df -h
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Filesystem                         Size  Used Avail Use% Mounted on
+udev                               951M     0  951M   0% /dev
+tmpfs                              199M  1.9M  197M   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv  8.8G  5.8G  2.6G  70% /
+tmpfs                              994M     0  994M   0% /dev/shm
+tmpfs                              5.0M     0  5.0M   0% /run/lock
+tmpfs                              994M     0  994M   0% /sys/fs/cgroup
+/dev/sda2                          976M  105M  805M  12% /boot
+/dev/loop0                          70M   70M     0 100% /snap/lxd/19188
+/dev/loop1                          56M   56M     0 100% /snap/core18/2066
+/dev/loop2                          32M   32M     0 100% /snap/snapd/10707
+/dev/loop3                          33M   33M     0 100% /snap/snapd/12057
+/dev/loop4                          68M   68M     0 100% /snap/lxd/20326
+/dev/loop5                          56M   56M     0 100% /snap/core18/1944
+tmpfs                              199M     0  199M   0% /run/user/1000
+</code></pre></td></tr></table></div></div><h3 id=check-kubelet-status>Check Kubelet Status</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo systemctl status kubelet.service
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>kubelet.service - kubelet: The Kubernetes Node Agent
+     Loaded: loaded (/lib/systemd/system/kubelet.service; enabled; vendor preset: enabled)
+    Drop-In: /etc/systemd/system/kubelet.service.d
+             └─10-kubeadm.conf
+     Active: active (running) since Sat 2021-06-05 08:27:09 UTC; 2h 7min ago
+       Docs: https://kubernetes.io/docs/home/
+   Main PID: 720 (kubelet)
+      Tasks: 17 (limit: 2280)
+     Memory: 133.7M
+     CGroup: /system.slice/kubelet.service
+             └─720 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --network-plugin=cni --pod-infra-container-image=k8s.gcr.io/pause:3.4.1
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo journalctl -u kubelet
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>-- Logs begin at Wed 2021-06-02 14:12:27 UTC, end at Sat 2021-06-05 10:37:01 UTC. --
+Jun 02 17:54:58 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+Jun 02 17:54:58 node01 systemd[1]: kubelet.service: Current command vanished from the unit file, execu&gt;
+Jun 02 17:54:59 node01 systemd[1]: Stopping kubelet: The Kubernetes Node Agent...
+Jun 02 17:54:59 node01 systemd[1]: kubelet.service: Succeeded.
+Jun 02 17:54:59 node01 systemd[1]: Stopped kubelet: The Kubernetes Node Agent.
+Jun 02 17:54:59 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+Jun 02 17:54:59 node01 kubelet[5435]: E0602 17:54:59.303634    5435 server.go:204] &#34;Failed to load kub&gt;
+Jun 02 17:54:59 node01 systemd[1]: kubelet.service: Main process exited, code=exited, status=1/FAILURE
+Jun 02 17:54:59 node01 systemd[1]: kubelet.service: Failed with result &#39;exit-code&#39;.
+Jun 02 17:55:09 node01 systemd[1]: kubelet.service: Scheduled restart job, restart counter is at 1.
+Jun 02 17:55:09 node01 systemd[1]: Stopped kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:09 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:09 node01 kubelet[5659]: E0602 17:55:09.755118    5659 server.go:204] &#34;Failed to load kub&gt;
+Jun 02 17:55:09 node01 systemd[1]: kubelet.service: Main process exited, code=exited, status=1/FAILURE
+Jun 02 17:55:09 node01 systemd[1]: kubelet.service: Failed with result &#39;exit-code&#39;.
+Jun 02 17:55:19 node01 systemd[1]: kubelet.service: Scheduled restart job, restart counter is at 2.
+Jun 02 17:55:19 node01 systemd[1]: Stopped kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:19 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:19 node01 kubelet[5681]: E0602 17:55:19.943578    5681 server.go:204] &#34;Failed to load kub&gt;
+Jun 02 17:55:19 node01 systemd[1]: kubelet.service: Main process exited, code=exited, status=1/FAILURE
+Jun 02 17:55:19 node01 systemd[1]: kubelet.service: Failed with result &#39;exit-code&#39;.
+Jun 02 17:55:30 node01 systemd[1]: kubelet.service: Scheduled restart job, restart counter is at 3.
+Jun 02 17:55:30 node01 systemd[1]: Stopped kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:30 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:30 node01 kubelet[5703]: E0602 17:55:30.187078    5703 server.go:204] &#34;Failed to load kub&gt;
+Jun 02 17:55:30 node01 systemd[1]: kubelet.service: Main process exited, code=exited, status=1/FAILURE
+Jun 02 17:55:30 node01 systemd[1]: kubelet.service: Failed with result &#39;exit-code&#39;.
+Jun 02 17:55:40 node01 systemd[1]: kubelet.service: Scheduled restart job, restart counter is at 4.
+Jun 02 17:55:40 node01 systemd[1]: Stopped kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:40 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:40 node01 kubelet[5729]: E0602 17:55:40.759998    5729 server.go:204] &#34;Failed to load kub&gt;
+Jun 02 17:55:40 node01 systemd[1]: kubelet.service: Main process exited, code=exited, status=1/FAILURE
+Jun 02 17:55:40 node01 systemd[1]: kubelet.service: Failed with result &#39;exit-code&#39;.
+Jun 02 17:55:50 node01 systemd[1]: kubelet.service: Scheduled restart job, restart counter is at 5.
+Jun 02 17:55:50 node01 systemd[1]: Stopped kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:50 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+Jun 02 17:55:50 node01 kubelet[5779]: E0602 17:55:50.914734    5779 server.go:204] &#34;Failed to load kub&gt;
+Jun 02 17:55:50 node01 systemd[1]: kubelet.service: Main process exited, code=exited, status=1/FAILURE
+Jun 02 17:55:50 node01 systemd[1]: kubelet.service: Failed with result &#39;exit-code&#39;.
+Jun 02 17:56:01 node01 systemd[1]: kubelet.service: Scheduled restart job, restart counter is at 6.
+Jun 02 17:56:01 node01 systemd[1]: Stopped kubelet: The Kubernetes Node Agent.
+Jun 02 17:56:01 node01 systemd[1]: Started kubelet: The Kubernetes Node Agent.
+</code></pre></td></tr></table></div></div><h3 id=check-certificates>Check Certificates</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>openssl x509 -in /etc/kubernetes/pki/ca.crt -text
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 0 (0x0)
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN = kubernetes
+        Validity
+            Not Before: Jun  3 16:37:22 2021 GMT
+            Not After : Jun  1 16:37:22 2031 GMT
+        Subject: CN = kubernetes
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:c2:68:73:03:f7:89:ca:d1:3d:76:ca:16:a0:e4:
+                    bc:df:31:4b:59:54:29:a1:ae:43:b0:1a:6b:e0:ef:
+                    91:e2:73:31:a4:cb:de:e8:95:25:71:e7:65:16:cb:
+                    40:5b:da:00:e5:14:6f:01:e4:7e:42:08:d4:53:d7:
+                    f4:f0:2f:07:07:84:76:73:b1:3c:fb:e5:bc:26:f0:
+                    8e:bf:f8:0e:52:5d:05:b6:33:5e:2b:37:6c:e6:a9:
+                    b5:2b:9c:e9:90:32:b1:d8:5a:d9:b0:22:8e:4f:66:
+                    12:68:8c:7a:47:7c:f6:e2:75:29:79:c9:07:d2:36:
+                    dd:c4:fb:b8:f1:2b:07:d1:27:29:8b:cb:14:2b:b5:
+                    14:81:d8:73:2b:8c:5c:83:ce:fb:b9:be:f1:c5:7c:
+                    53:cc:17:0f:a3:44:0d:7e:fc:34:ef:4e:07:bd:9b:
+                    03:db:3b:b3:f2:86:09:70:2e:89:18:38:25:a5:49:
+                    1f:7c:e6:73:9d:ba:05:d2:58:69:7b:f6:97:58:36:
+                    63:b4:a2:8f:69:2b:0c:d8:ea:9d:e4:3f:ac:fa:6b:
+                    c0:5e:74:5c:42:68:a7:e3:6d:16:ce:d2:82:99:38:
+                    c4:aa:2a:ac:f4:35:01:2d:e0:78:bf:f1:29:f9:c9:
+                    4e:41:6d:36:98:a4:30:f9:a1:39:86:cb:03:44:a3:
+                    b7:39
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment, Certificate Sign
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+            X509v3 Subject Key Identifier:
+                D6:18:A8:92:E0:C1:08:B1:2D:D4:3A:FF:74:45:C5:B0:F6:A0:80:94
+    Signature Algorithm: sha256WithRSAEncryption
+         ac:a1:69:f8:5f:c8:64:4b:8f:53:95:b1:f4:db:87:3b:de:7c:
+         83:70:69:62:66:77:3c:6f:ce:3b:0d:c9:24:4f:6f:29:94:d8:
+         cb:2b:2a:ed:b2:d2:b6:48:1f:2d:68:a5:ac:50:7d:2a:47:50:
+         07:0d:fd:da:2f:bc:63:af:5b:ef:a4:48:a4:ef:5f:51:0f:1f:
+         a1:6a:53:38:e0:65:9d:f6:d4:01:6a:fe:6e:0e:9e:bd:61:90:
+         11:30:6f:be:5d:f4:f1:d5:99:3d:6b:76:ce:89:c8:c3:af:b4:
+         88:0c:3e:af:fc:9b:72:5c:99:42:4f:28:45:78:f8:9d:c7:07:
+         3d:6d:11:fd:07:6f:5b:7d:dd:90:57:4e:0f:b5:09:92:65:99:
+         6f:13:61:e6:cc:51:2a:55:d1:f7:c2:35:0d:1f:5a:0f:6e:fa:
+         eb:54:2e:2b:40:e4:fc:87:cf:8e:fe:11:f8:99:7c:6c:3f:1a:
+         ce:20:03:57:56:77:45:5c:2b:14:7f:18:cc:d5:24:d3:54:13:
+         21:12:b9:80:0d:07:14:07:c0:52:eb:d0:de:49:0d:58:c7:84:
+         7f:87:2a:2a:cb:53:f0:e6:c8:f2:f2:19:5a:27:63:05:6b:7b:
+         8b:87:12:62:4d:a0:38:2a:e4:65:65:38:a1:42:dd:cd:22:98:
+         ba:5b:1c:1b
+-----BEGIN CERTIFICATE-----
+MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+cm5ldGVzMB4XDTIxMDYwMzE2MzcyMloXDTMxMDYwMTE2MzcyMlowFTETMBEGA1UE
+AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMJo
+cwP3icrRPXbKFqDkvN8xS1lUKaGuQ7Aaa+DvkeJzMaTL3uiVJXHnZRbLQFvaAOUU
+bwHkfkII1FPX9PAvBweEdnOxPPvlvCbwjr/4DlJdBbYzXis3bOaptSuc6ZAysdha
+2bAijk9mEmiMekd89uJ1KXnJB9I23cT7uPErB9EnKYvLFCu1FIHYcyuMXIPO+7m+
+8cV8U8wXD6NEDX78NO9OB72bA9s7s/KGCXAuiRg4JaVJH3zmc526BdJYaXv2l1g2
+Y7Sij2krDNjqneQ/rPprwF50XEJop+NtFs7Sgpk4xKoqrPQ1AS3geL/xKfnJTkFt
+NpikMPmhOYbLA0SjtzkCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+/wQFMAMBAf8wHQYDVR0OBBYEFNYYqJLgwQixLdQ6/3RFxbD2oICUMA0GCSqGSIb3
+DQEBCwUAA4IBAQCsoWn4X8hkS49TlbH024c73nyDcGliZnc8b847DckkT28plNjL
+KyrtstK2SB8taKWsUH0qR1AHDf3aL7xjr1vvpEik719RDx+halM44GWd9tQBav5u
+Dp69YZARMG++XfTx1Zk9a3bOicjDr7SIDD6v/JtyXJlCTyhFePidxwc9bRH9B29b
+fd2QV04PtQmSZZlvE2HmzFEqVdH3wjUNH1oPbvrrVC4rQOT8h8+O/hH4mXxsPxrO
+IANXVndFXCsUfxjM1STTVBMhErmADQcUB8BS69DeSQ1Yx4R/hyoqy1Pw5sjy8hla
+J2MFa3uLhxJiTaA4KuRlZTihQt3NIpi6Wxwb
+-----END CERTIFICATE-----
+</code></pre></td></tr></table></div></div><h2 id=network-troubleshooting>Network Troubleshooting</h2><h3 id=network-plugin-in-kubernetes>Network Plugin in Kubernetes</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Plugins Execute Responsibility<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>The <code>kubelet</code> is responsible for executing plugins.</div></div></div><table><thead><tr><th style=text-align:center><code>kubelet</code> Network Option</th><th style=text-align:left>Description</th></tr></thead><tbody><tr><td style=text-align:center><code>-cni-bin-dir</code></td><td style=text-align:left><code>kubelet</code> probes this directory for plugins on startup</td></tr><tr><td style=text-align:center><code>-network-plugin</code></td><td style=text-align:left>The network plugin to use from <code>cni-bin-dir</code>.</td></tr></tbody></table><h3 id=cni-plugins>CNI Plugins</h3><h4 id=weave-net>Weave Net</h4><p><a href=https://www.weave.works/docs/net/latest/kubernetes/kube-addon/ target=_blank rel="noopener noreffer">Integrating Kubernetes via the Addon</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl apply -f <span class=s2>&#34;https://cloud.weave.works/k8s/net?k8s-version=</span><span class=k>$(</span>kubectl version <span class=p>|</span> base64 <span class=p>|</span> tr -d <span class=s1>&#39;\n&#39;</span><span class=k>)</span><span class=s2>&#34;</span>
+</code></pre></td></tr></table></div></div><h4 id=flannel>Flannel</h4><p><a href=https://github.com/flannel-io/flannel#flannel target=_blank rel="noopener noreffer">Flannel</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</code></pre></td></tr></table></div></div><h4 id=calico>Calico</h4><p><a href=https://docs.projectcalico.org/getting-started/kubernetes/quickstart target=_blank rel="noopener noreffer">Quickstart for Calico on Kubernetes</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
+</code></pre></td></tr></table></div></div><h3 id=dns-in-kubernetes>DNS in Kubernetes</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>CoreDNS<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>Kubernetes uses <code>CoreDNS</code> for DNS server.</div></div></div><h4 id=coredns-deployment>CoreDNS Deployment</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get deploy
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+coredns   2/2     2            2           42h
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe deploy coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:                   coredns
+Namespace:              kube-system
+CreationTimestamp:      Thu, 03 Jun 2021 16:37:50 +0000
+Labels:                 k8s-app=kube-dns
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               k8s-app=kube-dns
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  1 max unavailable, 25% max surge
+Pod Template:
+  Labels:           k8s-app=kube-dns
+  Service Account:  coredns
+  Containers:
+   coredns:
+    Image:       k8s.gcr.io/coredns/coredns:v1.8.0
+    Ports:       53/UDP, 53/TCP, 9153/TCP
+    Host Ports:  0/UDP, 0/TCP, 0/TCP
+    Args:
+      -conf
+      /etc/coredns/Corefile
+    Limits:
+      memory:  170Mi
+    Requests:
+      cpu:        100m
+      memory:     70Mi
+    Liveness:     http-get http://:8080/health delay=60s timeout=5s period=10s #success=1 #failure=5
+    Readiness:    http-get http://:8181/ready delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  &lt;none&gt;
+    Mounts:
+      /etc/coredns from config-volume (ro)
+  Volumes:
+   config-volume:
+    Type:               ConfigMap (a volume populated by a ConfigMap)
+    Name:               coredns
+    Optional:           false
+  Priority Class Name:  system-cluster-critical
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Progressing    True    NewReplicaSetAvailable
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  &lt;none&gt;
+NewReplicaSet:   coredns-558bd4d5db (2/2 replicas created)
+Events:          &lt;none&gt;
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>You&rsquo;d better check <code>Labels</code>.<br>It&rsquo;s <code>k8s-app=kube-dns</code></div></div></div><h4 id=coredns-serviceaccount>CoreDNS ServiceAccount</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get sa <span class=p>|</span> grep coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME                                 SECRETS   AGE
+coredns                              1         42h
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe sa coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:                coredns
+Namespace:           kube-system
+Labels:              &lt;none&gt;
+Annotations:         &lt;none&gt;
+Image pull secrets:  &lt;none&gt;
+Mountable secrets:   coredns-token-qvpb6
+Tokens:              coredns-token-qvpb6
+Events:              &lt;none&gt;
+</code></pre></td></tr></table></div></div><h4 id=coredns-service>CoreDNS Service</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get svc -o wide
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
+kube-dns   ClusterIP   10.96.0.10   &lt;none&gt;        53/UDP,53/TCP,9153/TCP   42h   k8s-app=kube-dns
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>You&rsquo;d better check <code>SELECTOR</code>.<br>It&rsquo;s <code>k8s-app=kube-dns</code> that you see above.</div></div></div><h4 id=coredns-clusterrole>CoreDNS ClusterRole</h4><h5 id=systemcoredns>system:coredns</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get clusterrole <span class=p>|</span> grep coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>system:coredns                                                         2021-06-03T16:37:50Z
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe clusterrole system:coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:         system:coredns
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+PolicyRule:
+  Resources   Non-Resource URLs  Resource Names  Verbs
+  ---------   -----------------  --------------  -----
+  nodes       []                 []              [get]
+  endpoints   []                 []              [list watch]
+  namespaces  []                 []              [list watch]
+  pods        []                 []              [list watch]
+  services    []                 []              [list watch]
+</code></pre></td></tr></table></div></div><h5 id=systemkube-dns>system:kube-dns</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get clusterrole <span class=p>|</span> grep kube-dns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>system:kube-dns                                                        2021-06-03T16:37:45Z
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe clusterrole system:kube-dns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:         system:kube-dns
+Labels:       kubernetes.io/bootstrapping=rbac-defaults
+Annotations:  rbac.authorization.kubernetes.io/autoupdate: true
+PolicyRule:
+  Resources  Non-Resource URLs  Resource Names  Verbs
+  ---------  -----------------  --------------  -----
+  endpoints  []                 []              [list watch]
+  services   []                 []              [list watch]
+</code></pre></td></tr></table></div></div><h4 id=coredns-clusterrolebinding>CoreDNS ClusterRoleBinding</h4><h5 id=systemcoredns-1>system:coredns</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get clusterrolebinding <span class=p>|</span> grep system:coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME                                                   ROLE                                                                               AGE
+system:coredns                                         ClusterRole/system:coredns                                                         42h
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe clusterrolebinding system:coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:         system:coredns
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Role:
+  Kind:  ClusterRole
+  Name:  system:coredns
+Subjects:
+  Kind            Name     Namespace
+  ----            ----     ---------
+  ServiceAccount  coredns  kube-system
+</code></pre></td></tr></table></div></div><h5 id=systemkube-dns-1>system:kube-dns</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get clusterrolebinding <span class=p>|</span> grep system:kube-dns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME                                                   ROLE                                                                               AGE
+system:kube-dns                                        ClusterRole/system:kube-dns                                                        42h
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe clusterrolebinding system:kube-dns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:         system:kube-dns
+Labels:       kubernetes.io/bootstrapping=rbac-defaults
+Annotations:  rbac.authorization.kubernetes.io/autoupdate: true
+Role:
+  Kind:  ClusterRole
+  Name:  system:kube-dns
+Subjects:
+  Kind            Name      Namespace
+  ----            ----      ---------
+  ServiceAccount  kube-dns  kube-system
+</code></pre></td></tr></table></div></div><h4 id=coredns-configmap>CoreDNS ConfigMap</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get cm
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME                                 DATA   AGE
+coredns                              1      42h
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe cm coredns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:         coredns
+Namespace:    kube-system
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+
+Data
+====
+Corefile:
+----
+.:53 {
+    errors
+    health {
+       lameduck 5s
+    }
+    ready
+    kubernetes cluster.local in-addr.arpa ip6.arpa {
+       pods insecure
+       fallthrough in-addr.arpa ip6.arpa
+       ttl 30
+    }
+    prometheus :9153
+    forward . /etc/resolv.conf {
+       max_concurrent 1000
+    }
+    cache 30
+    loop
+    reload
+    loadbalance
+}
+
+Events:  &lt;none&gt;
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>You can see <code>CoreDNS</code> is used 53 port.</div></div></div><h4 id=coredns-troubleshooting>CoreDNS Troubleshooting</h4><h5 id=coredns-pods-pending>CoreDNS PODs Pending</h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>Check network plugin is installed!</div></div></div><h5 id=coredns-pods-crashloopbackoff-or-error>CoreDNS PODs CrashLoopBackOff or Error</h5><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><p>In this case, I guess you are using SELinux with an older version of Docker.<br>To solve the problem, you can try one of the following options.</p><ol><li>Upgrade to a newer version of Docker</li><li>Disable SELinux</li><li>Modify the <code>CoreDNS</code> Deployment to set <code>allowPrivilegeEscalation</code> to true.</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get deployment coredns -o yaml <span class=p>|</span> <span class=se>\
+</span><span class=se></span>    sed <span class=s1>&#39;s/allowPrivilegeEscalation: false/allowPrivilegeEscalation: true/g&#39;</span> <span class=p>|</span> <span class=se>\
+</span><span class=se></span>    kubectl apply -f -
+</code></pre></td></tr></table></div></div><ol start=4><li><p>CoreDNS PODs in <code>CrashLoopBackOff</code> state caused when there&rsquo;s a loop.</p><ul><li><p>Add the following to your kubelet config yaml</p><ul><li><code>resolveConf</code>: path-to-real-resolv-conf-file</li></ul></li><li><p>Disable the local DNS cache on host nodes, and restore <code>/etc/resolv.conf</code> to the original.</p></li><li><p>Edit you Corefile, replacing forward <code>. /etc/resolv.conf</code></p></li></ul></li></ol></div></div></div><h5 id=valid-endpoints>Valid <code>endpoints</code></h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get ep
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME       ENDPOINTS                                            AGE
+kube-dns   10.40.0.1:53,10.40.0.2:53,10.40.0.1:53 + 3 more...   43h
+</code></pre></td></tr></table></div></div><h3 id=kube-proxy>Kube-Proxy</h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>kube-proxy<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><code>kube-proxy</code> is a network policy that runs on each node in the cluster.<br><code>kube-proxy</code> maintains network rules on nodes.<br>In a cluster configured with <code>kubeadm</code>, you can find <code>kube-proxy</code> as a <code>DaemonSet</code>.<br><code>kube-proxy</code> is responsible for watching services and endpoint associated with each service.</div></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><p>When something wrong with <code>kube-proxy</code>, you should check below things.</p><ol><li>Check <code>kube-proxy</code> of <code>ConfigMap</code></li><li>You need to check <code>config.conf</code> of <code>Data</code> section</li><li>Check <code>kube-proxy</code> of <code>DaemonSet</code></li><li>Check correct <code>Volumes</code> and <code>Mounts</code> of <code>kube-proxy</code> <code>ConfigMap</code></li><li>Check <code>--config=/var/lib/kube-proxy/config.conf</code> is correct</li></ol></div></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe ds kube-proxy
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:           kube-proxy
+Selector:       k8s-app=kube-proxy
+Node-Selector:  kubernetes.io/os=linux
+Labels:         k8s-app=kube-proxy
+Annotations:    deprecated.daemonset.template.generation: 1
+Desired Number of Nodes Scheduled: 4
+Current Number of Nodes Scheduled: 4
+Number of Nodes Scheduled with Up-to-date Pods: 4
+Number of Nodes Scheduled with Available Pods: 4
+Number of Nodes Misscheduled: 0
+Pods Status:  4 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           k8s-app=kube-proxy
+  Service Account:  kube-proxy
+  Containers:
+   kube-proxy:
+    Image:      k8s.gcr.io/kube-proxy:v1.21.1
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Command:
+      /usr/local/bin/kube-proxy
+      --config=/var/lib/kube-proxy/config.conf
+      --hostname-override=$(NODE_NAME)
+    Environment:
+      NODE_NAME:   (v1:spec.nodeName)
+    Mounts:
+      /lib/modules from lib-modules (ro)
+      /run/xtables.lock from xtables-lock (rw)
+      /var/lib/kube-proxy from kube-proxy (rw)
+  Volumes:
+   kube-proxy:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kube-proxy
+    Optional:  false
+   xtables-lock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/xtables.lock
+    HostPathType:  FileOrCreate
+   lib-modules:
+    Type:               HostPath (bare host directory volume)
+    Path:               /lib/modules
+    HostPathType:
+  Priority Class Name:  system-node-critical
+Events:                 &lt;none&gt;
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>You&rsquo;d better check <code>Command</code>
+The config file is <code>/var/lib/kube-proxy/config.conf</code></div></div></div><h4 id=check-kube-proxy-pods-in-the-kube-system-namespace>Check <code>kube-proxy</code> PODs in the <code>kube-system</code> Namespace</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get pods --all-namespaces <span class=p>|</span> grep kube-proxy
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAMESPACE     NAME                                READY   STATUS    RESTARTS   AGE
+kube-system   kube-proxy-cmph2                    1/1     Running   2          11h
+kube-system   kube-proxy-drxbm                    1/1     Running   1          5h26m
+kube-system   kube-proxy-qcwh7                    1/1     Running   5          43h
+kube-system   kube-proxy-tgdzj                    1/1     Running   3          43h
+</code></pre></td></tr></table></div></div><h4 id=check-kube-proxy-logs>Check <code>kube-proxy</code> Logs</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system logs kube-proxy-cmph2
+</code></pre></td></tr></table></div></div><h4 id=check-kube-proxy-configmap>Check <code>kube-proxy</code> ConfigMap</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe cm kube-proxy
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:         kube-proxy
+Namespace:    kube-system
+Labels:       app=kube-proxy
+Annotations:  kubeadm.kubernetes.io/component-config.hash: sha256:abbfdfdf2193cde1470588f464d713dc0078905117ab32580f202e7970a922a3
+
+Data
+====
+config.conf:
+----
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+bindAddress: 0.0.0.0
+bindAddressHardFail: false
+clientConnection:
+  acceptContentTypes: &#34;&#34;
+  burst: 0
+  contentType: &#34;&#34;
+  kubeconfig: /var/lib/kube-proxy/kubeconfig.conf
+  qps: 0
+clusterCIDR: &#34;&#34;
+configSyncPeriod: 0s
+conntrack:
+  maxPerCore: null
+  min: null
+  tcpCloseWaitTimeout: null
+  tcpEstablishedTimeout: null
+detectLocalMode: &#34;&#34;
+enableProfiling: false
+healthzBindAddress: &#34;&#34;
+hostnameOverride: &#34;&#34;
+iptables:
+  masqueradeAll: false
+  masqueradeBit: null
+  minSyncPeriod: 0s
+  syncPeriod: 0s
+ipvs:
+  excludeCIDRs: null
+  minSyncPeriod: 0s
+  scheduler: &#34;&#34;
+  strictARP: false
+  syncPeriod: 0s
+  tcpFinTimeout: 0s
+  tcpTimeout: 0s
+  udpTimeout: 0s
+kind: KubeProxyConfiguration
+metricsBindAddress: &#34;&#34;
+mode: &#34;&#34;
+nodePortAddresses: null
+oomScoreAdj: null
+portRange: &#34;&#34;
+showHiddenMetricsForVersion: &#34;&#34;
+udpIdleTimeout: 0s
+winkernel:
+  enableDSR: false
+  networkName: &#34;&#34;
+  sourceVip: &#34;&#34;
+kubeconfig.conf:
+----
+apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    server: https://10.0.2.100:1644
+  name: default
+contexts:
+- context:
+    cluster: default
+    namespace: default
+    user: default
+  name: default
+current-context: default
+users:
+- name: default
+  user:
+    tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+Events:  &lt;none&gt;
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Data
+====
+config.conf:
+----
+</code></pre></td></tr></table></div></div></div></div></div><h4 id=kube-proxy-daemonset><code>kube-proxy</code> DaemonSet</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe ds kube-proxy
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:           kube-proxy
+Selector:       k8s-app=kube-proxy
+Node-Selector:  kubernetes.io/os=linux
+Labels:         k8s-app=kube-proxy
+Annotations:    deprecated.daemonset.template.generation: 1
+Desired Number of Nodes Scheduled: 4
+Current Number of Nodes Scheduled: 4
+Number of Nodes Scheduled with Up-to-date Pods: 4
+Number of Nodes Scheduled with Available Pods: 4
+Number of Nodes Misscheduled: 0
+Pods Status:  4 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:           k8s-app=kube-proxy
+  Service Account:  kube-proxy
+  Containers:
+   kube-proxy:
+    Image:      k8s.gcr.io/kube-proxy:v1.21.1
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Command:
+      /usr/local/bin/kube-proxy
+      --config=/var/lib/kube-proxy/config.conf
+      --hostname-override=$(NODE_NAME)
+    Environment:
+      NODE_NAME:   (v1:spec.nodeName)
+    Mounts:
+      /lib/modules from lib-modules (ro)
+      /run/xtables.lock from xtables-lock (rw)
+      /var/lib/kube-proxy from kube-proxy (rw)
+  Volumes:
+   kube-proxy:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kube-proxy
+    Optional:  false
+   xtables-lock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/xtables.lock
+    HostPathType:  FileOrCreate
+   lib-modules:
+    Type:               HostPath (bare host directory volume)
+    Path:               /lib/modules
+    HostPathType:
+  Priority Class Name:  system-node-critical
+Events:                 &lt;none&gt;
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>      /var/lib/kube-proxy from kube-proxy (rw)
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>  Volumes:
+   kube-proxy:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kube-proxy
+    Optional:  false
+</code></pre></td></tr></table></div></div></div></div></div><h3 id=endpoints-of-kube-dns>Endpoints of <code>kube-dns</code></h3><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>In this section, I&rsquo;m going to check <code>labels</code> of <code>Endpoints</code> and <code>selector</code> of <code>Service</code>.</div></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get ep -A
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAMESPACE     NAME               ENDPOINTS                                            AGE
+default       kubernetes         10.0.2.10:6443,10.0.2.11:6443                        47h
+default       nginx-deployment   10.38.0.1:80,10.46.0.1:80,10.46.0.2:80               6h9m
+kube-system   kube-dns           10.40.0.1:53,10.40.0.2:53,10.40.0.1:53 + 3 more...   47h
+</code></pre></td></tr></table></div></div><h4 id=endpoint-labels>EndPoint Labels</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system describe ep kube-dns
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Name:         kube-dns
+Namespace:    kube-system
+Labels:       k8s-app=kube-dns
+              kubernetes.io/cluster-service=true
+              kubernetes.io/name=CoreDNS
+Annotations:  endpoints.kubernetes.io/last-change-trigger-time: 2021-06-05T16:07:49Z
+Subsets:
+  Addresses:          10.40.0.1,10.40.0.2
+  NotReadyAddresses:  &lt;none&gt;
+  Ports:
+    Name     Port  Protocol
+    ----     ----  --------
+    dns-tcp  53    TCP
+    dns      53    UDP
+    metrics  9153  TCP
+
+Events:  &lt;none&gt;
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>Check <code>Labels</code></div></div></div><h4 id=service-selector>Service Selector</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl -n kube-system get svc -o wide
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
+kube-dns   ClusterIP   10.96.0.10   &lt;none&gt;        53/UDP,53/TCP,9153/TCP   47h   k8s-app=kube-dns
+</code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Check Point!<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>Check <code>SELECTOR</code></div></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2021-06-05</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/kubernetes-troubleshooting/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting" data-hashtags="kubernetes,troubleshooting,application,control-plane,worker node,network"><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-hashtag=kubernetes><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://cozyfex.github.io/kubernetes-troubleshooting/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://cozyfex.github.io/kubernetes-troubleshooting/><i class="fab fa-reddit fa-fw"></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting"><i data-svg-src=/lib/simple-icons/icons/line.min.svg></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting"><i class="fab fa-weibo fa-fw"></i></a><a href=javascript:void(0); title="Share on Myspace" data-sharer=myspace data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting" data-description><i data-svg-src=/lib/simple-icons/icons/myspace.min.svg></i></a><a href=javascript:void(0); title="Share on Blogger" data-sharer=blogger data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=javascript:void(0); title="Share on Evernote" data-sharer=evernote data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting"><i class="fab fa-evernote fa-fw"></i></a><a href=javascript:void(0); title="Share on Trello" data-sharer=trello data-url=https://cozyfex.github.io/kubernetes-troubleshooting/ data-title="Kubernetes Troubleshooting" data-description><i class="fab fa-trello fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/kubernetes/>kubernetes</a>,&nbsp;<a href=/tags/troubleshooting/>troubleshooting</a>,&nbsp;<a href=/tags/application/>application</a>,&nbsp;<a href=/tags/control-plane/>control-plane</a>,&nbsp;<a href=/tags/worker-node/>worker node</a>,&nbsp;<a href=/tags/network/>network</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/kubernetes-manual-test/ class=prev rel=prev title="Kubernetes Manual Test"><i class="fas fa-angle-left fa-fw"></i>Kubernetes Manual Test</a>
+<a href=/kubernetes-jsonpath/ class=next rel=next title="Kubernetes JSONPath">Kubernetes JSONPath<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Wirtten by <a href=https://blog.cozyfex.com/ target=_blank rel="noopener noreffer" title=CozyFex>CozyFex</a></div><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.cozyfex.com target=_blank>CozyFex</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-SFCQYN1X5J',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-SFCQYN1X5J" async></script></body></html>

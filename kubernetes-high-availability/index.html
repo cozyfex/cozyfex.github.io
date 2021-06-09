@@ -1,0 +1,493 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Kubernetes High Availability - CozyFex</title><meta name=Description content="Cozy Coding! Cozy Felix! Cozy Life!"><meta property="og:title" content="Kubernetes High Availability"><meta property="og:description" content="High Availability in Kubernetes HA in Kubernetes  In Kubernetes for high availability, you need load balancing system.
+I refer to this official document
+In this post, I focus on 2 master nodes.
+   Prerequisites Prerequisites  I&rsquo;m going to progress in Ubuntu 20.04.2 LTS based on VirtualBox.   keepalived keepalived  The keepalived provides a virtual IP that is in the same IP subnet for health check."><meta property="og:type" content="article"><meta property="og:url" content="https://cozyfex.github.io/kubernetes-high-availability/"><meta property="og:image" content="https://cozyfex.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-06-04T20:06:02+09:00"><meta property="article:modified_time" content="2021-06-04T20:06:02+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://cozyfex.github.io/logo.png"><meta name=twitter:title content="Kubernetes High Availability"><meta name=twitter:description content="High Availability in Kubernetes HA in Kubernetes  In Kubernetes for high availability, you need load balancing system.
+I refer to this official document
+In this post, I focus on 2 master nodes.
+   Prerequisites Prerequisites  I&rsquo;m going to progress in Ubuntu 20.04.2 LTS based on VirtualBox.   keepalived keepalived  The keepalived provides a virtual IP that is in the same IP subnet for health check."><meta name=application-name content="CozyFex"><meta name=apple-mobile-web-app-title content="CozyFex"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cozyfex.github.io/kubernetes-high-availability/><link rel=prev href=https://cozyfex.github.io/ubuntu-swap-disable/><link rel=next href=https://cozyfex.github.io/kubernetes-init-kubeadm/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Kubernetes High Availability","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cozyfex.github.io\/kubernetes-high-availability\/"},"genre":"posts","keywords":"kubernetes, high availability, ha, keepalived, haproxy, kubeadm","wordcount":1096,"url":"https:\/\/cozyfex.github.io\/kubernetes-high-availability\/","datePublished":"2021-06-04T20:06:02+09:00","dateModified":"2021-06-04T20:06:02+09:00","publisher":{"@type":"Organization","name":"CozyFex","logo":"https:\/\/cozyfex.github.io\/logo.png"},"author":{"@type":"Person","name":"CozyFex"},"description":""}</script><script data-ad-client=ca-pub-8304559883145938 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/kubernetes-high-availability/ selected>English</option><option value=/kr/kubernetes-high-availability/>한글</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a><a href=javascript:void(0); class=menu-item title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value"><option value=/kubernetes-high-availability/ selected>English</option><option value=/kr/kubernetes-high-availability/>한글</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Kubernetes High Availability</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/categories/kubernetes/><i class="far fa-folder fa-fw"></i>kubernetes</a>&nbsp;<a href=/categories/k8s/><i class="far fa-folder fa-fw"></i>k8s</a>&nbsp;<a href=/categories/orchestration/><i class="far fa-folder fa-fw"></i>orchestration</a>&nbsp;<a href=/categories/keepalived/><i class="far fa-folder fa-fw"></i>keepalived</a>&nbsp;<a href=/categories/haproxy/><i class="far fa-folder fa-fw"></i>haproxy</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-06-04>2021-06-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1096 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;6 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#high-availability-in-kubernetes>High Availability in Kubernetes</a></li><li><a href=#prerequisites>Prerequisites</a></li><li><a href=#keepalived><code>keepalived</code></a><ul><li><a href=#install-keepalived>Install <code>keepalived</code></a></li><li><a href=#firewall-config>Firewall Config</a><ul><li><a href=#master01>master01</a></li><li><a href=#master02>master02</a></li></ul></li><li><a href=#keepalived-config><code>keepalived</code> Config</a><ul><li><a href=#config>Config</a></li><li><a href=#track-script>Track Script</a></li></ul></li></ul></li><li><a href=#haproxy><code>haproxy</code></a><ul><li><a href=#install-haproxy>Install <code>haproxy</code></a></li><li><a href=#haproxy-config><code>haproxy</code> Config</a></li></ul></li><li><a href=#enable-haproxy-and-keepalived>Enable <code>haproxy</code> and <code>keepalived</code></a></li><li><a href=#test>Test</a><ul><li><a href=#ip-status-on-master01>IP Status on master01</a></li><li><a href=#ip-status-on-master02>IP Status on master02</a></li><li><a href=#stop-keepalived-on-master01>Stop <code>keepalived</code> on master01</a></li><li><a href=#ip-status-on-master01-1>IP Status on master01</a></li><li><a href=#ip-status-on-master02-1>IP Status on master02</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=high-availability-in-kubernetes>High Availability in Kubernetes</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>HA in Kubernetes<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><p>In Kubernetes for high availability, you need load balancing system.<br>I refer to this <a href=https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing target=_blank rel="noopener noreffer">official document</a></p><p>In this post, I focus on 2 master nodes.</p></div></div></div><h2 id=prerequisites>Prerequisites</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Prerequisites<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>I&rsquo;m going to progress in Ubuntu 20.04.2 LTS based on VirtualBox.</div></div></div><h2 id=keepalived><code>keepalived</code></h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>keepalived<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>The <code>keepalived</code> provides a virtual IP that is in the same IP subnet for health check.</div></div></div><h3 id=install-keepalived>Install <code>keepalived</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt install keepalived
+</code></pre></td></tr></table></div></div><h3 id=firewall-config>Firewall Config</h3><h4 id=master01>master01</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo ufw allow from 10.0.2.11 comment <span class=s1>&#39;From master02&#39;</span>
+</code></pre></td></tr></table></div></div><h4 id=master02>master02</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo ufw allow from 10.0.2.10 comment <span class=s1>&#39;From master01&#39;</span>
+</code></pre></td></tr></table></div></div><h3 id=keepalived-config><code>keepalived</code> Config</h3><h4 id=config>Config</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo vi /etc/keepalived/keepalived.conf
+</code></pre></td></tr></table></div></div><p><sub>Template</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>global_defs {
+    router_id LVS_DEVEL
+}
+vrrp_script check_apiserver {
+  script &#34;/etc/keepalived/check_apiserver.sh&#34;
+  interval 3
+  weight -2
+  fall 10
+  rise 2
+}
+
+vrrp_instance VI_1 {
+    state ${STATE}
+    interface ${INTERFACE}
+    virtual_router_id ${ROUTER_ID}
+    priority ${PRIORITY}
+    authentication {
+        auth_type PASS
+        auth_pass ${AUTH_PASS}
+    }
+    virtual_ipaddress {
+        ${APISERVER_VIP}
+    }
+    track_script {
+        check_apiserver
+    }
+}
+</code></pre></td></tr></table></div></div><table><thead><tr><th style=text-align:center>Value</th><th style=text-align:left>Description</th><th style=text-align:center>Example</th></tr></thead><tbody><tr><td style=text-align:center>${STATE}</td><td style=text-align:left><code>MASTER</code> or <code>BACKUP</code></td><td style=text-align:center><code>MASTER</code></td></tr><tr><td style=text-align:center>${INTERFACE}</td><td style=text-align:left>Network Interface</td><td style=text-align:center><code>eth0</code></td></tr><tr><td style=text-align:center>${ROUTER_ID}</td><td style=text-align:left>It should be the same for all <code>keepalived</code> cluster hosts in the same subnet.</td><td style=text-align:center>51</td></tr><tr><td style=text-align:center>${PRIORITY}</td><td style=text-align:left>It should be higher on the <code>MASTER</code> than on the <code>BACKUP</code></td><td style=text-align:center>110</td></tr><tr><td style=text-align:center>${AUTH_PASS}</td><td style=text-align:left>It should be the same for all <code>keepalived</code> cluster hosts.</td><td style=text-align:center>pass1122</td></tr><tr><td style=text-align:center>${APISERVER_VIP}</td><td style=text-align:left>It is a virtual IP address negotiated between the <code>keepalived</code> cluster hosts.</td><td style=text-align:center>10.0.2.100</td></tr></tbody></table><p><sub>Example for master01</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>global_defs {
+    router_id LVS_DEVEL
+}
+vrrp_script check_apiserver {
+  script &#34;/etc/keepalived/check_apiserver.sh&#34;
+  interval 3
+  weight -2
+  fall 10
+  rise 2
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface enp0s3
+    virtual_router_id 51
+    priority 200
+    authentication {
+        auth_type PASS
+        auth_pass 42
+    }
+    virtual_ipaddress {
+        10.0.2.100
+    }
+    track_script {
+        check_apiserver
+    }
+}
+</code></pre></td></tr></table></div></div><p><sub>Example for master02</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>global_defs {
+    router_id LVS_DEVEL
+}
+vrrp_script check_apiserver {
+  script &#34;/etc/keepalived/check_apiserver.sh&#34;
+  interval 3
+  weight -2
+  fall 10
+  rise 2
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface enp0s3
+    virtual_router_id 51
+    priority 100
+    authentication {
+        auth_type PASS
+        auth_pass 42
+    }
+    virtual_ipaddress {
+        10.0.2.100
+    }
+    track_script {
+        check_apiserver
+    }
+}
+</code></pre></td></tr></table></div></div><h4 id=track-script>Track Script</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo vi /etc/keepalived/check_apiserver.sh
+</code></pre></td></tr></table></div></div><p><sub>Template</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=cp>#!/bin/sh
+</span><span class=cp></span>errorExit<span class=o>()</span> <span class=o>{</span>
+    <span class=nb>echo</span> <span class=s2>&#34;*** </span><span class=nv>$*</span><span class=s2>&#34;</span> 1&gt;<span class=p>&amp;</span><span class=m>2</span>
+    <span class=nb>exit</span> <span class=m>1</span>
+<span class=o>}</span>
+
+curl --silent --max-time <span class=m>2</span> --insecure https://localhost:<span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span>/ -o /dev/null <span class=o>||</span> errorExit <span class=s2>&#34;Error GET https://localhost:</span><span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span><span class=s2>/&#34;</span>
+<span class=k>if</span> ip addr <span class=p>|</span> grep -q <span class=si>${</span><span class=nv>APISERVER_VIP</span><span class=si>}</span><span class=p>;</span> <span class=k>then</span>
+    curl --silent --max-time <span class=m>2</span> --insecure https://<span class=si>${</span><span class=nv>APISERVER_VIP</span><span class=si>}</span>:<span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span>/ -o /dev/null <span class=o>||</span> errorExit <span class=s2>&#34;Error GET https://</span><span class=si>${</span><span class=nv>APISERVER_VIP</span><span class=si>}</span><span class=s2>:</span><span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span><span class=s2>/&#34;</span>
+<span class=k>fi</span>
+</code></pre></td></tr></table></div></div><table><thead><tr><th style=text-align:center>Value</th><th style=text-align:left>Description</th><th style=text-align:center>Example</th></tr></thead><tbody><tr><td style=text-align:center>${APISERVER_VIP}</td><td style=text-align:left>It is the virtual IP address negotiated between the <code>keepalived</code> cluster hosts.</td><td style=text-align:center>10.0.2.100</td></tr><tr><td style=text-align:center>${APISERVER_DEST_PORT}</td><td style=text-align:left>The port through which Kubernetes will talk to the API Server</td><td style=text-align:center>1644</td></tr></tbody></table><p><sub>Example</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=cp>#!/bin/sh
+</span><span class=cp></span>
+<span class=nv>APISERVER_VIP</span><span class=o>=</span>10.0.2.100
+<span class=nv>APISERVER_DEST_PORT</span><span class=o>=</span><span class=m>1644</span>
+
+errorExit<span class=o>()</span> <span class=o>{</span>
+    <span class=nb>echo</span> <span class=s2>&#34;*** </span><span class=nv>$*</span><span class=s2>&#34;</span> 1&gt;<span class=p>&amp;</span><span class=m>2</span>
+    <span class=nb>exit</span> <span class=m>1</span>
+<span class=o>}</span>
+
+curl --silent --max-time <span class=m>2</span> --insecure https://localhost:<span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span>/ -o /dev/null <span class=o>||</span> errorExit <span class=s2>&#34;Error GET https://localhost:</span><span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span><span class=s2>/&#34;</span>
+<span class=k>if</span> ip addr <span class=p>|</span> grep -q <span class=si>${</span><span class=nv>APISERVER_VIP</span><span class=si>}</span><span class=p>;</span> <span class=k>then</span>
+    curl --silent --max-time <span class=m>2</span> --insecure https://<span class=si>${</span><span class=nv>APISERVER_VIP</span><span class=si>}</span>:<span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span>/ -o /dev/null <span class=o>||</span> errorExit <span class=s2>&#34;Error GET https://</span><span class=si>${</span><span class=nv>APISERVER_VIP</span><span class=si>}</span><span class=s2>:</span><span class=si>${</span><span class=nv>APISERVER_DEST_PORT</span><span class=si>}</span><span class=s2>/&#34;</span>
+<span class=k>fi</span>
+</code></pre></td></tr></table></div></div><h2 id=haproxy><code>haproxy</code></h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>haproxy<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>Tha <code>haproxy</code> is simple stream-based load balancing.</div></div></div><h3 id=install-haproxy>Install <code>haproxy</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt install haproxy
+</code></pre></td></tr></table></div></div><h3 id=haproxy-config><code>haproxy</code> Config</h3><p><sub>Template</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># /etc/haproxy/haproxy.cfg
+#---------------------------------------------------------------------
+# Global settings
+#---------------------------------------------------------------------
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    daemon
+
+#---------------------------------------------------------------------
+# common defaults that all the &#39;listen&#39; and &#39;backend&#39; sections will
+# use if not designated in their block
+#---------------------------------------------------------------------
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 1
+    timeout http-request    10s
+    timeout queue           20s
+    timeout connect         5s
+    timeout client          20s
+    timeout server          20s
+    timeout http-keep-alive 10s
+    timeout check           10s
+
+#---------------------------------------------------------------------
+# apiserver frontend which proxys to the control plane nodes
+#---------------------------------------------------------------------
+frontend apiserver
+    bind *:${APISERVER_DEST_PORT}
+    mode tcp
+    option tcplog
+    default_backend apiserver
+
+#---------------------------------------------------------------------
+# round robin balancing for apiserver
+#---------------------------------------------------------------------
+backend apiserver
+    option httpchk GET /healthz
+    http-check expect status 200
+    mode tcp
+    option ssl-hello-chk
+    balance     roundrobin
+        server ${HOST1_ID} ${HOST1_ADDRESS}:${APISERVER_SRC_PORT} check
+        # [...]
+</code></pre></td></tr></table></div></div><table><thead><tr><th style=text-align:center>Value</th><th style=text-align:left>Description</th><th style=text-align:center>Example</th></tr></thead><tbody><tr><td style=text-align:center>${APISERVER_DEST_PORT}</td><td style=text-align:left>The port through which Kubernetes will talk to the API Server</td><td style=text-align:center>1644</td></tr><tr><td style=text-align:center>${APISERVER_SRC_PORT}</td><td style=text-align:left>The port used by the API Server instances</td><td style=text-align:center>6443</td></tr><tr><td style=text-align:center>${HOST1_ID}</td><td style=text-align:left>A symbolic name</td><td style=text-align:center>master01</td></tr><tr><td style=text-align:center>${HOST1_ADDRESS}</td><td style=text-align:left>A resolvable address (DNS name, IP address)</td><td style=text-align:center>10.0.2.10</td></tr></tbody></table><p><sub>Example</sub></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>global
+	log /dev/log	local0
+	log /dev/log	local1 notice
+	chroot /var/lib/haproxy
+	stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+	stats timeout 30s
+	user haproxy
+	group haproxy
+	daemon
+
+	# Default SSL material locations
+	ca-base /etc/ssl/certs
+	crt-base /etc/ssl/private
+
+	# See: https://ssl-config.mozilla.org/#server=haproxy&amp;server-version=2.0.3&amp;config=intermediate
+        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
+
+defaults
+	log	global
+	mode	http
+	option	httplog
+	option	dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+	errorfile 400 /etc/haproxy/errors/400.http
+	errorfile 403 /etc/haproxy/errors/403.http
+	errorfile 408 /etc/haproxy/errors/408.http
+	errorfile 500 /etc/haproxy/errors/500.http
+	errorfile 502 /etc/haproxy/errors/502.http
+	errorfile 503 /etc/haproxy/errors/503.http
+	errorfile 504 /etc/haproxy/errors/504.http
+
+#---------------------------------------------------------------------
+# apiserver frontend which proxys to the control plane nodes
+#---------------------------------------------------------------------
+frontend apiserver
+    bind *:1644
+    mode tcp
+    option tcplog
+    default_backend apiserver
+
+#---------------------------------------------------------------------
+# round robin balancing for apiserver
+#---------------------------------------------------------------------
+backend apiserver
+    option httpchk GET /healthz
+    http-check expect status 200
+    mode tcp
+    option ssl-hello-chk
+    balance     roundrobin
+        server master01 10.0.2.10:6443 check
+        server master02 10.0.2.11:6443 check
+</code></pre></td></tr></table></div></div><h2 id=enable-haproxy-and-keepalived>Enable <code>haproxy</code> and <code>keepalived</code></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo systemctl <span class=nb>enable</span> haporyx --now
+sudo systemctl <span class=nb>enable</span> keepalived --now
+</code></pre></td></tr></table></div></div><h2 id=test>Test</h2><h3 id=ip-status-on-master01>IP Status on master01</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ip -br a
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>lo               UNKNOWN        127.0.0.1/8 ::1/128
+enp0s3           UP             10.0.2.10/24 10.0.2.100/24 fe80::a00:27ff:fe48:484d/64
+docker0          DOWN           172.17.0.1/16
+</code></pre></td></tr></table></div></div><h3 id=ip-status-on-master02>IP Status on master02</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ip -br a
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>lo               UNKNOWN        127.0.0.1/8 ::1/128
+enp0s3           UP             10.0.2.11/24 fe80::a00:27ff:fe44:9d58/64
+docker0          DOWN           172.17.0.1/16
+</code></pre></td></tr></table></div></div><h3 id=stop-keepalived-on-master01>Stop <code>keepalived</code> on master01</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo systemctl stop keepalived
+</code></pre></td></tr></table></div></div><h3 id=ip-status-on-master01-1>IP Status on master01</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ip -br a
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>lo               UNKNOWN        127.0.0.1/8 ::1/128
+enp0s3           UP             10.0.2.10/24 fe80::a00:27ff:fe48:484d/64
+docker0          DOWN           172.17.0.1/16
+</code></pre></td></tr></table></div></div><h3 id=ip-status-on-master02-1>IP Status on master02</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ip -br a
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>lo               UNKNOWN        127.0.0.1/8 ::1/128
+enp0s3           UP             10.0.2.11/24 10.0.2.100/24 fe80::a00:27ff:fe44:9d58/64
+docker0          DOWN           172.17.0.1/16
+</code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2021-06-04</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/kubernetes-high-availability/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability" data-hashtags="kubernetes,high availability,ha,keepalived,haproxy,kubeadm"><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-hashtag=kubernetes><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://cozyfex.github.io/kubernetes-high-availability/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://cozyfex.github.io/kubernetes-high-availability/><i class="fab fa-reddit fa-fw"></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability"><i data-svg-src=/lib/simple-icons/icons/line.min.svg></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability"><i class="fab fa-weibo fa-fw"></i></a><a href=javascript:void(0); title="Share on Myspace" data-sharer=myspace data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability" data-description><i data-svg-src=/lib/simple-icons/icons/myspace.min.svg></i></a><a href=javascript:void(0); title="Share on Blogger" data-sharer=blogger data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=javascript:void(0); title="Share on Evernote" data-sharer=evernote data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability"><i class="fab fa-evernote fa-fw"></i></a><a href=javascript:void(0); title="Share on Trello" data-sharer=trello data-url=https://cozyfex.github.io/kubernetes-high-availability/ data-title="Kubernetes High Availability" data-description><i class="fab fa-trello fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/kubernetes/>kubernetes</a>,&nbsp;<a href=/tags/high-availability/>high availability</a>,&nbsp;<a href=/tags/ha/>ha</a>,&nbsp;<a href=/tags/keepalived/>keepalived</a>,&nbsp;<a href=/tags/haproxy/>haproxy</a>,&nbsp;<a href=/tags/kubeadm/>kubeadm</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/ubuntu-swap-disable/ class=prev rel=prev title="Ubuntu Swap Disable"><i class="fas fa-angle-left fa-fw"></i>Ubuntu Swap Disable</a>
+<a href=/kubernetes-init-kubeadm/ class=next rel=next title="Kubernetes Init Kubeadm">Kubernetes Init Kubeadm<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Wirtten by <a href=https://blog.cozyfex.com/ target=_blank rel="noopener noreffer" title=CozyFex>CozyFex</a></div><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.cozyfex.com target=_blank>CozyFex</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-SFCQYN1X5J',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-SFCQYN1X5J" async></script></body></html>

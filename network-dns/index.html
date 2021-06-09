@@ -1,0 +1,215 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Network DNS - CozyFex</title><meta name=Description content="Cozy Coding! Cozy Felix! Cozy Life!"><meta property="og:title" content="Network DNS"><meta property="og:description" content="Ping to PC A  Ping to IP 1 2 3 4  ping 192.168.1.11 Reply from 192.168.1.11: bytes=32 time=4ms TTL=117 Reply from 192.168.1.11: bytes=32 time=4ms TTL=117   Ping to Name 1 2 3  ping db ping: unknown host db   Config /etc/hosts Private Name In PC B 1 2 3  hostname host-2   In PC A Ping to Name 1 2 3  ping db ping: unknown host db   Append to /etc/hosts 1  echo &#34;192."><meta property="og:type" content="article"><meta property="og:url" content="https://cozyfex.github.io/network-dns/"><meta property="og:image" content="https://cozyfex.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-05-29T16:11:29+09:00"><meta property="article:modified_time" content="2021-05-29T16:11:29+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://cozyfex.github.io/logo.png"><meta name=twitter:title content="Network DNS"><meta name=twitter:description content="Ping to PC A  Ping to IP 1 2 3 4  ping 192.168.1.11 Reply from 192.168.1.11: bytes=32 time=4ms TTL=117 Reply from 192.168.1.11: bytes=32 time=4ms TTL=117   Ping to Name 1 2 3  ping db ping: unknown host db   Config /etc/hosts Private Name In PC B 1 2 3  hostname host-2   In PC A Ping to Name 1 2 3  ping db ping: unknown host db   Append to /etc/hosts 1  echo &#34;192."><meta name=application-name content="CozyFex"><meta name=apple-mobile-web-app-title content="CozyFex"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cozyfex.github.io/network-dns/><link rel=prev href=https://cozyfex.github.io/network-routing/><link rel=next href=https://cozyfex.github.io/network-namespace/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Network DNS","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cozyfex.github.io\/network-dns\/"},"genre":"posts","keywords":"kubernetes, network, dns","wordcount":547,"url":"https:\/\/cozyfex.github.io\/network-dns\/","datePublished":"2021-05-29T16:11:29+09:00","dateModified":"2021-05-29T16:11:29+09:00","publisher":{"@type":"Organization","name":"CozyFex","logo":"https:\/\/cozyfex.github.io\/logo.png"},"author":{"@type":"Person","name":"CozyFex"},"description":""}</script><script data-ad-client=ca-pub-8304559883145938 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Posts </a><a class=menu-item href=/tags/>Tags </a><a class=menu-item href=/categories/>Categories </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/network-dns/ selected>English</option><option value=/kr/network-dns/>한글</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a><a href=javascript:void(0); class=menu-item title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value"><option value=/network-dns/ selected>English</option><option value=/kr/network-dns/>한글</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Network DNS</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/categories/kubernetes/><i class="far fa-folder fa-fw"></i>kubernetes</a>&nbsp;<a href=/categories/k8s/><i class="far fa-folder fa-fw"></i>k8s</a>&nbsp;<a href=/categories/orchestration/><i class="far fa-folder fa-fw"></i>orchestration</a>&nbsp;<a href=/categories/network/><i class="far fa-folder fa-fw"></i>network</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-29>2021-05-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;547 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;3 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#ping-to-pc-a>Ping to PC A</a><ul><li><a href=#ping-to-ip>Ping to IP</a></li><li><a href=#ping-to-name>Ping to Name</a></li></ul></li><li><a href=#config-etchosts>Config <code>/etc/hosts</code></a><ul><li><a href=#private-name>Private Name</a><ul><li><a href=#in-pc-b>In PC B</a></li><li><a href=#in-pc-a>In PC A</a><ul><li><a href=#ping-to-name-1>Ping to Name</a></li><li><a href=#append-to-etchosts>Append to <code>/etc/hosts</code></a></li><li><a href=#ping-to-name-again>Ping to Name Again</a></li></ul></li></ul></li><li><a href=#public-domain>Public Domain</a><ul><li><a href=#ping-to-google>Ping to Google</a></li><li><a href=#append-to-etchosts-1>Append to <code>/etc/hosts</code></a></li><li><a href=#ping-to-google-again>Ping to Google Again</a></li></ul></li></ul></li><li><a href=#name-resolution>Name Resolution</a><ul><li><a href=#system-diagram>System Diagram</a></li><li><a href=#etchosts><code>/etc/hosts</code></a></li></ul></li><li><a href=#dns>DNS</a><ul><li><a href=#dns-diagram>DNS Diagram</a></li><li><a href=#dns-server-config>DNS Server Config</a></li><li><a href=#dns-client-config>DNS Client Config</a><ul><li><a href=#etcresolvconf><code>/etc/resolv.conf</code></a></li><li><a href=#etcnsswitchconf><code>/etc/nsswitch.conf</code></a></li></ul></li></ul></li><li><a href=#domain-names>Domain Names</a><ul><li><a href=#domain-system-example>Domain System Example</a></li><li><a href=#request-appsgooglecom>Request <code>apps.google.com</code></a></li></ul></li><li><a href=#dns-record-types>DNS Record Types</a></li><li><a href=#tools>Tools</a><ul><li><a href=#nslookup><code>nslookup</code></a></li><li><a href=#dig><code>dig</code></a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=ping-to-pc-a>Ping to PC A</h2><a class=lightgallery href=/network-dns/network-hosts.png title=/network-dns/network-hosts.png data-thumbnail=/network-dns/network-hosts.png><img class=lazyload src=/svg/loading.min.svg data-src=network-hosts.png data-srcset="/network-dns/network-hosts.png, network-hosts.png 1.5x, /network-dns/network-hosts.png 2x" data-sizes=auto alt=/network-dns/network-hosts.png width=100%></a><h3 id=ping-to-ip>Ping to IP</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ping 192.168.1.11
+
+Reply from 192.168.1.11: <span class=nv>bytes</span><span class=o>=</span><span class=m>32</span> <span class=nv>time</span><span class=o>=</span>4ms <span class=nv>TTL</span><span class=o>=</span><span class=m>117</span>
+Reply from 192.168.1.11: <span class=nv>bytes</span><span class=o>=</span><span class=m>32</span> <span class=nv>time</span><span class=o>=</span>4ms <span class=nv>TTL</span><span class=o>=</span><span class=m>117</span>
+</code></pre></td></tr></table></div></div><h3 id=ping-to-name>Ping to Name</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ping db
+
+ping: unknown host db
+</code></pre></td></tr></table></div></div><h2 id=config-etchosts>Config <code>/etc/hosts</code></h2><h3 id=private-name>Private Name</h3><h4 id=in-pc-b>In PC B</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>hostname
+
+host-2
+</code></pre></td></tr></table></div></div><h4 id=in-pc-a>In PC A</h4><h5 id=ping-to-name-1>Ping to Name</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ping db
+
+ping: unknown host db
+</code></pre></td></tr></table></div></div><h5 id=append-to-etchosts>Append to <code>/etc/hosts</code></h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>echo</span> <span class=s2>&#34;192.168.1.11    db&#34;</span> &gt;&gt; /etc/hosts
+</code></pre></td></tr></table></div></div><h5 id=ping-to-name-again>Ping to Name Again</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ping db
+
+PING db <span class=o>(</span>192.168.1.11<span class=o>)</span> 56<span class=o>(</span>84<span class=o>)</span> bytes of data.
+<span class=m>64</span> bytes from db <span class=o>(</span>192.168.1.11<span class=o>)</span>: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>1</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>64</span> <span class=nv>time</span><span class=o>=</span>0.052 ms
+<span class=m>64</span> bytes from db <span class=o>(</span>192.168.1.11<span class=o>)</span>: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>2</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>64</span> <span class=nv>time</span><span class=o>=</span>0.079 ms
+</code></pre></td></tr></table></div></div><h3 id=public-domain>Public Domain</h3><h4 id=ping-to-google>Ping to Google</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ping www.google.com
+
+PING www.google.com <span class=o>(</span>172.217.174.100<span class=o>)</span>: <span class=m>56</span> data bytes
+<span class=m>64</span> bytes from 172.217.174.100: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>0</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>116</span> <span class=nv>time</span><span class=o>=</span>61.795 ms
+<span class=m>64</span> bytes from 172.217.174.100: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>1</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>116</span> <span class=nv>time</span><span class=o>=</span>32.837 ms
+<span class=m>64</span> bytes from 172.217.174.100: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>2</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>116</span> <span class=nv>time</span><span class=o>=</span>83.736 ms
+</code></pre></td></tr></table></div></div><h4 id=append-to-etchosts-1>Append to <code>/etc/hosts</code></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>echo</span> <span class=s2>&#34;192.168.1.11    db&#34;</span> &gt;&gt; /etc/hosts
+</code></pre></td></tr></table></div></div><h4 id=ping-to-google-again>Ping to Google Again</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ping www.google.com
+
+PING www.google.com <span class=o>(</span>192.168.1.11<span class=o>)</span> 56<span class=o>(</span>84<span class=o>)</span> bytes of data.
+<span class=m>64</span> bytes from www.google.com <span class=o>(</span>192.168.1.11<span class=o>)</span>: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>1</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>64</span> <span class=nv>time</span><span class=o>=</span>0.052 ms
+<span class=m>64</span> bytes from www.google.com <span class=o>(</span>192.168.1.11<span class=o>)</span>: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>2</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>64</span> <span class=nv>time</span><span class=o>=</span>0.079 ms
+</code></pre></td></tr></table></div></div><h2 id=name-resolution>Name Resolution</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Name Resolution<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>Below system and hosts, it can make to connect each PC.<br>But, there are big problem!<br>If you need to add or change <code>/etc/hosts</code>, you have to change the <code>/etc/hosts</code> file each PC.</div></div></div><h3 id=system-diagram>System Diagram</h3><a class=lightgallery href=/network-dns/network-name-resolution.png title=/network-dns/network-name-resolution.png data-thumbnail=/network-dns/network-name-resolution.png><img class=lazyload src=/svg/loading.min.svg data-src=network-name-resolution.png data-srcset="/network-dns/network-name-resolution.png, network-name-resolution.png 1.5x, /network-dns/network-name-resolution.png 2x" data-sizes=auto alt=/network-dns/network-name-resolution.png width=100%></a><h3 id=etchosts><code>/etc/hosts</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>192.168.1.10  web
+192.168.1.11  db
+192.168.1.12  nfs
+192.168.1.21  db-1
+192.168.1.22  nfs-1
+192.168.1.23  web-1
+192.168.1.51  db-2
+192.168.1.53  nfs-2
+192.168.1.72  web-2
+192.168.1.73  db-3
+192.168.1.74  nfs-3
+192.168.1.75  web-3
+192.168.1.94  db-4
+192.168.1.96  nfs-4
+192.168.1.101  web-4
+</code></pre></td></tr></table></div></div><h2 id=dns>DNS</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Domain Name System<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>I notice to you the problem of Name Resolution System.<br><code>DNS</code> is a solution to manage hosts in a system.</div></div></div><h3 id=dns-diagram>DNS Diagram</h3><a class=lightgallery href=/network-dns/network-dns.png title=/network-dns/network-dns.png data-thumbnail=/network-dns/network-dns.png><img class=lazyload src=/svg/loading.min.svg data-src=network-dns.png data-srcset="/network-dns/network-dns.png, network-dns.png 1.5x, /network-dns/network-dns.png 2x" data-sizes=auto alt=/network-dns/network-dns.png width=100%></a><h3 id=dns-server-config>DNS Server Config</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>192.168.1.10  web
+192.168.1.11  db
+192.168.1.12  nfs
+192.168.1.21  db-1
+192.168.1.22  nfs-1
+192.168.1.23  web-1
+192.168.1.51  db-2
+192.168.1.53  nfs-2
+192.168.1.72  web-2
+192.168.1.73  db-3
+192.168.1.74  nfs-3
+192.168.1.75  web-3
+192.168.1.94  db-4
+192.168.1.96  nfs-4
+192.168.1.101  web-4
+</code></pre></td></tr></table></div></div><h3 id=dns-client-config>DNS Client Config</h3><h4 id=etcresolvconf><code>/etc/resolv.conf</code></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>cat /etc/resolv.conf
+
+nameserver 192.168.1.100
+</code></pre></td></tr></table></div></div><h4 id=etcnsswitchconf><code>/etc/nsswitch.conf</code></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>cat /etc/nsswitch.conf
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>...
+hosts:          files dns
+...
+</code></pre></td></tr></table></div></div><h2 id=domain-names>Domain Names</h2><h3 id=domain-system-example>Domain System Example</h3><div class=mermaid id=id-1></div><h3 id=request-appsgooglecom>Request <code>apps.google.com</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ping apps.google.com
+
+PING www3.l.google.com <span class=o>(</span>216.58.220.142<span class=o>)</span>: <span class=m>56</span> data bytes
+<span class=m>64</span> bytes from 216.58.220.142: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>0</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>116</span> <span class=nv>time</span><span class=o>=</span>37.414 ms
+<span class=m>64</span> bytes from 216.58.220.142: <span class=nv>icmp_seq</span><span class=o>=</span><span class=m>1</span> <span class=nv>ttl</span><span class=o>=</span><span class=m>116</span> <span class=nv>time</span><span class=o>=</span>44.157 ms
+</code></pre></td></tr></table></div></div><div class=mermaid id=id-2></div><h2 id=dns-record-types>DNS Record Types</h2><table><thead><tr><th style=text-align:center>Type</th><th style=text-align:center>Description</th><th style=text-align:center>Example</th></tr></thead><tbody><tr><td style=text-align:center>A</td><td style=text-align:center>IPv4</td><td style=text-align:center>192.168.1.1</td></tr><tr><td style=text-align:center>AAA</td><td style=text-align:center>IPv6</td><td style=text-align:center>2001:0db8:85a3:0000:0000:8a2e:0370:7334</td></tr><tr><td style=text-align:center>CNAME</td><td style=text-align:center>Domain Name</td><td style=text-align:center>test.web-server.com,test.api-server.com</td></tr></tbody></table><h2 id=tools>Tools</h2><h3 id=nslookup><code>nslookup</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>nslookup www.google.com
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Server:		192.168.65.2
+Address:	192.168.65.2#53
+
+Non-authoritative answer:
+Name:	www.google.com
+Address: 216.58.220.132
+Name:	www.google.com
+Address: 2404:6800:4004:810::2004
+</code></pre></td></tr></table></div></div><h3 id=dig><code>dig</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>dig www.google.com
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; www.google.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 56513
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;www.google.com.			IN	A
+
+;; ANSWER SECTION:
+www.google.com.		250	IN	A	172.217.31.164
+
+;; Query time: 6 msec
+;; SERVER: 192.168.65.2#53(192.168.65.2)
+;; WHEN: Sat May 29 08:36:57 UTC 2021
+;; MSG SIZE  rcvd: 48
+</code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2021-05-29</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/network-dns/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS" data-hashtags=kubernetes,network,dns><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://cozyfex.github.io/network-dns/ data-hashtag=kubernetes><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://cozyfex.github.io/network-dns/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://cozyfex.github.io/network-dns/><i class="fab fa-reddit fa-fw"></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS"><i data-svg-src=/lib/simple-icons/icons/line.min.svg></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS"><i class="fab fa-weibo fa-fw"></i></a><a href=javascript:void(0); title="Share on Myspace" data-sharer=myspace data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS" data-description><i data-svg-src=/lib/simple-icons/icons/myspace.min.svg></i></a><a href=javascript:void(0); title="Share on Blogger" data-sharer=blogger data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=javascript:void(0); title="Share on Evernote" data-sharer=evernote data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS"><i class="fab fa-evernote fa-fw"></i></a><a href=javascript:void(0); title="Share on Trello" data-sharer=trello data-url=https://cozyfex.github.io/network-dns/ data-title="Network DNS" data-description><i class="fab fa-trello fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/kubernetes/>kubernetes</a>,&nbsp;<a href=/tags/network/>network</a>,&nbsp;<a href=/tags/dns/>dns</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/network-routing/ class=prev rel=prev title="Network Routing"><i class="fas fa-angle-left fa-fw"></i>Network Routing</a>
+<a href=/network-namespace/ class=next rel=next title="Network Namespace">Network Namespace<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Wirtten by <a href=https://blog.cozyfex.com/ target=_blank rel="noopener noreffer" title=CozyFex>CozyFex</a></div><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.cozyfex.com target=_blank>CozyFex</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/mermaid/mermaid.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/mermaid/mermaid.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},data:{"id-1":"graph TD;\n\nD(.) --\u003e C(.com)  \nC --\u003e G(google)  \nG --\u003e M(mail)  \nG --\u003e DV(drive)\nG --\u003e W(www)\nG --\u003e MS(maps)\nG --\u003e A(apps)","id-2":"graph TD;\n\nAPPS(apps.google.com) --\u003e ORG(Organization DNS)  \nORG --\u003e CC(Return Cache 216.58.220.142)  \nORG --\u003e R(Root . DNS)  \nR --\u003e DC(.com DNS)  \nDC --\u003e G(Google DNS)\nG --\u003e GR(Return 216.58.220.142)"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-SFCQYN1X5J',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-SFCQYN1X5J" async></script></body></html>
