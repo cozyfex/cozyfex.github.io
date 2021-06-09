@@ -165,6 +165,16 @@ kubectl label nodes [node-name] [key]=[value]
 kubectl label nodes node01 size=Large
 ```
 
+## Execute Command at Running Container
+
+```shell
+# Structure
+kubectl exec -it <container-name> -- <comaand>
+
+# Examples
+kubectl exec -it <container-name> -- sleep 10
+kubectl exec -it <container-name> -- date -s '19 APR 2012 11:14:00'
+```
 
 
 
