@@ -28,7 +28,7 @@ keywords:
 ```
 alias k="kubectl"
 alias kc="kubectl config get-contexts"
-alias kn="kubectl config set-context --current --namespace="
+alias kn="kubectl config set-context --current --namespace"
 ```
 
 ### Output YAML in `~/.bashrc`
@@ -140,3 +140,9 @@ k run tmp-api-contact --image=curlimages/curl:7.65.3 $do --command > curl.yaml -
 k delete pod nginx --grace-period 0 --force
 ```
 
+## SSH with Command
+
+```shell
+ssh cluster1-worker1 "docker ps | grep tigers-reunite"
+ssh cluster1-worker1 "docker logs a934ce61f4d4" &> /opt/course/17/pod-container.log
+```
