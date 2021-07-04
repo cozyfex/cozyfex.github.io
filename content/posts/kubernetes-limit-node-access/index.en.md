@@ -52,7 +52,7 @@ It's UID = 0.
 
 {{<admonition note "System" true>}}  
 This is for system programs.  
-`ssh`, `mail`
+`sys`, `mail`
 {{</admonition>}}
 
 ### Service Accounts
