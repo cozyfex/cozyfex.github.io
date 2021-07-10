@@ -3,6 +3,8 @@ title: "Kubernetes initContainers"
 
 date: 2021-05-17T01:59:59+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

@@ -3,6 +3,8 @@ title: "Kubernetes Authorization"
 
 date: 2021-05-24T16:31:00+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

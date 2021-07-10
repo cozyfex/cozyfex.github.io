@@ -3,6 +3,8 @@ title: "Kubernetes Image Security"
 
 date: 2021-05-24T21:48:08+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

@@ -3,6 +3,8 @@ title: "Kubernetes TLS 인증"
 
 date: 2021-05-19T17:59:31+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

@@ -3,6 +3,8 @@ title: "Kubernetes Tips"
 
 date: 2021-06-25T19:49:30+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

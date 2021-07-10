@@ -104,6 +104,10 @@ sudo ufw allow from 198.51.100.10 to 192.156.39.22 port 22 proto tcp
 ## Delete
 
 ```shell
+sudo ufw delete allow 10250
+```
+
+```shell
 sudo ufw status numbered
 ```
 

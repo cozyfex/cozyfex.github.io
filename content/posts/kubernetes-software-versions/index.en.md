@@ -3,6 +3,8 @@ title: "Kubernetes Software Versions"
 
 date: 2021-05-17T20:03:32+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

@@ -3,6 +3,8 @@ title: "Kubernetes Benchmark"
 
 date: 2021-07-02T14:47:15+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

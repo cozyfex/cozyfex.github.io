@@ -3,6 +3,8 @@ title: "Kubernetes KubeConfig"
 
 date: 2021-05-23T18:50:23+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

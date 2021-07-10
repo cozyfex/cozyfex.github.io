@@ -3,6 +3,8 @@ title: "Kubernetes Authentication"
 
 date: 2021-05-19T13:09:32+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

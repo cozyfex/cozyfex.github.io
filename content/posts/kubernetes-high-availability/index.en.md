@@ -3,6 +3,8 @@ title: "Kubernetes High Availability"
 
 date: 2021-06-04T20:06:02+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

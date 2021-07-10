@@ -3,6 +3,8 @@ title: "Kubernetes Cluster Roles"
 
 date: 2021-05-24T21:03:52+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

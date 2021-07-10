@@ -3,6 +3,8 @@ title: "Kubernetes TLS Certificates Creation"
 
 date: 2021-05-19T19:59:26+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

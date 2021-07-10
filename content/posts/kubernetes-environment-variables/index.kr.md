@@ -3,6 +3,8 @@ title: "Kubernetes 환경 변수"
 
 date: 2021-05-17T00:03:11+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

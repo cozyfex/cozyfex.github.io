@@ -3,6 +3,8 @@ title: "ngrok Usage"
 
 date: 2021-05-25T16:25:42+09:00
 
+author: CozyFex
+
 categories:
 
 - ngrok

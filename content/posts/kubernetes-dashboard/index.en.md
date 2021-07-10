@@ -49,6 +49,6 @@ kubectl proxy
 ## Dashboard Authentication
 
 {{<admonition note "Web UI" true>}}  
-You can find the way to authenticate with dashbaord.  
+You can find the way to authenticate with dashboard.  
 {{</admonition>}}
 

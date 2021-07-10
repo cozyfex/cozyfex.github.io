@@ -3,6 +3,8 @@ title: "Kubernetes Security Context"
 
 date: 2021-05-28T15:20:57+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

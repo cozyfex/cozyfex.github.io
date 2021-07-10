@@ -3,6 +3,8 @@ title: "Kubernetes Authorization Role Based Access Control"
 
 date: 2021-05-24T18:04:01+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

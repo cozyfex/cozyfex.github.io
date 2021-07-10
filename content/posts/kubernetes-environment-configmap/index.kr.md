@@ -3,6 +3,8 @@ title: "Kubernetes Environment Configmap"
 
 date: 2021-05-17T00:35:10+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

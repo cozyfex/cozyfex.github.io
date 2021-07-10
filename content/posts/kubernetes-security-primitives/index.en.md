@@ -3,6 +3,8 @@ title: "Kubernetes Security Primitives"
 
 date: 2021-05-19T11:54:20+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

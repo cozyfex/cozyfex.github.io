@@ -3,6 +3,8 @@ title: "Kubernetes Environment Secrets"
 
 date: 2021-05-17T01:18:07+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

@@ -3,6 +3,8 @@ title: "Ubuntu Swap Disable"
 
 date: 2021-06-04T02:03:35+09:00
 
+author: CozyFex
+
 categories:
 
 - linux

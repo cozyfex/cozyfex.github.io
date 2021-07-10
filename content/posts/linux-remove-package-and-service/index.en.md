@@ -46,6 +46,12 @@ systemctl stop apache2
 systemctl disable apache2
 ```
 
+## Check Installed Packages
+
+```shell
+apt list --installed
+```
+
 ## Remove Package
 
 ```shell

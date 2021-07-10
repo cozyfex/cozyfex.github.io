@@ -3,6 +3,8 @@ title: "Kubernetes TLS 인증 API"
 
 date: 2021-05-21T15:06:16+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

@@ -3,6 +3,8 @@ title: "Kubernetes TLS Certificate Details"
 
 date: 2021-05-20T12:27:18+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

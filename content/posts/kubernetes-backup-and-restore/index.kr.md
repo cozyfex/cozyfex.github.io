@@ -3,6 +3,8 @@ title: "Kubernetes 백업과 복원"
 
 date: 2021-05-19T10:09:13+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

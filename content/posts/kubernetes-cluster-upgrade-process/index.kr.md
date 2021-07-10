@@ -3,6 +3,8 @@ title: "Kubernetes 클러스터 업그레이드 프로세스"
 
 date: 2021-05-17T21:41:08+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

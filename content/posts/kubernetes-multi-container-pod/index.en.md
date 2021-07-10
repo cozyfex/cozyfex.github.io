@@ -3,6 +3,8 @@ title: "Kubernetes Multi-Container POD"
 
 date: 2021-05-17T01:52:48+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes

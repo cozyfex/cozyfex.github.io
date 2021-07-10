@@ -3,6 +3,8 @@ title: "Kubernetes API Groups"
 
 date: 2021-05-24T15:43:12+09:00
 
+author: CozyFex
+
 categories:
 
 - kubernetes
