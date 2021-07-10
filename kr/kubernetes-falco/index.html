@@ -1,0 +1,719 @@
+<!doctype html><html lang=kr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Kubernetes Falco - CozyFex</title><meta name=Description content="Cozy Coding! Cozy Felix! Cozy Life!"><meta property="og:title" content="Kubernetes Falco"><meta property="og:description" content="syscalls 의 행동 분석 수행 Analytics of syscalls 우리는 크래커에 의한 의도되지 않은 syscalls 실행에 대한 알림을 받아야 한다. 그래서 우리는 이를 위한 시스템을 구축해야 한다. Falco Falco 클라우드 네이"><meta property="og:type" content="article"><meta property="og:url" content="https://cozyfex.github.io/kr/kubernetes-falco/"><meta property="og:image" content="https://cozyfex.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-07-09T20:37:03+09:00"><meta property="article:modified_time" content="2021-07-09T20:37:03+09:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://cozyfex.github.io/logo.png"><meta name=twitter:title content="Kubernetes Falco"><meta name=twitter:description content="syscalls 의 행동 분석 수행 Analytics of syscalls 우리는 크래커에 의한 의도되지 않은 syscalls 실행에 대한 알림을 받아야 한다. 그래서 우리는 이를 위한 시스템을 구축해야 한다. Falco Falco 클라우드 네이"><meta name=application-name content="CozyFex"><meta name=apple-mobile-web-app-title content="CozyFex"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cozyfex.github.io/kr/kubernetes-falco/><link rel=prev href=https://cozyfex.github.io/kr/docker-scan-images-for-known-vulnerabilities/><link rel=next href=https://cozyfex.github.io/kr/kubernetes-immutable-infrastructure/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Kubernetes Falco","inLanguage":"kr","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cozyfex.github.io\/kr\/kubernetes-falco\/"},"genre":"posts","keywords":"kubernetes, falco, analytics, syscalls","wordcount":2418,"url":"https:\/\/cozyfex.github.io\/kr\/kubernetes-falco\/","datePublished":"2021-07-09T20:37:03+09:00","dateModified":"2021-07-09T20:37:03+09:00","publisher":{"@type":"Organization","name":"CozyFex","logo":"https:\/\/cozyfex.github.io\/logo.png"},"author":{"@type":"Person","name":"CozyFex"},"description":""}</script><script data-ad-client=ca-pub-8304559883145938 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/kr/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/kr/posts/>Posts </a><a class=menu-item href=/kr/tags/>Tags </a><a class=menu-item href=/kr/categories/>Categories </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title="Select Language">한글<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/kubernetes-falco/>English</option><option value=/kr/kubernetes-falco/ selected>한글</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/kr/ title=CozyFex><img class="lazyload logo" src=/svg/loading.min.svg data-src=/images/logo.png data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x" data-sizes=auto alt=/images/logo.png title=/images/logo.png>CozyFex</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/kr/posts/ title>Posts</a><a class=menu-item href=/kr/tags/ title>Tags</a><a class=menu-item href=/kr/categories/ title>Categories</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a><a href=javascript:void(0); class=menu-item title="Select Language">한글<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value"><option value=/kubernetes-falco/>English</option><option value=/kr/kubernetes-falco/ selected>한글</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Kubernetes Falco</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.cozyfex.com title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CozyFex</a></span>&nbsp;<span class=post-category>included in <a href=/kr/categories/kubernetes/><i class="far fa-folder fa-fw"></i>kubernetes</a>&nbsp;<a href=/kr/categories/k8s/><i class="far fa-folder fa-fw"></i>k8s</a>&nbsp;<a href=/kr/categories/orchestration/><i class="far fa-folder fa-fw"></i>orchestration</a>&nbsp;<a href=/kr/categories/falco/><i class="far fa-folder fa-fw"></i>falco</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-07-09>2021-07-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;2418 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;5 minutes&nbsp;</div></div><div class="details toc" id=toc-static kept=true><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#syscalls-의-행동-분석-수행>syscalls 의 행동 분석 수행</a></li><li><a href=#falco>Falco</a></li><li><a href=#falco-architecture>Falco Architecture</a></li><li><a href=#falco-install-as-a-package>Falco Install as a Package</a><ul><li><a href=#download>Download</a></li><li><a href=#install-kernel-headers>Install Kernel Headers</a></li><li><a href=#install-falco>Install Falco</a></li><li><a href=#run-falco>Run Falco</a></li></ul></li><li><a href=#falco-install-as-a-daemonset>Falco Install as a DaemonSet</a><ul><li><a href=#add-repository>Add Repository</a></li><li><a href=#install-falco-1>Install Falco</a></li><li><a href=#check-running>Check Running</a></li></ul></li><li><a href=#check-running-falco-each-node>Check Running Falco Each Node</a></li><li><a href=#analytics-falco>Analytics Falco</a><ul><li><a href=#create-a-pod>Create a POD</a></li><li><a href=#check-running-node>Check Running Node</a></li><li><a href=#connect-to-the-node>Connect to the Node</a></li><li><a href=#trace-falco-running-process>Trace Falco Running Process</a></li><li><a href=#execute-bash-on-the-node-with-extra-terminal>Execute Bash on the Node with Extra Terminal</a></li></ul></li><li><a href=#falco-rules>Falco Rules</a><ul><li><a href=#structure>Structure</a></li><li><a href=#sample>Sample</a></li><li><a href=#values-in-falco-rules>Values in Falco Rules</a></li><li><a href=#falco-priority>Falco Priority</a></li><li><a href=#list-in-falco-rules>List in Falco Rules</a></li><li><a href=#macro-in-falco-rules>Macro in Falco Rules</a></li></ul></li><li><a href=#falco-configuration-files>Falco Configuration Files</a><ul><li><a href=#falco-main-config-file>Falco Main Config File</a></li><li><a href=#figure-out-the-config-on-running-process>Figure Out the Config on Running Process</a><ul><li><a href=#check-running-log>Check Running Log</a></li><li><a href=#check-service-config>Check Service Config</a></li></ul></li><li><a href=#etcfalcofalcoyaml><code>/etc/falco/falco/yaml</code></a></li><li><a href=#etcfalcofalco_rulesyaml><code>/etc/falco/falco_rules.yaml</code></a></li><li><a href=#etcfalcofalco_ruleslocalyaml><code>/etc/falco/falco_rules.local.yaml</code></a></li></ul></li><li><a href=#hot-reload>Hot Reload</a></li></ul></nav></div></div><div class=content id=content><h2 id=syscalls-의-행동-분석-수행>syscalls 의 행동 분석 수행</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Analytics of syscalls<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>우리는 크래커에 의한 의도되지 않은 syscalls 실행에 대한 알림을 받아야 한다.<br>그래서 우리는 이를 위한 시스템을 구축해야 한다.</div></div></div><h2 id=falco>Falco</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Falco<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>클라우드 네이티브 런타임 보안 프로젝트인 <a href=https://falco.org target=_blank rel="noopener noreffer">Falco</a>는 사실상 Kubernetes 위협 탐지 엔진입니다.</div></div></div><h2 id=falco-architecture>Falco Architecture</h2><a class=lightgallery href=/kr/kubernetes-falco/falco.png title=/kr/kubernetes-falco/falco.png data-thumbnail=/kr/kubernetes-falco/falco.png><img class=lazyload src=/svg/loading.min.svg data-src=falco.png data-srcset="/kr/kubernetes-falco/falco.png, falco.png 1.5x, /kr/kubernetes-falco/falco.png 2x" data-sizes=auto alt=/kr/kubernetes-falco/falco.png width=100%></a><h2 id=falco-install-as-a-package>Falco Install as a Package</h2><h3 id=download>Download</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>curl -s https://falco.org/repo/falcosecurity-3672BA8F.asc <span class=p>|</span> apt-key add -
+<span class=nb>echo</span> <span class=s2>&#34;deb https://download.falco.org/packages/deb stable main&#34;</span> <span class=p>|</span> tee -a /etc/apt/sources.list.d/falcosecurity.list
+apt-get update -y
+</code></pre></td></tr></table></div></div><h3 id=install-kernel-headers>Install Kernel Headers</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>apt-get -y install linux-headers-<span class=k>$(</span>uname -r<span class=k>)</span>
+</code></pre></td></tr></table></div></div><h3 id=install-falco>Install Falco</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>apt-get install -y falco
+</code></pre></td></tr></table></div></div><h3 id=run-falco>Run Falco</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>systemctl start falco
+</code></pre></td></tr></table></div></div><h2 id=falco-install-as-a-daemonset>Falco Install as a DaemonSet</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>HELM<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content><a href=https://helm.sh target=_blank rel="noopener noreffer">Helm</a>, Kubernetes 패키지 매니저 입니다.</div></div></div><h3 id=add-repository>Add Repository</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>helm repo add falcosecurity https://falcosecurity.github.io/charts
+helm repo update
+</code></pre></td></tr></table></div></div><h3 id=install-falco-1>Install Falco</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>helm install falco falcosecurity/falco
+</code></pre></td></tr></table></div></div><h3 id=check-running>Check Running</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get pods
+</code></pre></td></tr></table></div></div><h2 id=check-running-falco-each-node>Check Running Falco Each Node</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>systemctl status falco
+</code></pre></td></tr></table></div></div><h2 id=analytics-falco>Analytics Falco</h2><h3 id=create-a-pod>Create a POD</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl run nginx --image<span class=o>=</span>nginx
+</code></pre></td></tr></table></div></div><h3 id=check-running-node>Check Running Node</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl get pods -o wide
+</code></pre></td></tr></table></div></div><h3 id=connect-to-the-node>Connect to the Node</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ssh node01
+</code></pre></td></tr></table></div></div><h3 id=trace-falco-running-process>Trace Falco Running Process</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>journalctl -fu falco
+</code></pre></td></tr></table></div></div><h3 id=execute-bash-on-the-node-with-extra-terminal>Execute Bash on the Node with Extra Terminal</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>kubectl <span class=nb>exec</span> -it nginx -- bash
+</code></pre></td></tr></table></div></div><h2 id=falco-rules>Falco Rules</h2><h3 id=structure>Structure</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>- <span class=nt>rule</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Name of the Rule&gt;</span><span class=w>
+</span><span class=w>  </span><span class=nt>desc</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Detailed Description of the Rule&gt;</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>&lt;When to filter events matching the rule&gt;</span><span class=w>
+</span><span class=w>  </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Output to be generated for the Event&gt;</span><span class=w>
+</span><span class=w>  </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Severity of the event&gt;</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h3 id=sample>Sample</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>- <span class=nt>rule</span><span class=p>:</span><span class=w> </span><span class=l>Detect Shell inside a container</span><span class=w>
+</span><span class=w>  </span><span class=nt>desc</span><span class=p>:</span><span class=w> </span><span class=l>Alter if a shell such as bash is open inside the container</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>container.id != host and proc.name = bash</span><span class=w>
+</span><span class=w>  </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=l>Bash Shell Opened (user=%user.name %container.id)</span><span class=w>
+</span><span class=w>  </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>WARNING</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h3 id=values-in-falco-rules>Values in Falco Rules</h3><div class=mermaid id=id-1></div><div class=mermaid id=id-2></div><h3 id=falco-priority>Falco Priority</h3><table><thead><tr><th style=text-align:center>Priority</th></tr></thead><tbody><tr><td style=text-align:center>DEBUG</td></tr><tr><td style=text-align:center>INFORMATION</td></tr><tr><td style=text-align:center>NOTICE</td></tr><tr><td style=text-align:center>WARNING</td></tr><tr><td style=text-align:center>ERROR</td></tr><tr><td style=text-align:center>CRITICAL</td></tr><tr><td style=text-align:center>ALERT</td></tr><tr><td style=text-align:center>EMERGENCY</td></tr></tbody></table><h3 id=list-in-falco-rules>List in Falco Rules</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>- <span class=nt>rule</span><span class=p>:</span><span class=w> </span><span class=l>Detect Shell inside a container</span><span class=w>
+</span><span class=w>  </span><span class=nt>desc</span><span class=p>:</span><span class=w> </span><span class=l>Alter if a shell such as bash is open inside the container</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>container.id != host and proc.name in (linux_shells)</span><span class=w>
+</span><span class=w>  </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=l>Bash Shell Opened (user=%user.name %container.id)</span><span class=w>
+</span><span class=w>  </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>WARNING</span><span class=w>
+</span><span class=w></span>- <span class=nt>list</span><span class=p>:</span><span class=w> </span><span class=l>linux_shells</span><span class=w>
+</span><span class=w>  </span><span class=nt>items</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=l>bash, zsh, ksh, sh, csh ]</span><span class=w>
+</span></code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>List<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>You can see <code>linux_shells</code></div></div></div><h3 id=macro-in-falco-rules>Macro in Falco Rules</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>- <span class=nt>rule</span><span class=p>:</span><span class=w> </span><span class=l>Detect Shell inside a container</span><span class=w>
+</span><span class=w>  </span><span class=nt>desc</span><span class=p>:</span><span class=w> </span><span class=l>Alter if a shell such as bash is open inside the container</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>container and proc.name in (linux_shells)</span><span class=w>
+</span><span class=w>  </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=l>Bash Shell Opened (user=%user.name %container.id)</span><span class=w>
+</span><span class=w>  </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>WARNING</span><span class=w>
+</span><span class=w></span>- <span class=nt>list</span><span class=p>:</span><span class=w> </span><span class=l>linux_shells</span><span class=w>
+</span><span class=w>  </span><span class=nt>items</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=l>bash, zsh, ksh, sh, csh ]</span><span class=w>
+</span><span class=w></span>- <span class=nt>macro</span><span class=p>:</span><span class=w> </span><span class=l>container</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>container.id != host</span><span class=w>
+</span></code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw"></i>Macro<i class="details-icon fas fa-angle-right fa-fw"></i></div><div class=details-content><div class=admonition-content>You can see <code>container</code></div></div></div><h2 id=falco-configuration-files>Falco Configuration Files</h2><h3 id=falco-main-config-file>Falco Main Config File</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>cat /etc/falco/falco.yaml
+</code></pre></td></tr></table></div></div><h3 id=figure-out-the-config-on-running-process>Figure Out the Config on Running Process</h3><h4 id=check-running-log>Check Running Log</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>journalctl -fu falco
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>-- Logs begin at Tue 2021-04-13 21:45:35 UTC, end at Tue 2021-04-13 21:51:31 UTC. --
+Apr 13 21:45:36 node01 systemd[1]: Starting Falco: Container Native Runtime Security...
+Apr 13 21:45:36 node01 systemd[1]: Started Falco: Container Native Runtime Security.
+Apr 13 21:45:36 node01 falco[9817]: Falco version 0.28.0 (driver version 5c0b863ddade7a45568c0ac97d037422c9efb750)
+Apr 13 21:45:36 node01 falco[9817]: Tue Apr 13 21:45:36 2021: Falco version 0.28.0 (driver version 5c0b863ddade7a45568c0ac97d037422c9efb750)
+Apr 13 21:45:36 node01 falco[9817]: Falco initialized with configuration file /etc/falco/falco.yaml
+Apr 13 21:45:36 node01 falco[9817]: Tue Apr 13 21:45:36 2021: Falco initialized with configuration file /etc/falco/falco.yaml
+</code></pre></td></tr></table></div></div><h4 id=check-service-config>Check Service Config</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>cat /usr/lib/systemd/system/falco.service
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[Unit]
+Description=Falco: Container Native Runtime Security
+Documentation=https://falco.org/docs/
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=/sbin/modprobe falco
+ExecStart=/usr/bin/falco --pidfile=/var/run/falco.pid -c /etc/falco/falco.yaml
+.
+.
+.
+</code></pre></td></tr></table></div></div><h3 id=etcfalcofalcoyaml><code>/etc/falco/falco/yaml</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Copyright (C) 2021 The Falco Authors.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span><span class=w>
+</span><span class=w></span><span class=c># you may not use this file except in compliance with the License.</span><span class=w>
+</span><span class=w></span><span class=c># You may obtain a copy of the License at</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c>#     http://www.apache.org/licenses/LICENSE-2.0</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Unless required by applicable law or agreed to in writing, software</span><span class=w>
+</span><span class=w></span><span class=c># distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span><span class=w>
+</span><span class=w></span><span class=c># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><span class=w>
+</span><span class=w></span><span class=c># See the License for the specific language governing permissions and</span><span class=w>
+</span><span class=w></span><span class=c># limitations under the License.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># File(s) or Directories containing Falco rules, loaded at startup.</span><span class=w>
+</span><span class=w></span><span class=c># The name &#34;rules_file&#34; is only for backwards compatibility.</span><span class=w>
+</span><span class=w></span><span class=c># If the entry is a file, it will be read directly. If the entry is a directory,</span><span class=w>
+</span><span class=w></span><span class=c># every file in that directory will be read, in alphabetical order.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># falco_rules.yaml ships with the falco package and is overridden with</span><span class=w>
+</span><span class=w></span><span class=c># every new software version. falco_rules.local.yaml is only created</span><span class=w>
+</span><span class=w></span><span class=c># if it doesn&#39;t exist. If you want to customize the set of rules, add</span><span class=w>
+</span><span class=w></span><span class=c># your customizations to falco_rules.local.yaml.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># The files will be read in the order presented here, so make sure if</span><span class=w>
+</span><span class=w></span><span class=c># you have overrides they appear in later files.</span><span class=w>
+</span><span class=w></span><span class=nt>rules_file</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=l>/etc/falco/falco_rules.yaml</span><span class=w>
+</span><span class=w>  </span>- <span class=l>/etc/falco/falco_rules.local.yaml</span><span class=w>
+</span><span class=w>  </span>- <span class=l>/etc/falco/k8s_audit_rules.yaml</span><span class=w>
+</span><span class=w>  </span>- <span class=l>/etc/falco/rules.d</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># If true, the times displayed in log messages and output messages</span><span class=w>
+</span><span class=w></span><span class=c># will be in ISO 8601. By default, times are displayed in the local</span><span class=w>
+</span><span class=w></span><span class=c># time zone, as governed by /etc/localtime.</span><span class=w>
+</span><span class=w></span><span class=nt>time_format_iso_8601</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Whether to output events in json or text</span><span class=w>
+</span><span class=w></span><span class=nt>json_output</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># When using json output, whether or not to include the &#34;output&#34; property</span><span class=w>
+</span><span class=w></span><span class=c># itself (e.g. &#34;File below a known binary directory opened for writing</span><span class=w>
+</span><span class=w></span><span class=c># (user=root ....&#34;) in the json output.</span><span class=w>
+</span><span class=w></span><span class=nt>json_include_output_property</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Send information logs to stderr and/or syslog Note these are *not* security</span><span class=w>
+</span><span class=w></span><span class=c># notification logs! These are just Falco lifecycle (and possibly error) logs.</span><span class=w>
+</span><span class=w></span><span class=nt>log_stderr</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w></span><span class=nt>log_syslog</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Minimum log level to include in logs. Note: these levels are</span><span class=w>
+</span><span class=w></span><span class=c># separate from the priority field of rules. This refers only to the</span><span class=w>
+</span><span class=w></span><span class=c># log level of falco&#39;s internal logging. Can be one of &#34;emergency&#34;,</span><span class=w>
+</span><span class=w></span><span class=c># &#34;alert&#34;, &#34;critical&#34;, &#34;error&#34;, &#34;warning&#34;, &#34;notice&#34;, &#34;info&#34;, &#34;debug&#34;.</span><span class=w>
+</span><span class=w></span><span class=nt>log_level</span><span class=p>:</span><span class=w> </span><span class=l>info</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Minimum rule priority level to load and run. All rules having a</span><span class=w>
+</span><span class=w></span><span class=c># priority more severe than this level will be loaded/run.  Can be one</span><span class=w>
+</span><span class=w></span><span class=c># of &#34;emergency&#34;, &#34;alert&#34;, &#34;critical&#34;, &#34;error&#34;, &#34;warning&#34;, &#34;notice&#34;,</span><span class=w>
+</span><span class=w></span><span class=c># &#34;info&#34;, &#34;debug&#34;.</span><span class=w>
+</span><span class=w></span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>debug</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Whether or not output to any of the output channels below is</span><span class=w>
+</span><span class=w></span><span class=c># buffered. Defaults to false</span><span class=w>
+</span><span class=w></span><span class=nt>buffered_outputs</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Falco uses a shared buffer between the kernel and userspace to pass</span><span class=w>
+</span><span class=w></span><span class=c># system call information. When Falco detects that this buffer is</span><span class=w>
+</span><span class=w></span><span class=c># full and system calls have been dropped, it can take one or more of</span><span class=w>
+</span><span class=w></span><span class=c># the following actions:</span><span class=w>
+</span><span class=w></span><span class=c>#   - ignore: do nothing (default when list of actions is empty)</span><span class=w>
+</span><span class=w></span><span class=c>#   - log: log a DEBUG message noting that the buffer was full</span><span class=w>
+</span><span class=w></span><span class=c>#   - alert: emit a Falco alert noting that the buffer was full</span><span class=w>
+</span><span class=w></span><span class=c>#   - exit: exit Falco with a non-zero rc</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Notice it is not possible to ignore and log/alert messages at the same time.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># The rate at which log/alert messages are emitted is governed by a</span><span class=w>
+</span><span class=w></span><span class=c># token bucket. The rate corresponds to one message every 30 seconds</span><span class=w>
+</span><span class=w></span><span class=c># with a burst of one message (by default).</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># The messages are emitted when the percentage of dropped system calls</span><span class=w>
+</span><span class=w></span><span class=c># with respect the number of events in the last second</span><span class=w>
+</span><span class=w></span><span class=c># is greater than the given threshold (a double in the range [0, 1]).</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># For debugging/testing it is possible to simulate the drops using</span><span class=w>
+</span><span class=w></span><span class=c># the `simulate_drops: true`. In this case the threshold does not apply.</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>syscall_event_drops</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>threshold</span><span class=p>:</span><span class=w> </span><span class=l>.1</span><span class=w>
+</span><span class=w>  </span><span class=nt>actions</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span>- <span class=l>log</span><span class=w>
+</span><span class=w>    </span>- <span class=l>alert</span><span class=w>
+</span><span class=w>  </span><span class=nt>rate</span><span class=p>:</span><span class=w> </span><span class=l>.03333</span><span class=w>
+</span><span class=w>  </span><span class=nt>max_burst</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Falco uses a shared buffer between the kernel and userspace to receive</span><span class=w>
+</span><span class=w></span><span class=c># the events (eg., system call information) in userspace.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Anyways, the underlying libraries can also timeout for various reasons.</span><span class=w>
+</span><span class=w></span><span class=c># For example, there could have been issues while reading an event.</span><span class=w>
+</span><span class=w></span><span class=c># Or the particular event needs to be skipped.</span><span class=w>
+</span><span class=w></span><span class=c># Normally, it&#39;s very unlikely that Falco does not receive events consecutively.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Falco is able to detect such uncommon situation.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Here you can configure the maximum number of consecutive timeouts without an event</span><span class=w>
+</span><span class=w></span><span class=c># after which you want Falco to alert.</span><span class=w>
+</span><span class=w></span><span class=c># By default this value is set to 1000 consecutive timeouts without an event at all.</span><span class=w>
+</span><span class=w></span><span class=c># How this value maps to a time interval depends on the CPU frequency.</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>syscall_event_timeouts</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>max_consecutives</span><span class=p>:</span><span class=w> </span><span class=m>1000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Falco continuously monitors outputs performance. When an output channel does not allow</span><span class=w>
+</span><span class=w></span><span class=c># to deliver an alert within a given deadline, an error is reported indicating</span><span class=w>
+</span><span class=w></span><span class=c># which output is blocking notifications.</span><span class=w>
+</span><span class=w></span><span class=c># The timeout error will be reported to the log according to the above log_* settings.</span><span class=w>
+</span><span class=w></span><span class=c># Note that the notification will not be discarded from the output queue; thus,</span><span class=w>
+</span><span class=w></span><span class=c># output channels may indefinitely remain blocked.</span><span class=w>
+</span><span class=w></span><span class=c># An output timeout error indeed indicate a misconfiguration issue or I/O problems</span><span class=w>
+</span><span class=w></span><span class=c># that cannot be recovered by Falco and should be fixed by the user.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># The &#34;output_timeout&#34; value specifies the duration in milliseconds to wait before</span><span class=w>
+</span><span class=w></span><span class=c># considering the deadline exceed.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># With a 2000ms default, the notification consumer can block the Falco output</span><span class=w>
+</span><span class=w></span><span class=c># for up to 2 seconds without reaching the timeout.</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>output_timeout</span><span class=p>:</span><span class=w> </span><span class=m>2000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># A throttling mechanism implemented as a token bucket limits the</span><span class=w>
+</span><span class=w></span><span class=c># rate of falco notifications. This throttling is controlled by the following configuration</span><span class=w>
+</span><span class=w></span><span class=c># options:</span><span class=w>
+</span><span class=w></span><span class=c>#  - rate: the number of tokens (i.e. right to send a notification)</span><span class=w>
+</span><span class=w></span><span class=c>#    gained per second. Defaults to 1.</span><span class=w>
+</span><span class=w></span><span class=c>#  - max_burst: the maximum number of tokens outstanding. Defaults to 1000.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># With these defaults, falco could send up to 1000 notifications after</span><span class=w>
+</span><span class=w></span><span class=c># an initial quiet period, and then up to 1 notification per second</span><span class=w>
+</span><span class=w></span><span class=c># afterward. It would gain the full burst back after 1000 seconds of</span><span class=w>
+</span><span class=w></span><span class=c># no activity.</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>outputs</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>rate</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span><span class=w>  </span><span class=nt>max_burst</span><span class=p>:</span><span class=w> </span><span class=m>1000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Where security notifications should go.</span><span class=w>
+</span><span class=w></span><span class=c># Multiple outputs can be enabled.</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>syslog_output</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># If keep_alive is set to true, the file will be opened once and</span><span class=w>
+</span><span class=w></span><span class=c># continuously written to, with each output message on its own</span><span class=w>
+</span><span class=w></span><span class=c># line. If keep_alive is set to false, the file will be re-opened</span><span class=w>
+</span><span class=w></span><span class=c># for each output message.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Also, the file will be closed and reopened if falco is signaled with</span><span class=w>
+</span><span class=w></span><span class=c># SIGUSR1.</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>file_output</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>  </span><span class=nt>keep_alive</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>  </span><span class=nt>filename</span><span class=p>:</span><span class=w> </span><span class=l>./events.txt</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>stdout_output</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Falco contains an embedded webserver that can be used to accept K8s</span><span class=w>
+</span><span class=w></span><span class=c># Audit Events. These config options control the behavior of that</span><span class=w>
+</span><span class=w></span><span class=c># webserver. (By default, the webserver is enabled).</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># The ssl_certificate is a combination SSL Certificate and corresponding</span><span class=w>
+</span><span class=w></span><span class=c># key contained in a single file. You can generate a key/cert as follows:</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># $ openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem</span><span class=w>
+</span><span class=w></span><span class=c># $ cat certificate.pem key.pem &gt; falco.pem</span><span class=w>
+</span><span class=w></span><span class=c># $ sudo cp falco.pem /etc/falco/falco.pem</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># It also exposes a healthy endpoint that can be used to check if Falco is up and running</span><span class=w>
+</span><span class=w></span><span class=c># By default the endpoint is /healthz</span><span class=w>
+</span><span class=w></span><span class=nt>webserver</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>  </span><span class=nt>listen_port</span><span class=p>:</span><span class=w> </span><span class=m>8765</span><span class=w>
+</span><span class=w>  </span><span class=nt>k8s_audit_endpoint</span><span class=p>:</span><span class=w> </span><span class=l>/k8s-audit</span><span class=w>
+</span><span class=w>  </span><span class=nt>k8s_healthz_endpoint</span><span class=p>:</span><span class=w> </span><span class=l>/healthz</span><span class=w>
+</span><span class=w>  </span><span class=nt>ssl_enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>  </span><span class=nt>ssl_certificate</span><span class=p>:</span><span class=w> </span><span class=l>/etc/falco/falco.pem</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Possible additional things you might want to do with program output:</span><span class=w>
+</span><span class=w></span><span class=c>#   - send to a slack webhook:</span><span class=w>
+</span><span class=w></span><span class=c>#         program: &#34;jq &#39;{text: .output}&#39; | curl -d @- -X POST https://hooks.slack.com/services/XXX&#34;</span><span class=w>
+</span><span class=w></span><span class=c>#   - logging (alternate method than syslog):</span><span class=w>
+</span><span class=w></span><span class=c>#         program: logger -t falco-test</span><span class=w>
+</span><span class=w></span><span class=c>#   - send over a network connection:</span><span class=w>
+</span><span class=w></span><span class=c>#         program: nc host.example.com 80</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># If keep_alive is set to true, the program will be started once and</span><span class=w>
+</span><span class=w></span><span class=c># continuously written to, with each output message on its own</span><span class=w>
+</span><span class=w></span><span class=c># line. If keep_alive is set to false, the program will be re-spawned</span><span class=w>
+</span><span class=w></span><span class=c># for each output message.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># Also, the program will be closed and reopened if falco is signaled with</span><span class=w>
+</span><span class=w></span><span class=c># SIGUSR1.</span><span class=w>
+</span><span class=w></span><span class=nt>program_output</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>  </span><span class=nt>keep_alive</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>  </span><span class=nt>program</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;jq &#39;{text: .output}&#39; | curl -d @- -X POST https://hooks.slack.com/services/XXX&#34;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>http_output</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>  </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>http://some.url</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Falco supports running a gRPC server with two main binding types</span><span class=w>
+</span><span class=w></span><span class=c># 1. Over the network with mandatory mutual TLS authentication (mTLS)</span><span class=w>
+</span><span class=w></span><span class=c># 2. Over a local unix socket with no authentication</span><span class=w>
+</span><span class=w></span><span class=c># By default, the gRPC server is disabled, with no enabled services (see grpc_output)</span><span class=w>
+</span><span class=w></span><span class=c># please comment/uncomment and change accordingly the options below to configure it.</span><span class=w>
+</span><span class=w></span><span class=c># Important note: if Falco has any troubles creating the gRPC server</span><span class=w>
+</span><span class=w></span><span class=c># this information will be logged, however the main Falco daemon will not be stopped.</span><span class=w>
+</span><span class=w></span><span class=c># gRPC server over network with (mandatory) mutual TLS configuration.</span><span class=w>
+</span><span class=w></span><span class=c># This gRPC server is secure by default so you need to generate certificates and update their paths here.</span><span class=w>
+</span><span class=w></span><span class=c># By default the gRPC server is off.</span><span class=w>
+</span><span class=w></span><span class=c># You can configure the address to bind and expose it.</span><span class=w>
+</span><span class=w></span><span class=c># By modifying the threadiness configuration you can fine-tune the number of threads (and context) it will use.</span><span class=w>
+</span><span class=w></span><span class=c># grpc:</span><span class=w>
+</span><span class=w></span><span class=c>#   enabled: true</span><span class=w>
+</span><span class=w></span><span class=c>#   bind_address: &#34;0.0.0.0:5060&#34;</span><span class=w>
+</span><span class=w></span><span class=c>#   # when threadiness is 0, Falco sets it by automatically figuring out the number of online cores</span><span class=w>
+</span><span class=w></span><span class=c>#   threadiness: 0</span><span class=w>
+</span><span class=w></span><span class=c>#   private_key: &#34;/etc/falco/certs/server.key&#34;</span><span class=w>
+</span><span class=w></span><span class=c>#   cert_chain: &#34;/etc/falco/certs/server.crt&#34;</span><span class=w>
+</span><span class=w></span><span class=c>#   root_certs: &#34;/etc/falco/certs/ca.crt&#34;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># gRPC server using an unix socket</span><span class=w>
+</span><span class=w></span><span class=nt>grpc</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>  </span><span class=nt>bind_address</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;unix:///var/run/falco.sock&#34;</span><span class=w>
+</span><span class=w>  </span><span class=c># when threadiness is 0, Falco automatically guesses it depending on the number of online cores</span><span class=w>
+</span><span class=w>  </span><span class=nt>threadiness</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># gRPC output service.</span><span class=w>
+</span><span class=w></span><span class=c># By default it is off.</span><span class=w>
+</span><span class=w></span><span class=c># By enabling this all the output events will be kept in memory until you read them with a gRPC client.</span><span class=w>
+</span><span class=w></span><span class=c># Make sure to have a consumer for them or leave this disabled.</span><span class=w>
+</span><span class=w></span><span class=nt>grpc_output</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h3 id=etcfalcofalco_rulesyaml><code>/etc/falco/falco_rules.yaml</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>- <span class=nt>rule</span><span class=p>:</span><span class=w> </span><span class=l>Terminal shell in container</span><span class=w>
+</span><span class=w>  </span><span class=nt>desc</span><span class=p>:</span><span class=w> </span><span class=l>A shell was used as the entrypoint/exec point into a container with an attached terminal.</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
+</span><span class=sd>    spawned_process and container
+</span><span class=sd>    and shell_procs and proc.tty != 0
+</span><span class=sd>    and container_entrypoint
+</span><span class=sd>    and not user_expected_terminal_shell_in_container_conditions</span><span class=w>    
+</span><span class=w>  </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
+</span><span class=sd>    A shell was spawned in a container with an attached terminal (user=%user.name user_loginuid=%user.loginuid %container.info
+</span><span class=sd>    shell=%proc.name parent=%proc.pname cmdline=%proc.cmdline terminal=%proc.tty container_id=%container.id image=%container.image.repository)</span><span class=w>    
+</span><span class=w>  </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>NOTICE</span><span class=w>
+</span><span class=w>  </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=l>container, shell, mitre_execution ]</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h3 id=etcfalcofalco_ruleslocalyaml><code>/etc/falco/falco_rules.local.yaml</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml>- <span class=nt>rule</span><span class=p>:</span><span class=w> </span><span class=l>Terminal shell in container</span><span class=w>
+</span><span class=w>  </span><span class=nt>desc</span><span class=p>:</span><span class=w> </span><span class=l>A shell was used as the entrypoint/exec point into a container with an attached terminal.</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
+</span><span class=sd>    spawned_process and container
+</span><span class=sd>    and shell_procs and proc.tty != 0
+</span><span class=sd>    and container_entrypoint
+</span><span class=sd>    and not user_expected_terminal_shell_in_container_conditions</span><span class=w>    
+</span><span class=w>  </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
+</span><span class=sd>    A shell was spawned in a container with an attached terminal (user=%user.name user_loginuid=%user.loginuid %container.info
+</span><span class=sd>    shell=%proc.name parent=%proc.pname cmdline=%proc.cmdline terminal=%proc.tty container_id=%container.id image=%container.image.repository)</span><span class=w>    
+</span><span class=w>  </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>WNAORTNICNEG</span><span class=w>
+</span><span class=w>
+</span><span class=w></span>- <span class=nt>rule</span><span class=p>:</span><span class=w> </span><span class=l>Anomalous read in kodekloud/webapp pod</span><span class=w>
+</span><span class=w>  </span><span class=nt>desc</span><span class=p>:</span><span class=w> </span><span class=l>Detect Suspicious reads in custom webapp container</span><span class=w>
+</span><span class=w>  </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
+</span><span class=sd>    open_read and container
+</span><span class=sd>    and container.image.repository=&#34;kodekloud/simple-webapp&#34;
+</span><span class=sd>    and fd.directory != &#34;/opt/app&#34;</span><span class=w>    
+</span><span class=w>  </span><span class=nt>output</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
+</span><span class=sd>    A file was opened and read outside the /opt/app directory(user=%user.name user_loginuid=%user.loginuid
+</span><span class=sd>    container_id=%container.id image=%container.image.repository)</span><span class=w>    
+</span><span class=w>  </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=l>CRITICAL</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h2 id=hot-reload>Hot Reload</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>cat /var/run/falco.pid
+</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>kill</span> -1 <span class=k>$(</span>cat /var/run/falco.pid<span class=k>)</span>
+</code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2021-07-09</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/kr/kubernetes-falco/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco" data-hashtags=kubernetes,falco,analytics,syscalls><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-hashtag=kubernetes><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://cozyfex.github.io/kr/kubernetes-falco/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Share on WhatsApp" data-sharer=whatsapp data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://cozyfex.github.io/kr/kubernetes-falco/><i class="fab fa-reddit fa-fw"></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco"><i data-svg-src=/lib/simple-icons/icons/line.min.svg></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco"><i class="fab fa-weibo fa-fw"></i></a><a href=javascript:void(0); title="Share on Myspace" data-sharer=myspace data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco" data-description><i data-svg-src=/lib/simple-icons/icons/myspace.min.svg></i></a><a href=javascript:void(0); title="Share on Blogger" data-sharer=blogger data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=javascript:void(0); title="Share on Evernote" data-sharer=evernote data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco"><i class="fab fa-evernote fa-fw"></i></a><a href=javascript:void(0); title="Share on Trello" data-sharer=trello data-url=https://cozyfex.github.io/kr/kubernetes-falco/ data-title="Kubernetes Falco" data-description><i class="fab fa-trello fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/kr/tags/kubernetes/>kubernetes</a>,&nbsp;<a href=/kr/tags/falco/>falco</a>,&nbsp;<a href=/kr/tags/analytics/>analytics</a>,&nbsp;<a href=/kr/tags/syscalls/>syscalls</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/kr/>Home</a></span></section></div><div class=post-nav><a href=/kr/docker-scan-images-for-known-vulnerabilities/ class=prev rel=prev title="Docker 알려진 취약점 확인을 위한 이미지 스캔"><i class="fas fa-angle-left fa-fw"></i>Docker 알려진 취약점 확인을 위한 이미지 스캔</a>
+<a href=/kr/kubernetes-immutable-infrastructure/ class=next rel=next title="Kubernetes 불변 인프라">Kubernetes 불변 인프라<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Wirtten by <a href=https://blog.cozyfex.com/ target=_blank rel="noopener noreffer" title=CozyFex>CozyFex</a></div><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.85.0">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.cozyfex.com target=_blank>CozyFex</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/katex/katex.min.css><link rel=stylesheet href=/lib/katex/copy-tex.min.css><link rel=stylesheet href=/lib/mermaid/mermaid.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/katex/katex.min.js></script><script type=text/javascript src=/lib/katex/auto-render.min.js></script><script type=text/javascript src=/lib/katex/copy-tex.min.js></script><script type=text/javascript src=/lib/katex/mhchem.min.js></script><script type=text/javascript src=/lib/mermaid/mermaid.min.js></script><script type=text/javascript src=/lib/cookieconsent/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},cookieconsent:{content:{dismiss:"Got it!",link:"Learn more",message:"This website uses Cookies to improve your experience."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},data:{"id-1":"graph TD;\n\nID(container.id)\n\nN(proc.name)\n\nFN(fd.name)","id-2":"graph TD;\n\nET(evt.type)\n\nUN(user.name)\n\nCR(container.image.repository)"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{highlightTag:"em",lunrIndexURL:"/kr/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-SFCQYN1X5J',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-SFCQYN1X5J" async></script></body></html>
