@@ -58,7 +58,7 @@ AC --> C[Create POD]
 ## Admission Controllers 활성화 확인
 
 ```shell
-kubectl -n kube-system exec kube-apiserver-controlplane -- kube-apiserver -h | grep kubectl exec kube-apiserver-controlplane -n kube-system -- kube-apiserver -h | grep enable-admission-plugins
+kubectl -n kube-system exec kube-apiserver-controlplane -- kube-apiserver -h | grep enable-admission-plugins
 ```
 
 ## Admission Controllers 설정
