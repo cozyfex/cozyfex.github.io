@@ -23,7 +23,7 @@ keywords:
 ## Go 패키지 메니저
 ----
 
-### 초기화1111
+### 초기화
 
 <sub>Go init</sub>
 
