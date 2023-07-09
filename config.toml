@@ -8,12 +8,12 @@ theme = "LoveIt"
 defaultContentLanguage = "en"
 
 [languages]
-[languages.en]
+[languages.en.params]
 wieght = 1
 hasCJKLanguage = false
 languageCode = "en"
 languageName = "English"
-[languages.kr]
+[languages.kr.params]
 wieght = 2
 hasCJKLanguage = true
 languageCode = "kr"
