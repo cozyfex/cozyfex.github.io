@@ -25,7 +25,7 @@ keywords:
 
 ## Setting GOPATH
 
-The `GOPATH` is where external packages installed with `go get` are stored.
+The `GOPATH` is where external modules installed with `go get` are stored.
 
 {{< admonition type=tip title="GOPATH" open=true >}}
 In `GoLand`, you can set `GOAPTH` for each modules in `Settings > Go > GOPATH`.
