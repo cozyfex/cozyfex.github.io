@@ -194,7 +194,7 @@ func main() {
 This is an example of trying to use the packages of the sample1 module in sample2.  
 Both sample1 and sample2 are located locally, and sample1 cannot be installed with `go get`.
 
-##### 해결책
+##### Solution
 
 In the `go.mod` file of sample2, `replace` the path of the sample1 module to a place other than `GOPATH`.  
 Among the long articles above, the most important points are the following.
