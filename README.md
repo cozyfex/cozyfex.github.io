@@ -1,6 +1,14 @@
-# Windows Settings
+# Hugo Blog
 
-## Installing Chocolatey
+## Usage
+
+```shell
+hugo new posts/blog-title/index.kr.md
+```
+
+## Windows Settings
+
+### Installing Chocolatey
 
 1. Run administrative shell
 2. Run below command
@@ -11,17 +19,17 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 [Chocolatey Official Install Link](https://chocolatey.org/install)
 
-## Install Go
+### Install Go
 
 Go to [Go Official](https://go.dev)
 
-## Install Dart Sass
+### Install Dart Sass
 
 ```shell
 choco install sass
 ```
 
-## Install Hugo
+### Install Hugo
 
 ```shell
 choco install hugo-extended
