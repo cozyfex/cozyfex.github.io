@@ -9,15 +9,17 @@ defaultContentLanguage = "en"
 
 [languages]
 [languages.en]
-wieght = 1
 hasCJKLanguage = false
 languageCode = "en"
 languageName = "English"
+[languages.en.params]
+wieght = 1
 [languages.kr]
-wieght = 2
 hasCJKLanguage = true
 languageCode = "kr"
 languageName = "한글"
+[languages.kr.params]
+wieght = 2
 
 [menu]
 #[[menu.main]]
