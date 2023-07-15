@@ -63,8 +63,26 @@ go 1.20
 
 아래 2개의 모듈이 있다고 가정한다.
 
-- `cozyfex.com/sample1`
-- `cozyfex.com/sample2`
+- [`cozyfex.com/sample1`](https://github.com/cozyfex/go-sample1)
+- [`cozyfex.com/sample2`](https://github.com/cozyfex/go-sample2)
+
+#### 시나리오
+
+sample1에서 sample1 모듈의 패키지들을 사용하려고 하는 예제입니다.  
+sample1, sample2 모두 로컬에 위치하고 있으며, sample1을 `go get`으로 설치 할 수 없는 상황입니다.
+
+#### 해결책
+
+sample1의 `go.mod` 파일에서 sample1 모듈의 경로를 `GOPATH`가 아닌 곳으로 `replace` 해준다.  
+위의 긴 글들중, 가장 중요한 포인트는 아래의 내용입니다.
+
+```
+require cozyfex.com/sample0 v0.0.0
+replace cozyfex.com/sample0 v0.0.0 => ../sample1
+```
+
+다른 모듈들과 마찬가지로 `require` 해 준 다음, `replace`를 사용해서 경로를 변경해줍니다.  
+이 때, 경로는 절대경로, 상대경로 모두 사용 가능합니다.
 
 #### cozyfex.com/sample1
 
@@ -185,23 +203,3 @@ func main() {
 	directory.Where()
 }
 ```
-
-#### 설명
-
-##### 시나리오
-
-sample2에서 sample1 모듈의 패키지들을 사용하려고 하는 예제입니다.  
-sample1, sample2 모두 로컬에 위치하고 있으며, sample1을 `go get`으로 설치 할 수 없는 상황입니다.
-
-##### 해결책
-
-sample2의 `go.mod` 파일에서 sample1 모듈의 경로를 `GOPATH`가 아닌 곳으로 `replace` 해준다.  
-위의 긴 글들중, 가장 중요한 포인트는 아래의 내용입니다.
-
-```
-require cozyfex.com/sample1 v0.0.0
-replace cozyfex.com/sample1 v0.0.0 => ../sample1
-```
-
-다른 모듈들과 마찬가지로 `require` 해 준 다음, `replace`를 사용해서 경로를 변경해줍니다.  
-이 때, 경로는 절대경로, 상대경로 모두 사용 가능합니다.

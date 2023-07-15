@@ -63,8 +63,26 @@ It is recommended that the package name of `Root Path` of the module be the same
 
 Suppose there are two modules below.
 
-- `cozyfex.com/sample1`
-- `cozyfex.com/sample2`
+- [`cozyfex.com/sample1`](https://github.com/cozyfex/go-sample1)
+- [`cozyfex.com/sample2`](https://github.com/cozyfex/go-sample2)
+
+#### Scenario
+
+This is an example of trying to use the packages of the sample1 module in sample2.  
+Both sample1 and sample2 are located locally, and sample1 cannot be installed with `go get`.
+
+#### Solution
+
+In the `go.mod` file of sample2, `replace` the path of the sample1 module to a place other than `GOPATH`.  
+Among the long articles above, the most important points are the following.
+
+```
+require cozyfex.com/sample1 v0.0.0
+replace cozyfex.com/sample1 v0.0.0 => ../sample1
+```
+
+As with other modules, `require` it, then use `replace` to change the path.
+In this case, both absolute and relative paths can be used for the path.
 
 #### cozyfex.com/sample1
 
@@ -186,23 +204,3 @@ func main() {
 	directory.Where()
 }
 ```
-
-#### Explanation
-
-##### Scenario
-
-This is an example of trying to use the packages of the sample1 module in sample2.  
-Both sample1 and sample2 are located locally, and sample1 cannot be installed with `go get`.
-
-##### Solution
-
-In the `go.mod` file of sample2, `replace` the path of the sample1 module to a place other than `GOPATH`.  
-Among the long articles above, the most important points are the following.
-
-```
-require cozyfex.com/sample1 v0.0.0
-replace cozyfex.com/sample1 v0.0.0 => ../sample1
-```
-
-As with other modules, `require` it, then use `replace` to change the path.
-In this case, both absolute and relative paths can be used for the path.
