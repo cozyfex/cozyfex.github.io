@@ -87,7 +87,7 @@ kubectl describe deployment myapp-deployment | grep -i strategy
 kubectl apply -f deployment-definition.yaml
 
 # Imperative
-kubectl set iamge deployment/myapp-deployment nginx-container=nginx:1.7.1
+kubectl set image deployment/myapp-deployment nginx-container=nginx:1.7.1
 ```
 
 ## Rollback
