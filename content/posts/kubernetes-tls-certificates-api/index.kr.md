@@ -106,7 +106,11 @@ YfCgzSMt5Du7ccgUhZ0++nLEAcOR5unf
 ### CSR Base64 인코딩
 
 ```shell
-cat jane.csr | base64
+cat jane.csr | base64 | tr -d '\n'
+
+# or
+
+cat jane.csr | base64 -w 0
 ```
 
 ```
